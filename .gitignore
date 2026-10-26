@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.cache/
+fixtures/
+/dist/
+/data/
+/index.html
+/quiz_v21.html
+/register_2027.html
+/sources_2027.html
+/methodology_2027.html
+/ballot_2027.html
+/.nojekyll

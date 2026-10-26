@@ -1,0 +1,79 @@
+{
+  "format": "vaa-source-registry-v21",
+  "generated_at": "2026-10-26",
+  "note": "Current 2027 campaign sources only. National Mano Balsas 2024 material is context, never a 2027 municipal position.",
+  "sources": [
+    {
+      "id": "tslkd_programme",
+      "url": "https://tsajunga.lt/wp-content/uploads/2026/09/savivalda_kiekvienai_dienai.pdf",
+      "publisher": "Tėvynės sąjunga – Lietuvos krikščionys demokratai",
+      "published": "2026-09-05",
+      "label": "TS-LKD 2027 m. savivaldos rinkimų programos projektas",
+      "kind": "pdf"
+    },
+    {
+      "id": "lsdp_programme",
+      "url": "https://lsdpvilnius.lt/wp-content/uploads/2026/10/4-lsdp-vilniaus-skyriaus-2027-rinkimu-programa.pdf",
+      "publisher": "Lietuvos socialdemokratų partijos Vilniaus skyrius",
+      "published": "2026-10-22",
+      "label": "LSDP Vilniaus skyriaus 2027 m. rinkimų programa (projektas)",
+      "kind": "pdf"
+    },
+    {
+      "id": "ls_programme_summary",
+      "url": "https://liberalai.lt/naujienos/pristateme-savivaldos-rinkimu-programa-ir-kandidatus-i-merus-atsakingai-del-jusu/",
+      "publisher": "Liberalų sąjūdis",
+      "published": "2026-10-24",
+      "label": "Liberalų sąjūdžio 2027 m. savivaldos rinkimų programos pristatymas",
+      "kind": "html"
+    },
+    {
+      "id": "lp_transport",
+      "url": "https://laisvespartija.lt/transportas/",
+      "publisher": "Laisvės partija",
+      "published": "2026-08-27",
+      "label": "Laisvės partijos transporto programa",
+      "kind": "html"
+    },
+    {
+      "id": "lp_kindergarten",
+      "url": "https://laisvespartija.lt/donalda-meizelyte-istatymu-darzeliu-vietu-nesukursi-ko-is-tiesu-reikia-lopselinuku-seimoms/",
+      "publisher": "Laisvės partija",
+      "published": "2026-10-09",
+      "label": "Donalda Meiželytė apie darželių vietas (2026 m. veiklos tekstas)",
+      "kind": "html"
+    },
+    {
+      "id": "lp_civil_defence",
+      "url": "https://laisvespartija.lt/erika-kurockina-ka-galime-padaryti-del-vilniaus-saugumo-kol-sirenos-dar-tyli/",
+      "publisher": "Laisvės partija",
+      "published": "2026-06-10",
+      "label": "Laisvės partijos frakcijos pasiūlymai dėl Vilniaus saugumo",
+      "kind": "html"
+    },
+    {
+      "id": "lrt_siaurine",
+      "url": "https://www.lrt.lt/naujienos/eismas/7/3075194/benkunskas-siaurineje-gatveje-ateityje-turetu-atsirasti-viesojo-transporto-juosta",
+      "publisher": "LRT",
+      "published": "2026-10-07",
+      "label": "V. Benkunskas apie Šiaurinės gatvės viešojo transporto juostą",
+      "kind": "html"
+    },
+    {
+      "id": "manobalsas_methodology",
+      "url": "https://www.manobalsas.lt/metodika/metodika.php",
+      "publisher": "Mano Balsas",
+      "published": "2024-01-01",
+      "label": "Mano Balsas 2024 m. Seimo rinkimų metodika",
+      "kind": "html"
+    },
+    {
+      "id": "manobalsas_test",
+      "url": "https://www.manobalsas.lt/testas/testas.php?tst=43",
+      "publisher": "Mano Balsas",
+      "published": "2024-01-01",
+      "label": "Mano Balsas 2024 m. Seimo rinkimų testas",
+      "kind": "html"
+    }
+  ]
+}

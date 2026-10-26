@@ -1,0 +1,234 @@
+{
+  "format": "vaa-vrk-2027-manifest-v1",
+  "generated_at": "2026-10-26",
+  "sources": [
+    {
+      "url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/dalyviaiPagalPartijas.html",
+      "final_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/dalyviaiPagalPartijas.html",
+      "retrieved_at": "2026-10-26T21:26:25.188960+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "7ba2f201c2924a812ce0f82b4a6405a178fd2954054ecad3fb88ebf25899d185",
+      "text_sha256": "82bb87bf7e7ef5ce2ff063a5143d6842fed74eb13fb851aa77a771893a73fb66",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 86301,
+      "source_id": "vrk_participants",
+      "publisher": "Vyriausioji rinkimų komisija",
+      "published": "2026-10-26",
+      "label": "2027 m. kampanijos dalyvių sąrašas pagal partijas"
+    },
+    {
+      "url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20096.html",
+      "final_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20096.html",
+      "retrieved_at": "2026-10-26T21:26:25.965896+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "b2e7d5cc2563830f081a2077dc7314e5a5a1509184100627b5c43d372fd2ea13",
+      "text_sha256": "def299d30f188a4045ed4e4a6e16b1eb96197acf6193cb03b9410151f9f71043",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 2203,
+      "source_id": "vrk_detail_20096",
+      "publisher": "Vyriausioji rinkimų komisija",
+      "published": "2026-10-26",
+      "label": "Laisvės partijos Vilniaus miesto rinkimų apygardoje Nr. 57 kandidatų sąrašas"
+    },
+    {
+      "url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20095.html",
+      "final_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20095.html",
+      "retrieved_at": "2026-10-26T21:26:26.076373+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "c940f8da3cde9bd0f1c9d6da2659c83d4f156718a46bbeba62d67389021a0362",
+      "text_sha256": "bf55050b234784cee45332319c01349669857dfa4d0726414f27d89aa10f97b8",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 2210,
+      "source_id": "vrk_detail_20095",
+      "publisher": "Vyriausioji rinkimų komisija",
+      "published": "2026-10-26",
+      "label": "Laisvės partijos Vilniaus miesto rinkimų apygardoje Nr. 57 kandidatas VYTAUTAS MITALAS"
+    },
+    {
+      "url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20073.html",
+      "final_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20073.html",
+      "retrieved_at": "2026-10-26T21:26:26.169437+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "8bd5db2adae75431e9cbf86a2118f1ca1e40b7ac8ef647410845185fdcbc58e4",
+      "text_sha256": "71770246ed4f5b5c4ef31c1580d16520207f95d3b07ca7bcb040b3e2a693864e",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 2211,
+      "source_id": "vrk_detail_20073",
+      "publisher": "Vyriausioji rinkimų komisija",
+      "published": "2026-10-26",
+      "label": "Liberalų sąjūdžio Vilniaus miesto rinkimų apygardoje Nr. 57 kandidatų sąrašas"
+    },
+    {
+      "url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20154.html",
+      "final_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20154.html",
+      "retrieved_at": "2026-10-26T21:26:26.278662+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "a0c9d8b164d5dc23480915ecd17d34fd762c6f219c82b97597627c2db4e5a3dc",
+      "text_sha256": "59f0811c6ed8038febc97b0c5c7e25e48216664f169de1e1f13436587cb0cbc6",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 2217,
+      "source_id": "vrk_detail_20154",
+      "publisher": "Vyriausioji rinkimų komisija",
+      "published": "2026-10-26",
+      "label": "Liberalų sąjūdžio Vilniaus miesto rinkimų apygardoje Nr. 57 kandidatas SIMONAS GENTVILAS"
+    },
+    {
+      "url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20261.html",
+      "final_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20261.html",
+      "retrieved_at": "2026-10-26T21:26:26.361685+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "72965ec5ed19363f5aba0feec252f3676b92c4787a152986ead6060c4d8f6566",
+      "text_sha256": "f9d7952cbae1eb8c3f70fbeba9b14de546adafcf712defc964e880aea3ec2ae2",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 2229,
+      "source_id": "vrk_detail_20261",
+      "publisher": "Vyriausioji rinkimų komisija",
+      "published": "2026-10-26",
+      "label": "Lietuvos socialdemokratų partijos Vilniaus miesto rinkimų apygardoje Nr. 57 kandidatų sąrašas"
+    },
+    {
+      "url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20267.html",
+      "final_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20267.html",
+      "retrieved_at": "2026-10-26T21:26:26.426933+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "711cb5e5c120599060a9a80757aaf82e6ba131c346ff2fa4de1ef203391397f5",
+      "text_sha256": "c8713adf8c59292c940a05da2b9ba6ec5a8f06398f0ebc6549cc819659b708ef",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 2262,
+      "source_id": "vrk_detail_20267",
+      "publisher": "Vyriausioji rinkimų komisija",
+      "published": "2026-10-26",
+      "label": "Tėvynės sąjungos – Lietuvos krikščionių demokratų Vilniaus miesto rinkimų apygardoje Nr. 57 kandidatų sąrašas"
+    },
+    {
+      "url": "https://vrk.lt/fs/prd/p/2026-10/Rinkimu%20grafikas%202027.pdf",
+      "final_url": "https://vrk.lt/fs/prd/p/2026-10/Rinkimu%20grafikas%202027.pdf",
+      "retrieved_at": "2026-10-26T21:26:26.525746+00:00",
+      "http_status": 200,
+      "mime_type": "application/pdf",
+      "content_sha256": "d66ca20fd3d9288173600499425c41c768bf91381d95db175f50ef8d5667b8a2",
+      "text_sha256": "d41248d1909d2b8047193934312859b9c519b35831b523338925bc2db92badbd",
+      "extraction_method": "pdftotext -layout (Poppler)",
+      "extraction_warnings": [
+        "PDF columns and hyphenation can change extraction order; inspect page context"
+      ],
+      "transport": "https",
+      "bytes": 216027,
+      "source_id": "vrk_calendar",
+      "publisher": "Vyriausioji rinkimų komisija",
+      "published": "2026-10-26",
+      "label": "2027 m. kovo 7 d. rinkimų grafikas"
+    },
+    {
+      "url": "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/kandidatu-rinkimu-programu-leidiniai",
+      "final_url": "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/kandidatu-rinkimu-programu-leidiniai",
+      "retrieved_at": "2026-10-26T21:26:28.461585+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "f01a9f65939adde2b2a76ea214856c9f50104676e19810746441df094b97b6e1",
+      "text_sha256": "264c465e2ceba43621808890d9c1cd50747d30ed9f9708e3d3d62010d901966c",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 68985,
+      "source_id": "vrk_programmes",
+      "publisher": "Vyriausioji rinkimų komisija",
+      "published": "2026-10-26",
+      "label": "Kandidatų rinkimų programų leidiniai"
+    },
+    {
+      "url": "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/biuleteniu-pavyzdziai-ir-kiti-leidiniai",
+      "final_url": "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/biuleteniu-pavyzdziai-ir-kiti-leidiniai",
+      "retrieved_at": "2026-10-26T21:26:29.543688+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "00950c025c3b7e1370cf8fe67bd6208811cdf371c3d1d62eb33629181d306997",
+      "text_sha256": "768fa7cbe87b69e27f21357d704e06b682bfd6b9b066ba878780dec67674d677",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 69012,
+      "source_id": "vrk_ballot_examples",
+      "publisher": "Vyriausioji rinkimų komisija",
+      "published": "2026-10-26",
+      "label": "Biuletenių pavyzdžiai ir kiti leidiniai"
+    },
+    {
+      "url": "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/bendra-informacija",
+      "final_url": "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/bendra-informacija",
+      "retrieved_at": "2026-10-26T21:26:30.170126+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "47864fa1c680cc930744fcf778a955862d40fc6034c44c0acc4ae5bca1e5488e",
+      "text_sha256": "e0426e9d9976814312daed57e8d71e2b61c267d87b957649ff9f8b02a17937a7",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 72496,
+      "source_id": "vrk_general",
+      "publisher": "Vyriausioji rinkimų komisija",
+      "published": "2026-10-07",
+      "label": "Bendra informacija apie 2027 m. rinkimus"
+    },
+    {
+      "url": "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/kampanijos-dalyviai-ir-suinteresuotieji",
+      "final_url": "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-ir-meru-rinkimai/kampanijos-dalyviai-ir-suinteresuotieji",
+      "retrieved_at": "2026-10-26T21:26:31.247760+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "270e323959c1af45e38c7a10c13a14abd09b01afbe2a3319fea50303800322f2",
+      "text_sha256": "3fa6098f7cf676ec25c7d95577f53c537b3fa4e5295912e73867ce52c92ee4e0",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 69736,
+      "source_id": "vrk_participants_page",
+      "publisher": "Vyriausioji rinkimų komisija",
+      "published": "2026-10-26",
+      "label": "Kampanijos dalyviai ir suinteresuotieji"
+    }
+  ]
+}

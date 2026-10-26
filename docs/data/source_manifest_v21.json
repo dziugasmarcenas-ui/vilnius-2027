@@ -1,0 +1,186 @@
+{
+  "format": "vaa-source-manifest-v21",
+  "generated_at": "2026-10-26T20:18:19.558973+00:00",
+  "sources": [
+    {
+      "url": "https://tsajunga.lt/wp-content/uploads/2026/09/savivalda_kiekvienai_dienai.pdf",
+      "final_url": "https://tsajunga.lt/wp-content/uploads/2026/09/savivalda_kiekvienai_dienai.pdf",
+      "retrieved_at": "2026-10-26T20:17:45.515267+00:00",
+      "http_status": 200,
+      "mime_type": "application/pdf",
+      "content_sha256": "e62fdcc88baba8ca35269f56c01b85a08863915ce9cdcc5b15be8a1f29f0281d",
+      "text_sha256": "8dd8a6229680a7231f95a12960d8c6ed1e63f72d10f2b76ccf83b5310b6f8ffe",
+      "extraction_method": "pdftotext -layout (Poppler)",
+      "extraction_warnings": [
+        "PDF columns and hyphenation can change extraction order; inspect page context"
+      ],
+      "transport": "https",
+      "bytes": 1930660,
+      "source_id": "tslkd_programme",
+      "publisher": "Tėvynės sąjunga – Lietuvos krikščionys demokratai",
+      "published": "2026-09-05",
+      "label": "TS-LKD 2027 m. savivaldos rinkimų programos projektas",
+      "kind": "pdf"
+    },
+    {
+      "url": "https://lsdpvilnius.lt/wp-content/uploads/2026/10/4-lsdp-vilniaus-skyriaus-2027-rinkimu-programa.pdf",
+      "final_url": "https://lsdpvilnius.lt/wp-content/uploads/2026/10/4-lsdp-vilniaus-skyriaus-2027-rinkimu-programa.pdf",
+      "retrieved_at": "2026-10-26T20:18:01.727711+00:00",
+      "http_status": 200,
+      "mime_type": "application/pdf",
+      "content_sha256": "a83b00a1a4e0c873be271178214ac7ba9cff083171600bc3ad11527515d8644f",
+      "text_sha256": "c694de32d26bb9e95d49683eb41e24eede33cfb3aabbf981edee32a38bc4c6a3",
+      "extraction_method": "pdftotext -layout (Poppler)",
+      "extraction_warnings": [
+        "PDF columns and hyphenation can change extraction order; inspect page context"
+      ],
+      "transport": "https",
+      "bytes": 137833,
+      "source_id": "lsdp_programme",
+      "publisher": "Lietuvos socialdemokratų partijos Vilniaus skyrius",
+      "published": "2026-10-22",
+      "label": "LSDP Vilniaus skyriaus 2027 m. rinkimų programa (projektas)",
+      "kind": "pdf"
+    },
+    {
+      "url": "https://liberalai.lt/naujienos/pristateme-savivaldos-rinkimu-programa-ir-kandidatus-i-merus-atsakingai-del-jusu/",
+      "final_url": "https://liberalai.lt/naujienos/pristateme-savivaldos-rinkimu-programa-ir-kandidatus-i-merus-atsakingai-del-jusu/",
+      "retrieved_at": "2026-10-26T20:18:02.908242+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "0680213868c3002534dae5837acdf6c964f5e7f37c72745b6af6cc919a86caab",
+      "text_sha256": "3a1da21478b9ecb7ac6fe05f5963e4b51e1b3f9e5d5c771d6718e9df79b394b8",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 118120,
+      "source_id": "ls_programme_summary",
+      "publisher": "Liberalų sąjūdis",
+      "published": "2026-10-24",
+      "label": "Liberalų sąjūdžio 2027 m. savivaldos rinkimų programos pristatymas",
+      "kind": "html"
+    },
+    {
+      "url": "https://laisvespartija.lt/transportas/",
+      "final_url": "https://laisvespartija.lt/transportas/",
+      "retrieved_at": "2026-10-26T20:18:04.264852+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "c57948daa161f02f4e2c45745dc0dbee26c141bd559418397fd8e6b9ecdd38d0",
+      "text_sha256": "54a2bfd8b9455e78ee140ce2fa455edddd0ad87f31faed31bf7c1d3e66b74be6",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 201281,
+      "source_id": "lp_transport",
+      "publisher": "Laisvės partija",
+      "published": "2026-08-27",
+      "label": "Laisvės partijos transporto programa",
+      "kind": "html"
+    },
+    {
+      "url": "https://laisvespartija.lt/donalda-meizelyte-istatymu-darzeliu-vietu-nesukursi-ko-is-tiesu-reikia-lopselinuku-seimoms/",
+      "final_url": "https://laisvespartija.lt/donalda-meizelyte-istatymu-darzeliu-vietu-nesukursi-ko-is-tiesu-reikia-lopselinuku-seimoms/",
+      "retrieved_at": "2026-10-26T20:18:07.518518+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "52dbc7641b574b302a2096fa216a4bfc794edd40533f36eac12c14c52726aee6",
+      "text_sha256": "a3f24d81557a6da609be1b468e727c335ef306029c42358c36975b0bfa7c2b6a",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 186967,
+      "source_id": "lp_kindergarten",
+      "publisher": "Laisvės partija",
+      "published": "2026-10-09",
+      "label": "Donalda Meiželytė apie darželių vietas (2026 m. veiklos tekstas)",
+      "kind": "html"
+    },
+    {
+      "url": "https://laisvespartija.lt/erika-kurockina-ka-galime-padaryti-del-vilniaus-saugumo-kol-sirenos-dar-tyli/",
+      "final_url": "https://laisvespartija.lt/erika-kurockina-ka-galime-padaryti-del-vilniaus-saugumo-kol-sirenos-dar-tyli/",
+      "retrieved_at": "2026-10-26T20:18:11.664682+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "3c6ee009882a80420d5a320fdb81a226417be368f46ed98de48b222eaac1fb2c",
+      "text_sha256": "1d85055ad1d0a31e7117a2f140933b019f4dba8fccbf339ef631c601a93e3a7b",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 179965,
+      "source_id": "lp_civil_defence",
+      "publisher": "Laisvės partija",
+      "published": "2026-06-10",
+      "label": "Laisvės partijos frakcijos pasiūlymai dėl Vilniaus saugumo",
+      "kind": "html"
+    },
+    {
+      "url": "https://www.lrt.lt/naujienos/eismas/7/3075194/benkunskas-siaurineje-gatveje-ateityje-turetu-atsirasti-viesojo-transporto-juosta",
+      "final_url": "https://www.lrt.lt/naujienos/eismas/7/3075194/benkunskas-siaurineje-gatveje-ateityje-turetu-atsirasti-viesojo-transporto-juosta",
+      "retrieved_at": "2026-10-26T20:18:15.039893+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "0ca59b786b75d455bbe50db356b611d2d85b715c5a8ad9448589640ecedf6252",
+      "text_sha256": "f09259e4147557485d0e2758032271ea370f0fdcee07adf90bd9d3c7b916c475",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 148748,
+      "source_id": "lrt_siaurine",
+      "publisher": "LRT",
+      "published": "2026-10-07",
+      "label": "V. Benkunskas apie Šiaurinės gatvės viešojo transporto juostą",
+      "kind": "html"
+    },
+    {
+      "url": "https://www.manobalsas.lt/metodika/metodika.php",
+      "final_url": "https://www.manobalsas.lt/metodika/metodika.php",
+      "retrieved_at": "2026-10-26T20:18:16.372644+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "9e0a2af63812c4c8eed89cb0a51570981b5e655ddca9f0544ef334a89a6a1356",
+      "text_sha256": "ad4e7df60ffd7ff505225be4d3b0ae86486217ee7e029a492203ddcbaea32e73",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 180450,
+      "source_id": "manobalsas_methodology",
+      "publisher": "Mano Balsas",
+      "published": "2024-01-01",
+      "label": "Mano Balsas 2024 m. Seimo rinkimų metodika",
+      "kind": "html"
+    },
+    {
+      "url": "https://www.manobalsas.lt/testas/testas.php?tst=43",
+      "final_url": "https://www.manobalsas.lt/testas/testas.php?tst=43",
+      "retrieved_at": "2026-10-26T20:18:18.366900+00:00",
+      "http_status": 200,
+      "mime_type": "text/html",
+      "content_sha256": "1fcc38a0cab9d622cfe57ce7f9772ed00591daf2e7f40db9aa0bb2b516988094",
+      "text_sha256": "13899457a4287dcd9eaf5f470962013d795f8a2665138d52e61599e96c5d4e70",
+      "extraction_method": "html.parser-v21",
+      "extraction_warnings": [
+        "navigation retained; no JavaScript rendering"
+      ],
+      "transport": "https",
+      "bytes": 81128,
+      "source_id": "manobalsas_test",
+      "publisher": "Mano Balsas",
+      "published": "2024-01-01",
+      "label": "Mano Balsas 2024 m. Seimo rinkimų testas",
+      "kind": "html"
+    }
+  ]
+}

@@ -1,0 +1,406 @@
+{
+  "format": "vaa-vrk-2027-register-v1",
+  "generated_at": "2026-10-26",
+  "election": {
+    "id": "2027-municipal",
+    "date": "2027-03-07",
+    "municipality": "Vilnius",
+    "municipality_code": "Vilniaus miesto savivaldybė",
+    "apygarda": 57,
+    "council_seats": 51,
+    "official_page": "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/bendra-informacija"
+  },
+  "official_status": {
+    "participant_registration_ends": {
+      "date": "2026-10-28",
+      "evidence": "Baigiamas savarankiškų politinės kampanijos dalyvių registravimas.",
+      "source_url": "https://vrk.lt/fs/prd/p/2026-10/Rinkimu%20grafikas%202027.pdf"
+    },
+    "candidate_nomination_ends": {
+      "date": "2026-12-17",
+      "evidence": "Baigiamas politinių komitetų ir kandidatų pareiškinių dokumentų pateikimas … savivaldybės rinkimų komisijoje.",
+      "source_url": "https://vrk.lt/fs/prd/p/2026-10/Rinkimu%20grafikas%202027.pdf"
+    },
+    "candidate_lists_decision_by": {
+      "date": "2027-02-04",
+      "evidence": "Paskutinė diena, kai VRK priima sprendimą registruoti kandidatą … kandidatų sąrašą arba jų neregistruoti.",
+      "source_url": "https://vrk.lt/fs/prd/p/2026-10/Rinkimu%20grafikas%202027.pdf"
+    },
+    "candidate_lists_published_by": {
+      "date": "2027-02-05",
+      "evidence": "VRK savo interneto svetainėje paskelbia kandidatų sąrašus, kandidatus, jų … kandidatų sąrašų rinkimų numerius",
+      "source_url": "https://vrk.lt/fs/prd/p/2026-10/Rinkimu%20grafikas%202027.pdf"
+    },
+    "candidate_lists_published": false,
+    "candidate_names_published": false,
+    "ballot_numbers_published": false,
+    "programme_publications_published": false,
+    "programme_publications_status": "pending",
+    "programme_publications_note": "VRK puslapyje nurodyta „Informacija ruošiama“; dokumentų dar nėra.",
+    "programme_publications_url": "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/kandidatu-rinkimu-programu-leidiniai",
+    "ballot_examples_published": false,
+    "ballot_examples_status": "pending",
+    "ballot_examples_note": "VRK puslapyje nurodyta „Informacija ruošiama“; biuletenių pavyzdžių dar nėra.",
+    "ballot_examples_url": "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/biuleteniu-pavyzdziai-ir-kiti-leidiniai",
+    "status_note": "VRK kandidatų rinkimų programų ir biuletenių pavyzdžių puslapiuose nurodyta „Informacija ruošiama“. Tai reiškia, kad dokumentų dar nėra; tai nėra teigiamas publikacijos patvirtinimas. Registre matomi kampanijos dalyviai, o ne galutiniai kandidatų sąrašai ar jų numeriai.",
+    "source_urls": [
+      "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/bendra-informacija",
+      "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/kandidatu-rinkimu-programu-leidiniai",
+      "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/biuleteniu-pavyzdziai-ir-kiti-leidiniai",
+      "https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/kampanijos-dalyviai-ir-suinteresuotieji",
+      "https://vrk.lt/fs/prd/p/2026-10/Rinkimu%20grafikas%202027.pdf"
+    ]
+  },
+  "national": {
+    "participants_count": 52,
+    "participants": [
+      {
+        "number": 1,
+        "name": "Centro dešinės sąjunga",
+        "kind": "Partija"
+      },
+      {
+        "number": 2,
+        "name": "Demokratų sąjunga „Vardan Lietuvos“",
+        "kind": "Partija"
+      },
+      {
+        "number": 3,
+        "name": "Krikščionių sąjunga",
+        "kind": "Partija"
+      },
+      {
+        "number": 4,
+        "name": "Laisvės partija",
+        "kind": "Partija"
+      },
+      {
+        "number": 5,
+        "name": "Liberalų sąjūdis",
+        "kind": "Partija"
+      },
+      {
+        "number": 6,
+        "name": "Lietuvos lenkų rinkimų akcija-Krikščioniškų šeimų sąjunga",
+        "kind": "Partija"
+      },
+      {
+        "number": 7,
+        "name": "Lietuvos liaudies partija",
+        "kind": "Partija"
+      },
+      {
+        "number": 8,
+        "name": "Lietuvos regionų partija",
+        "kind": "Partija"
+      },
+      {
+        "number": 9,
+        "name": "Lietuvos socialdemokratų partija",
+        "kind": "Partija"
+      },
+      {
+        "number": 10,
+        "name": "Lietuvos valstiečių ir žaliųjų sąjunga",
+        "kind": "Partija"
+      },
+      {
+        "number": 11,
+        "name": "Lietuvos žaliųjų partija",
+        "kind": "Partija"
+      },
+      {
+        "number": 12,
+        "name": "Partija LIETUVA - VISŲ",
+        "kind": "Partija"
+      },
+      {
+        "number": 13,
+        "name": "Politinė partija „Nemuno Aušra“",
+        "kind": "Partija"
+      },
+      {
+        "number": 14,
+        "name": "Tautos ir teisingumo sąjunga (centristai, tautininkai)",
+        "kind": "Partija"
+      },
+      {
+        "number": 15,
+        "name": "Tėvynės sąjunga - Lietuvos krikščionys demokratai",
+        "kind": "Partija"
+      },
+      {
+        "number": 16,
+        "name": "Žemaičių partija",
+        "kind": "Partija"
+      },
+      {
+        "number": 17,
+        "name": "Biržų atgimimas",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 18,
+        "name": "DRĄSIAI KARTU",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 19,
+        "name": "Kartu dėl Birštono",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 20,
+        "name": "Kėdainiai - visų",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 21,
+        "name": "NAUJA KRYPTIS PANEVĖŽIUI",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 22,
+        "name": "Nepartinis sąrašas „Dirbame Šiaulių rajonui“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 23,
+        "name": "Politinis komitetas „Atsinaujinančiam Panevėžiui“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 24,
+        "name": "Politinis komitetas „Drauge su Jumis“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 25,
+        "name": "Politinis komitetas Ištikimi Klaipėdai",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 26,
+        "name": "Politinis komitetas „Jaunoji Kazlų Rūda“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 27,
+        "name": "Politinis komitetas „Kartu Pasvalio kraštui“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 28,
+        "name": "Politinis komitetas „Kartu už Utenos kraštą“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 29,
+        "name": "Politinis komitetas „Kartu už Vilkaviškio kraštą“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 30,
+        "name": "Politinis komitetas Kretingos kraštas",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 31,
+        "name": "Politinis komitetas „Kretingos rajono Sąjūdis“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 32,
+        "name": "Politinis komitetas „Kuriantis Kaunas“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 33,
+        "name": "Politinis komitetas „Nepartinė savivalda“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 34,
+        "name": "Politinis komitetas Nepartinis sąrašas „Dirbame miestui“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 35,
+        "name": "Politinis komitetas „Siekime kartu“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 36,
+        "name": "Politinis komitetas „Širvintų kraštui - dar daugiau“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 37,
+        "name": "Politinis komitetas „Švari savivalda“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 38,
+        "name": "Politinis komitetas „Tau, kraštieti!“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 39,
+        "name": "Politinis komitetas „Triada Šalčininkai“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 40,
+        "name": "Politinis komitetas „Už Druskininkus“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 41,
+        "name": "Politinis komitetas „Už Pagėgius“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 42,
+        "name": "Politinis komitetas „UŽ TAI, KAS TIKRA!“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 43,
+        "name": "Politinis komitetas „Vardan Šilalės krašto“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 44,
+        "name": "Politinis komitetas „Vieninga Plungė“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 45,
+        "name": "Politinis komitetas Vieninga Šilalė",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 46,
+        "name": "STIPRI UTENA",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 47,
+        "name": "„Šiaulių labui!“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 48,
+        "name": "Tavo balsas už Jurbarko kraštą",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 49,
+        "name": "„Už Jurbarko krašto ateitį“",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 50,
+        "name": "Vieningas Kaunas",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 51,
+        "name": "Vilnius gali",
+        "kind": "Politinis komitetas (SAV)"
+      },
+      {
+        "number": 52,
+        "name": "1000Elektrėniečių už mūsų kraštą",
+        "kind": "Politinis komitetas (SAV)"
+      }
+    ],
+    "source_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/dalyviaiPagalPartijas.html"
+  },
+  "vilnius": {
+    "apygarda": 57,
+    "registered_lists_count": 4,
+    "registered_mayor_candidates_count": 2,
+    "lists": [
+      {
+        "party_id": "lp",
+        "party_name": "Laisvės partija",
+        "list_name": "Laisvės partijos Vilniaus miesto rinkimų apygardoje Nr. 57 kandidatų sąrašas",
+        "participant_number": 4,
+        "registered_on": "2026-10-07",
+        "decision": "PK1-2027SAV-S16",
+        "status": null,
+        "detail_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20096.html",
+        "mayor_candidate": {
+          "name": "VYTAUTAS MITALAS",
+          "registered_on": "2026-10-07",
+          "decision": "PK1-2027SAV-S15",
+          "status": null,
+          "detail_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20095.html"
+        },
+        "candidate_names_published": false,
+        "ballot_number": null
+      },
+      {
+        "party_id": "ls",
+        "party_name": "Liberalų sąjūdis",
+        "list_name": "Liberalų sąjūdžio Vilniaus miesto rinkimų apygardoje Nr. 57 kandidatų sąrašas",
+        "participant_number": 5,
+        "registered_on": "2026-10-07",
+        "decision": "PK1-2027SAV-S12",
+        "status": null,
+        "detail_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20073.html",
+        "mayor_candidate": {
+          "name": "SIMONAS GENTVILAS",
+          "registered_on": "2026-10-09",
+          "decision": "PK1-2027SAV-S27",
+          "status": null,
+          "detail_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20154.html"
+        },
+        "candidate_names_published": false,
+        "ballot_number": null
+      },
+      {
+        "party_id": "lsdp",
+        "party_name": "Lietuvos socialdemokratų partija",
+        "list_name": "Lietuvos socialdemokratų partijos Vilniaus miesto rinkimų apygardoje Nr. 57 kandidatų sąrašas",
+        "participant_number": 9,
+        "registered_on": "2026-10-21",
+        "decision": "PK1-2027SAV-S108",
+        "status": null,
+        "detail_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20261.html",
+        "mayor_candidate": null,
+        "candidate_names_published": false,
+        "ballot_number": null
+      },
+      {
+        "party_id": "tslkd",
+        "party_name": "Tėvynės sąjunga - Lietuvos krikščionys demokratai",
+        "list_name": "Tėvynės sąjungos – Lietuvos krikščionių demokratų Vilniaus miesto rinkimų apygardoje Nr. 57 kandidatų sąrašas",
+        "participant_number": 15,
+        "registered_on": "2026-10-21",
+        "decision": "PK1-2027SAV-S115",
+        "status": null,
+        "detail_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/savarankiskasIzdininkas_pkdId-20267.html",
+        "mayor_candidate": null,
+        "candidate_names_published": false,
+        "ballot_number": null
+      }
+    ]
+  },
+  "source": {
+    "index_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/dalyviaiPagalPartijas.html",
+    "fixture": "fixtures/vrk_2027_dalyviai.html",
+    "manifest": "vaa/review/vrk_2027_manifest.json",
+    "index_sha256": "7ba2f201c2924a812ce0f82b4a6405a178fd2954054ecad3fb88ebf25899d185",
+    "index_text_sha256": "82bb87bf7e7ef5ce2ff063a5143d6842fed74eb13fb851aa77a771893a73fb66",
+    "index_retrieved_at": "2026-10-26T21:26:25.188960+00:00"
+  },
+  "limits": [
+    "Tai kampanijos dalyvių registras, ne galutinis biuletenis.",
+    "Galutiniai kandidatų sąrašai ir numeriai VRK svetainėje turi būti paskelbti iki 2027-02-05.",
+    "Nė vienas kandidato vardas ar sąrašo numeris čia nenurodytas, nes VRK jų dar nepaskelbė.",
+    "VRK biuletenių pavyzdžių puslapyje taip pat nurodyta „Informacija ruošiama“; balsavimo žymėjimo taisyklės dar nėra oficialiai paskelbtos.",
+    "Registracija gali keistis iki 2026-10-28; šis failas yra 2026-10-26 būsena."
+  ]
+}

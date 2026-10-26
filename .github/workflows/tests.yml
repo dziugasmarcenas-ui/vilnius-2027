@@ -1,0 +1,25 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Unit and parity tests
+        run: python3 -m unittest discover -s tests -q
+      - name: Build and verify public output
+        run: python3 vaa_build_v21.py --check
+      - name: Verify docs/ is current
+        run: |
+          ./build_docs.sh
+          git diff --exit-code -- docs

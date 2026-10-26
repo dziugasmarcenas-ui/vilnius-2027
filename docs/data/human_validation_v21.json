@@ -1,0 +1,135 @@
+{
+  "format": "vaa-human-validation-v21",
+  "generated_at": "2026-10-26",
+  "status": "pending",
+  "public_use_allowed": false,
+  "scope": "Vilnius 2027 v21: 4 registered lists, 13 statements, 32 quoted evidence rows, 29 scoreable rows.",
+  "reviewers": {
+    "content": {
+      "name": null,
+      "role": null,
+      "date": null,
+      "status": "pending"
+    },
+    "legal": {
+      "name": null,
+      "role": null,
+      "date": null,
+      "status": "pending"
+    },
+    "accessibility": {
+      "name": null,
+      "role": null,
+      "date": null,
+      "status": "pending"
+    },
+    "user_testing": {
+      "name": null,
+      "role": null,
+      "date": null,
+      "status": "pending"
+    }
+  },
+  "counts": {
+    "parties": 4,
+    "topics": 6,
+    "statements": 13,
+    "evidence_rows": 32,
+    "scoreable_rows": 29,
+    "non_scoreable_rows": 3,
+    "assistant_checked_rows": 32,
+    "human_approved_rows": 0
+  },
+  "checklist": [
+    {
+      "id": "register-snapshot",
+      "category": "source_truth",
+      "requirement": "Confirm that the four Vilnius lists and two mayor candidates match the VRK register snapshot used by the build, and that no final list or ballot number is claimed.",
+      "status": "pending",
+      "evidence": null
+    },
+    {
+      "id": "final-ballot",
+      "category": "source_truth",
+      "requirement": "After VRK publishes final candidate lists and list numbers (expected 2027-02-05), replace the provisional register page and rerun every source check.",
+      "status": "blocked",
+      "evidence": "VRK final lists and ballot numbers are not published as of 2026-10-26."
+    },
+    {
+      "id": "quote-attribution",
+      "category": "evidence",
+      "requirement": "Read every quoted row in sources_2027.html and confirm that the speaker, date, scope and full proposition support the coded stance. Do not accept a quote merely because the automated substring check passed.",
+      "status": "pending",
+      "evidence": "32 quoted rows; 29 are scoreable; 3 are retained as non-scoreable with a stated reason."
+    },
+    {
+      "id": "partial-evidence",
+      "category": "evidence",
+      "requirement": "Confirm that the three non-scoreable rows stay excluded and that unknown rows are not presented as disagreement.",
+      "status": "pending",
+      "evidence": null
+    },
+    {
+      "id": "manobalsas-boundary",
+      "category": "evidence",
+      "requirement": "Confirm that Mano Balsas 2024 material is displayed as context only and never enters the 2027 score.",
+      "status": "pending",
+      "evidence": "Mano Balsas context has status context_only and is not read by the scoring engine."
+    },
+    {
+      "id": "neutrality",
+      "category": "content",
+      "requirement": "Check that no page calls the result a recommendation, prediction, official ballot or final ranking, and that close/insufficient states are visible.",
+      "status": "pending",
+      "evidence": null
+    },
+    {
+      "id": "ballot-guidance",
+      "category": "legal",
+      "requirement": "Verify the ballot explanation against the official 2027 VRK ballot examples and the Rinkimų kodeksas. In particular, verify the number and marking of preference votes and the separate mayoral ballot.",
+      "status": "blocked",
+      "evidence": "Official 2027 ballot examples are not published; the page labels five preference votes as preliminary 2023 practice."
+    },
+    {
+      "id": "privacy",
+      "category": "privacy",
+      "requirement": "Confirm that the published pages store no answers, set no cookies, make no analytics or third-party requests, and keep the CSP closed by default.",
+      "status": "pending",
+      "evidence": "Static pages use inline data only; no storage, fetch, XHR or external scripts."
+    },
+    {
+      "id": "accessibility",
+      "category": "accessibility",
+      "requirement": "Test keyboard-only use, visible focus, 200% zoom, a 360 px viewport, reduced motion and a screen reader. Fix any blocker found.",
+      "status": "pending",
+      "evidence": null
+    },
+    {
+      "id": "user-testing",
+      "category": "user_testing",
+      "requirement": "Run task-based tests with at least five Vilnius voters, including people with low digital confidence. Record where they misunderstand scores, coverage, or the ballot plan.",
+      "status": "pending",
+      "evidence": null
+    },
+    {
+      "id": "public-deployment",
+      "category": "deployment",
+      "requirement": "Publish only the clean static output, verify every page and download link over HTTPS, and record the public URL and deployment date.",
+      "status": "pending",
+      "evidence": null
+    }
+  ],
+  "signoff": {
+    "content_approved": false,
+    "legal_approved": false,
+    "accessibility_approved": false,
+    "user_testing_completed": false,
+    "deployment_approved": false
+  },
+  "notes": [
+    "This file records a pending review; it is not evidence that review happened.",
+    "A reviewer must change the relevant status, add a name and date, and update the matching signoff field.",
+    "Do not set public_use_allowed to true while any blocked item remains unresolved.",
+    "The automated source check proves quotation presence and hash consistency, not correct interpretation or political neutrality."
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "format": "vaa-manobalsas-context-v1",
+  "generated_at": "2026-10-26T20:17:38.043699+00:00",
+  "status": "context_only",
+  "scope_note": "2024 m. Seimo rinkimų nacionalinė metodika ir klausimynas. Tai nėra 2027 m. Vilniaus savivaldybės rinkimų testas, ir šios nacionalinės pozicijos nenaudojamos 2027 m. vietos sąrašų balui.",
+  "methodology": {
+    "title": "Metodika (Seimo rinkimai 2024)",
+    "url": "https://www.manobalsas.lt/metodika/metodika.php",
+    "quotes": [
+      {
+        "id": "positions_from_questionnaire",
+        "quote": "Partijų ir kandidatų pozicijos buvo nustatomos pagal jų pateiktus atsakymus į testo klausimyną.",
+        "quote_sha256": "162d5632dca3073e82080d6b893bd2a8039a3b54df1269e596984f1cc0d3f627",
+        "source_id": "manobalsas_methodology"
+      },
+      {
+        "id": "four_dimensions",
+        "quote": "Vertinama pozicija atskirai kiekvienoje iš keturių politinių alternatyvų dimensijų: rinka ir valstybė, visuomenė, ekologija, užsienio ir gynybos politika.",
+        "quote_sha256": "94c886c05a4a21a210d597d5af9fe371932d92b0814283f3124c876498863dc3",
+        "source_id": "manobalsas_methodology"
+      },
+      {
+        "id": "scores_minus_two_to_two",
+        "quote": "priskiriamas balas nuo -2 iki 2",
+        "quote_sha256": "4e42f54754858235a734f94b03e15fc84ec0ee48c53e9c59f5de651adf4bc08d",
+        "source_id": "manobalsas_methodology"
+      },
+      {
+        "id": "unknown_excluded",
+        "quote": "Jei partija neturi nuomonės, atitinkamas klausimas negauna balo ir į skaičiavimus neįtraukiamas.",
+        "quote_sha256": "0e49294c80dfb20da78b2b6f64db198819c8373997890a4feac9d8b048493ddd",
+        "source_id": "manobalsas_methodology"
+      },
+      {
+        "id": "graph_coordinates",
+        "quote": "Partijų ir rinkėjo pozicijos (konkrečiose dimensijose) vaizduojamos grafike – dvimatėje koordinačių plokštumoje.",
+        "quote_sha256": "816042779fe5d23d8725cfcc936552bea30b54d0278b8fa35fb213d9d6c15a15",
+        "source_id": "manobalsas_methodology"
+      }
+    ],
+    "dimensions": [
+      "Rinka ir valstybė",
+      "Visuomenė",
+      "Ekologija",
+      "Užsienio ir gynybos politika"
+    ],
+    "scoring": "Atsakymai koduojami nuo -2 iki 2; partijos be nuomonės negauna balo ir į dimensijos skaičiavimą neįtraukiamos. Dimensijų pozicijos vaizduojamos grafike."
+  },
+  "test": {
+    "title": "Seimo rinkimai 2024",
+    "url": "https://www.manobalsas.lt/testas/testas.php?tst=43",
+    "question_count": 45,
+    "dimensions": [
+      "Rinka ir valstybė",
+      "Visuomenė",
+      "Ekologija",
+      "Užsienio ir gynybos politika",
+      "Kiti klausimai"
+    ],
+    "format": "2024 national parliamentary test; 45 statements across five sections"
+  },
+  "quotes": [
+    {
+      "id": "positions_from_questionnaire",
+      "quote": "Partijų ir kandidatų pozicijos buvo nustatomos pagal jų pateiktus atsakymus į testo klausimyną.",
+      "source_id": "manobalsas_methodology",
+      "source_url": "https://www.manobalsas.lt/metodika/metodika.php"
+    },
+    {
+      "id": "four_dimensions",
+      "quote": "Vertinama pozicija atskirai kiekvienoje iš keturių politinių alternatyvų dimensijų: rinka ir valstybė, visuomenė, ekologija, užsienio ir gynybos politika.",
+      "source_id": "manobalsas_methodology",
+      "source_url": "https://www.manobalsas.lt/metodika/metodika.php"
+    },
+    {
+      "id": "scores_minus_two_to_two",
+      "quote": "priskiriamas balas nuo -2 iki 2",
+      "source_id": "manobalsas_methodology",
+      "source_url": "https://www.manobalsas.lt/metodika/metodika.php"
+    },
+    {
+      "id": "unknown_excluded",
+      "quote": "Jei partija neturi nuomonės, atitinkamas klausimas negauna balo ir į skaičiavimus neįtraukiamas.",
+      "source_id": "manobalsas_methodology",
+      "source_url": "https://www.manobalsas.lt/metodika/metodika.php"
+    },
+    {
+      "id": "graph_coordinates",
+      "quote": "Partijų ir rinkėjo pozicijos (konkrečiose dimensijose) vaizduojamos grafike – dvimatėje koordinačių plokštumoje.",
+      "source_id": "manobalsas_methodology",
+      "source_url": "https://www.manobalsas.lt/metodika/metodika.php"
+    }
+  ],
+  "use_in_v21": {
+    "used_for": [
+      "questionnaire structure",
+      "explicit unknown/no-opinion handling",
+      "separate dimension reporting",
+      "per-question agreement instead of a single opaque ranking"
+    ],
+    "not_used_for": [
+      "2027 Vilnius party positions",
+      "2027 municipal candidate recommendations",
+      "national 2024 coordinates as local promises"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "manobalsas_methodology",
+      "url": "https://www.manobalsas.lt/metodika/metodika.php",
+      "final_url": "https://www.manobalsas.lt/metodika/metodika.php",
+      "http_status": 200,
+      "content_sha256": "9e0a2af63812c4c8eed89cb0a51570981b5e655ddca9f0544ef334a89a6a1356",
+      "text_sha256": "ad4e7df60ffd7ff505225be4d3b0ae86486217ee7e029a492203ddcbaea32e73",
+      "published": "2024-01-01",
+      "publisher": "Mano Balsas",
+      "label": "Mano Balsas 2024 m. Seimo rinkimų metodika",
+      "retrieved_at": "2026-10-26T20:17:35.089628+00:00"
+    },
+    {
+      "source_id": "manobalsas_test",
+      "url": "https://www.manobalsas.lt/testas/testas.php?tst=43",
+      "final_url": "https://www.manobalsas.lt/testas/testas.php?tst=43",
+      "http_status": 200,
+      "content_sha256": "1fcc38a0cab9d622cfe57ce7f9772ed00591daf2e7f40db9aa0bb2b516988094",
+      "text_sha256": "13899457a4287dcd9eaf5f470962013d795f8a2665138d52e61599e96c5d4e70",
+      "published": "2024-01-01",
+      "publisher": "Mano Balsas",
+      "label": "Mano Balsas 2024 m. Seimo rinkimų testas",
+      "retrieved_at": "2026-10-26T20:17:36.655241+00:00"
+    }
+  ],
+  "limits": [
+    "Mano Balsas 2026-10-26 neturėjo 2027 m. Vilniaus savivaldybės testo.",
+    "2024 m. nacionalinės partijų pozicijos negali būti perkeltos į 2027 m. Vilniaus sąrašus.",
+    "Metodika naudojama kaip dizaino įkvėpimas, ne kaip partijų vietos pažadų šaltinis."
+  ]
+}
