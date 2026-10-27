@@ -102,21 +102,21 @@
       "category": "accessibility",
       "requirement": "Test keyboard-only use, visible focus, 200% zoom, a 360 px viewport, reduced motion and a screen reader. Fix any blocker found.",
       "status": "pending",
-      "evidence": null
+      "evidence": "Automated axe-core WCAG 2.1 AA scan found 0 violations on six pages and a result state. Manual screen-reader and keyboard review still pending."
     },
     {
       "id": "user-testing",
       "category": "user_testing",
       "requirement": "Run task-based tests with at least five Vilnius voters, including people with low digital confidence. Record where they misunderstand scores, coverage, or the ballot plan.",
       "status": "pending",
-      "evidence": null
+      "evidence": "Automated browser flows at 390 px and 320 px only; no real-user testing has been performed."
     },
     {
       "id": "public-deployment",
       "category": "deployment",
       "requirement": "Publish only the clean static output, verify every page and download link over HTTPS, and record the public URL and deployment date.",
       "status": "pending",
-      "evidence": null
+      "evidence": "Agent-deployed at https://dziugasmarcenas-ui.github.io/vilnius-2027/ and verified HTTP 200 for six pages and data files on 2026-10-27. Independent human verification still pending."
     }
   ],
   "signoff": {
@@ -131,5 +131,15 @@
     "A reviewer must change the relevant status, add a name and date, and update the matching signoff field.",
     "Do not set public_use_allowed to true while any blocked item remains unresolved.",
     "The automated source check proves quotation presence and hash consistency, not correct interpretation or political neutrality."
-  ]
+  ],
+  "technical_verification": {
+    "performed_at": "2026-10-27",
+    "performed_by": "AI agent; not a substitute for the pending human reviews",
+    "public_url": "https://dziugasmarcenas-ui.github.io/vilnius-2027/",
+    "public_https_checks": "HTTP 200 verified for six pages and public data files",
+    "tests": "Local v21 suite: 397 tests passed. Public source: 68 passed, 3 fixture-dependent tests skipped because the raw VRK HTML fixture is intentionally not published.",
+    "accessibility": "axe-core WCAG 2.1 AA: 0 violations on six static pages and a rendered result state.",
+    "responsive": "No horizontal page overflow at 390 px and 320 px on all six pages; quiz result states also checked.",
+    "console": "No browser console errors or page errors in tested flows."
+  }
 }
