@@ -196,7 +196,7 @@
     });
 
     var shortlistIds = shortlist.map(function (p) { return p.party_id; });
-    var mayorCandidates = shortlist.filter(function (p) { return p.mayor_candidate; }).map(function (p) {
+    var mayorCandidates = partyRows.filter(function (p) { return p.mayor_candidate; }).map(function (p) {
       return { party_id: p.party_id, short_name: p.short_name, name: p.mayor_candidate };
     });
     var mayor = null;
@@ -221,6 +221,9 @@
     }
     if (status === 'clear' && top && !top.mayor_candidate) {
       notes.push('Šis sąrašas neturėjo užregistruoto mero kandidato; mero biuletenyje rinkis atskirai.');
+    }
+    if (mayorCandidates.length) {
+      notes.push('Mero biuletenyje kol kas rodomi tik VRK registruoti kandidatai; galutinis mero biuletenis dar nepaskelbtas.');
     }
     notes.push('Prieš balsuodami patikrinkite oficialų VRK biuletenį.');
 
@@ -251,7 +254,7 @@
         council_list: status === 'clear' ? top.party_id : null,
         shortlist: status === 'close' || status === 'clear' ? shortlistIds : [],
         mayor: mayor,
-        mayor_candidates: status === 'close' || status === 'clear' ? mayorCandidates : [],
+        mayor_candidates: mayorCandidates,
         preference_votes: 5,
         final_lists_date: '2027-02-05',
         ballot_number: null,

@@ -234,6 +234,18 @@ class ScoreTest(unittest.TestCase):
         self.assertEqual(result["plan"]["council_list"], "lsdp")
         self.assertIsNone(result["plan"]["mayor"])
         self.assertTrue(any("mero kandidato" in note for note in result["plan"]["notes"]))
+        self.assertEqual(
+            {row["name"] for row in result["plan"]["mayor_candidates"]},
+            {"Vytautas Mitalas", "Simonas Gentvilas"},
+        )
+
+    def test_no_match_plan_still_lists_registered_mayor_candidates(self):
+        result = self.score({s["id"]: -2 for s in self.doc["statements"]}, top_topic="transport")
+        self.assertEqual(result["status"], "no_match")
+        self.assertEqual(
+            {row["name"] for row in result["plan"]["mayor_candidates"]},
+            {"Vytautas Mitalas", "Simonas Gentvilas"},
+        )
 
     def test_top_topic_falls_back_to_first_selected_topic(self):
         result = score_v21(

@@ -2,7 +2,7 @@
 
 A small, static, nonpartisan tool for the **7 March 2027 Vilnius city council and mayoral elections**. It compares a voter's answers with quoted, dated positions from the four lists registered in the Vilnius city district (No. 57) as of 26 October 2026.
 
-**Public site:** GitHub Pages `/docs` (URL added after deployment).
+**Public site:** https://dziugasmarcenas-ui.github.io/vilnius-2027/
 
 ## What is and is not published
 

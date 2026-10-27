@@ -218,7 +218,7 @@ def score_v21(data: dict[str, Any], selection: dict[str, Any]) -> dict[str, Any]
     shortlist_ids = [p["party_id"] for p in shortlist]
     mayor_candidates = [
         {"party_id": p["party_id"], "short_name": p["short_name"], "name": p["mayor_candidate"]}
-        for p in shortlist
+        for p in party_rows
         if p["mayor_candidate"]
     ]
     mayor = None
@@ -244,6 +244,8 @@ def score_v21(data: dict[str, Any], selection: dict[str, Any]) -> dict[str, Any]
         notes.append("Tarybos sąrašo vienareikšmiškai neskelbiame; žemiau pateikti artimiausi sąrašai.")
     if status == "clear" and top and not top["mayor_candidate"]:
         notes.append("Šis sąrašas neturėjo užregistruoto mero kandidato; mero biuletenyje rinkis atskirai.")
+    if mayor_candidates:
+        notes.append("Mero biuletenyje kol kas rodomi tik VRK registruoti kandidatai; galutinis mero biuletenis dar nepaskelbtas.")
     notes.append("Prieš balsuodami patikrinkite oficialų VRK biuletenį.")
 
     party_by_id = {p["party_id"]: p for p in party_rows}
@@ -271,7 +273,7 @@ def score_v21(data: dict[str, Any], selection: dict[str, Any]) -> dict[str, Any]
             "council_list": top["party_id"] if status == "clear" and top else None,
             "shortlist": shortlist_ids if status in ("close", "clear") else [],
             "mayor": mayor,
-            "mayor_candidates": mayor_candidates if status in ("close", "clear") else [],
+            "mayor_candidates": mayor_candidates,
             "preference_votes": 5,
             "final_lists_date": "2027-02-05",
             "ballot_number": None,
