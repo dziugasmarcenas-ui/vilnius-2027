@@ -174,6 +174,16 @@ The ballot page says the council choice and the mayoral choice are **two separat
 - At 620 px and below the compare table stacks each party cell vertically with its own label, so 390 px widths do not squeeze quotations into half-width columns.
 - Index statistics now separate **32** quoted 2027 programme rows from **5** 2024 context quotations instead of showing one combined count.
 
+### Post-deslop mechanical QA (2026-10-28)
+
+These checks confirm that the visual pass did not break layout, colour or keyboard behaviour. They are mechanical checks, not human review.
+
+- **320 px:** all nine pages report `scrollWidth === 320` and `bodyWidth === 320`, so no page overflows at the narrowest supported width.
+- **Contrast:** every measured text sample passes WCAG AA in its own computed background. The lowest normal-text ratios are `.chip.gray` at **4.97**, `th` at **5.06**, `.note` at **5.06** and the kicker at **5.45**; headings and body text are far above the threshold. No text relies on colour alone.
+- **Keyboard focus:** after the fix, every link and button on the static pages shows the same 3 px `#8fc4a6` ring with a 2 px offset. Quiz and review controls use the same ring with a 3 px offset. Before the fix, the static template had no global focus rule and links fell back to the 1 px browser default.
+- **Print:** the footer disclaimer (“Tai ne rinkimų prognozė ir ne teisinė konsultacija”) now prints on both static and quiz pages. The header, action bars and buttons are hidden, and only footer navigation is suppressed.
+- **Quiz focus management:** `render()` moves focus to `#app` (`tabindex="-1"`), so the first Tab lands on the primary action rather than the skip link. This is deliberate single-page focus handling, not a missing skip link.
+
 ### Release hardening
 
 - `vaa_watch_v21.py` re-fetches every manifest source and compares content and text hashes. Byte-only changes pass; a changed text hash fails and asks for a human re-read. `.github/workflows/source-watch.yml` runs weekly, uploads the report and opens or updates an issue.
@@ -182,6 +192,8 @@ The ballot page says the council choice and the mayoral choice are **two separat
 - `lighthouserc.json` and `.github/workflows/lighthouse.yml` run Lighthouse CI after the build, link audit and HTML audit.
 - `tests/test_vaa_release_v21.py` covers watch classification, link resolution, HTML audit rules, importer fuzzing and the built-site audit.
 - First live watch run (2026-10-28): 7 sources unchanged, 3 Liberalų sąjūdis pages byte-only changed with identical text, and **1 text change** — the LRT Šiaurinė article. The exact quoted sentence is still present in the new text, and the affected row is non-scoreable. No refresh was performed: refreshing would change the snapshot and needs a human re-read. The weekly workflow exists to prompt exactly that re-read.
+- Second live watch run, triggered manually after the deslop release (run `40750527989`): **5 text changes** (`ls_programme_summary`, `lp_transport`, `lp_kindergarten`, `lp_civil_defence`, `lrt_siaurine`), **2 HTTP 403s** (`rinkimu_kodeksas_2027` from `e-tar.lt`, `vrk_calendar_2027` from `vrk.lt`) and 4 unchanged. The job fails after reporting by design; it opened issue **#1**, which stays open.
+- Manual re-check of that run: all five changed pages return **200** from a normal network, and all **13** quotations tied to those sources are still present in the current normalized text. The two 403 sources return **200** locally, so the failures look like IP/bot blocking of GitHub runners rather than content changes. No `--refresh` was run and no quotation or snapshot changed. A human still has to read the five changed pages in context; the hash check alone cannot confirm that the quoted sentence still means what the row claims.
 
 ### Test counts
 
@@ -198,7 +210,7 @@ The ballot page says the council choice and the mayoral choice are **two separat
 - Previous deployed revision: **`a5551848708ca054b8a0c7c53565114d17f8506c`** (GitHub Pages build status: `built`).
 - Nine-page content release: **`71d8b5f698ca259da86f23d2b3484185bfa966f8`** (GitHub Pages build status: `built`).
 - Copy and visual pass: **`b4b9b44be1180f42a8ac1b209ef90ef371947b4e`** (GitHub Pages build status: `built`).
-- Current deployed revision: **`f37558a2b6a0ed5a8eac411bbed0cfbfdcce1802`** (GitHub Pages build status: `built`).
+- Current deployed revision: **`f5ecaab54246f905d6c55bc735229f83f9b5ae77`** (GitHub Pages build status: `built`). This revision carries the print disclaimer and the unified focus ring.
 - Public data: https://dziugasmarcenas-ui.github.io/vilnius-2027/data/
 
 Verification performed against the live site:
@@ -223,6 +235,7 @@ These are real limitations, not test-count issues:
 7. **No professional legal signoff.** The app is a civic information tool, not legal advice.
 8. **Coverage expansion found no new scoreable position.** Liberalų sąjūdis 2027 evidence could not be added from the pages found, and the TS-LKD participatory-budget passage cannot be quoted exactly until a clean text exists.
 9. **The compare view is not a ranking.** It compares programme text on the same statements; it does not measure delivery, competence, or coalition power.
+10. **Source-watch issue #1 is open.** Five cited pages changed text after the snapshot. Every quotation is still present, but a human must read the changed pages in context before any refresh. Until then the snapshot stays at 2026-10-28.
 
 ## 12. Where to look
 
