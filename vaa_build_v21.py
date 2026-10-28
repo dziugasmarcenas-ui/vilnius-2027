@@ -1985,7 +1985,7 @@ def voter_content(
       </ul>
       <div class="banner mt2"><strong>Tai ne teisinė konsultacija.</strong> Puslapis paaiškina bendrą tvarką pagal {e(snapshot)} galiojusią Rinkimų kodekso redakciją ir VRK grafiką. Konkrečiu atveju vadovaukis oficialiu biuleteniu, apylinkės komisijos nurodymais ir VRK informacija.</div>
       <div class="inline-links">
-        {internal('ballot_2027.html', 'Kaip pažymėti biuletenį', 'btn btn-primary btn-sm')}
+        {internal('ballot_2027.html', 'Biuletenio pildymas', 'btn btn-primary btn-sm')}
         {internal('register_2027.html', 'Sąrašų registras', 'btn btn-soft btn-sm')}
         {internal('sources_2027.html', 'Šaltiniai', 'btn btn-ghost btn-sm')}
       </div>
