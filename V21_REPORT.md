@@ -158,7 +158,7 @@ The ballot page says the council choice and the mayoral choice are **two separat
 
 - GitHub Pages, source branch `main`, folder `/docs`.
 - `docs/` is a byte copy of the clean `dist/`.
-- Deployed revision: **recorded below after the push and live verification.**
+- Deployed revision: **`a5551848708ca054b8a0c7c53565114d17f8506c`** (GitHub Pages build status: `built`).
 - Public data: https://dziugasmarcenas-ui.github.io/vilnius-2027/data/
 
 Verification performed against the live site:

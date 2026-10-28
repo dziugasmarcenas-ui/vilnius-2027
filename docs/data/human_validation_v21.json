@@ -225,11 +225,12 @@
     "performed_at": "2026-10-28",
     "performed_by": "AI agent; not a substitute for the pending human reviews",
     "public_url": "https://dziugasmarcenas-ui.github.io/vilnius-2027/",
-    "public_https_checks": "To be recorded after publishing the corrected build.",
-    "deployment_commit": "To be recorded after publishing the corrected build.",
-    "tests": "Local v21 suite: 424 tests passed, including register transition tests.",
-    "accessibility": "axe-core WCAG 2.1 AA: 0 violations on six static pages and a rendered result state.",
-    "responsive": "No horizontal page overflow at 390 px and 320 px on all six pages; quiz result states also checked.",
-    "console": "No browser console errors or page errors in tested flows."
+    "public_https_checks": "GitHub Pages build for a555184 completed. HTTPS 200 for /, index.html, quiz_v21.html, register_2027.html, sources_2027.html, methodology_2027.html, ballot_2027.html, robots.txt and the public data files. /fixtures/vrk_2027_dalyviai.html and /.cache/vaa_v21/ return 404.",
+    "deployment_commit": "a5551848708ca054b8a0c7c53565114d17f8506c",
+    "tests": "Local v21 suite: 424 tests passed. Public source repo suite: 99 passed, 3 skipped (fixture-dependent register parser tests; the raw VRK HTML is intentionally not published).",
+    "accessibility": "Lighthouse accessibility 1.0 and best practices 1.0 on index, quiz, sources and ballot pages. SEO 0.8 only because the closed CSP blocks Lighthouse's own robots.txt fetch; robots.txt is served with HTTP 200. Manual screen-reader and keyboard review remains pending.",
+    "responsive": "No horizontal overflow at 320 px and 390 px on all six pages. Rendered result state had no overflow at a 303 px viewport.",
+    "console": "No console errors or page errors in tested local and live flows.",
+    "live_snapshot": "The live pages show the 2026-10-28 register snapshot and 26 scoreable / 6 non-scoreable / 20 unknown evidence counts."
   }
 }
