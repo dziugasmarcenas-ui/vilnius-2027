@@ -18,6 +18,7 @@
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;background:radial-gradient(900px 520px at 8% -8%,rgba(190,219,196,.45),transparent 60%),radial-gradient(760px 480px at 100% 0%,rgba(235,215,168,.4),transparent 55%),linear-gradient(180deg,#f8f6ee,var(--paper) 40%,#f2f0e6)}
 a{color:var(--green);text-underline-offset:3px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;overflow-wrap:anywhere;word-break:break-word}
 a:hover{color:#124c34}
 button{font:inherit}
 h1,h2,h3,h4{font-family:Georgia,"Times New Roman",serif;line-height:1.14;letter-spacing:-.035em;margin:0;color:var(--ink)}
@@ -126,6 +127,40 @@ td a{font-weight:700}
 .ballot-label{font-size:10px;color:#555;margin-top:5px}
 .callout{border-left:4px solid var(--green);background:var(--green4);padding:12px 14px;border-radius:0 10px 10px 0;font-size:12.5px;color:var(--ink2)}
 .callout.warn{border-left-color:var(--amber);background:var(--amber2);color:#6e521e}
+.tool-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:14px 0}
+.field{display:grid;gap:5px;min-width:0}
+.field label,.field span.lbl{font-size:10.5px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+select,input[type=text],textarea{font:inherit;font-size:13px;color:var(--ink);background:#fff;border:1px solid #c8d2c6;border-radius:9px;padding:9px 10px;min-height:40px;max-width:100%}
+textarea{min-height:78px;resize:vertical;line-height:1.45}
+select:focus-visible,input:focus-visible,textarea:focus-visible,.btn:focus-visible,summary:focus-visible{outline:3px solid #8fc4a6;outline-offset:2px}
+.review-card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px;margin:12px 0;min-width:0}
+.review-head{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.review-card .quote{margin:10px 0}
+.context-box{background:#f7f8f2;border:1px solid var(--line2);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:1.5;margin:9px 0}
+.context-box mark{background:#fff0b8;color:var(--ink);padding:0 1px}
+fieldset.decision-row{border:0;padding:0;min-width:0}
+.decision-row{display:flex;gap:7px;flex-wrap:wrap;margin:9px 0}
+.review-card textarea{width:100%}
+.review-list{display:grid;gap:0;min-width:0}
+.compare-controls select{min-width:170px}
+.share-field{display:grid;gap:5px;margin-top:16px}
+.share-field input{width:100%;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px}
+.decision-row label{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:750;background:#fff;cursor:pointer;min-height:36px}
+.decision-row input{accent-color:var(--green);margin:0}
+.decision-row label:has(input:checked){background:var(--green4);border-color:#a9d3bb;color:var(--green)}
+.progress{font-size:12px;color:var(--muted);font-weight:700}
+.progress b{color:var(--ink)}
+.export-out{width:100%;min-height:170px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;line-height:1.45}
+.compare-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+.compare-table td{min-width:0}
+.compare-table th:first-child,.compare-table td:first-child{position:sticky;left:0;background:#fff;z-index:1}
+.compare-table tr:last-child td:first-child{background:#f7f8f2}
+.stance-agree{color:var(--green);font-weight:850}
+.stance-unknown{color:var(--muted);font-weight:750}
+.stance-non{color:#845a19;font-weight:750}
+.lede-small{font-size:13px;color:var(--muted);line-height:1.55}
+.badge-count{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 7px;border-radius:999px;background:var(--green3);color:var(--green);font-size:11px;font-weight:900}
+[hidden]{display:none!important}
 .footer{border-top:1px solid rgba(23,48,38,.1);background:rgba(255,253,247,.6);padding:26px 0 34px}
 .footer-inner{max-width:var(--max);margin:auto;padding:0 18px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:11.5px;color:var(--muted)}
 .footer-links{display:flex;gap:12px;flex-wrap:wrap}
@@ -144,6 +179,14 @@ td a{font-weight:700}
   .party-row{flex-wrap:wrap}
   .party-row .mayor{margin-left:23px;text-align:left;width:100%}
   table{min-width:620px}
+  .compare-table{display:block;min-width:0}
+  .compare-table thead{display:none}
+  .compare-table tbody{display:block}
+  .compare-table tr{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;padding:14px 12px;border-top:1px solid var(--line)}
+  .compare-table tr:first-child{border-top:0}
+  .compare-table td{display:block;padding:0;border:0}
+  .compare-table td:first-child{grid-column:1/-1;position:static;background:transparent}
+  .compare-table td[data-head]::before{content:attr(data-head);display:block;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 }
 @media print{
   .site-header,.footer,.actions{display:none!important}
@@ -167,6 +210,7 @@ td a{font-weight:700}
       <a href="sources_2027.html">Šaltiniai</a>
       <a href="methodology_2027.html" aria-current="page">Metodika</a>
       <a href="ballot_2027.html">Balsavimas</a>
+      <a href="rinkejui_2027.html">Rinkėjui</a>
     </nav>
   </div>
 </header>
@@ -210,6 +254,7 @@ td a{font-weight:700}
       <p>Kiekvienas tavo atsakymas ir partijos pozicija verčiami į 5 balų skalę:</p>
       <div class="table-wrap">
         <table>
+          <caption class="sr-only">Atsakymo ir partijos pozicijos balų lentelė</caption>
           <thead><tr><th>Tavo atsakymas</th><th>Reikšmė</th><th>Partijos pozicija</th><th>Reikšmė</th></tr></thead>
           <tbody>
             <tr><td>Visiškai sutinku</td><td>+2</td><td>Visiškai sutinku</td><td>+2</td></tr>
@@ -346,8 +391,11 @@ td a{font-weight:700}
       <a href="sources_2027.html">Šaltiniai</a>
       <a href="methodology_2027.html">Metodika</a>
       <a href="ballot_2027.html">Balsavimas</a>
+      <a href="rinkejui_2027.html">Rinkėjui</a>
+      <a href="compare_2027.html">Palyginti</a>
     </div>
   </div>
 </footer>
+
 </body>
 </html>

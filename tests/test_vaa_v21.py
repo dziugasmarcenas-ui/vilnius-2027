@@ -121,13 +121,14 @@ class DatasetTest(unittest.TestCase):
         self.assertEqual(doc["format"], "vaa-source-registry-v21")
         ids = [row["id"] for row in doc["sources"]]
         self.assertEqual(len(ids), len(set(ids)))
-        self.assertEqual(len(ids), 10)
+        self.assertEqual(len(ids), 11)
         for row in doc["sources"]:
             self.assertTrue(row["url"].startswith("https://"))
             self.assertIn(row["kind"], ("pdf", "html", "legal"))
         self.assertIn("manobalsas_methodology", ids)
         self.assertIn("manobalsas_test", ids)
         self.assertIn("rinkimu_kodeksas_2027", ids)
+        self.assertIn("vrk_calendar_2027", ids)
 
     def test_manobalsas_context_never_contains_party_positions(self):
         doc = json.loads(MB.read_text("utf-8"))

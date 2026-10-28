@@ -19,6 +19,10 @@ jobs:
         run: python3 -m unittest discover -s tests -q
       - name: Build and verify public output
         run: python3 vaa_build_v21.py --check
+      - name: Link audit
+        run: python3 vaa_links_v21.py
+      - name: HTML structure audit
+        run: python3 vaa_audit_v21.py
       - name: Verify docs/ is current
         run: |
           ./build_docs.sh

@@ -241,6 +241,93 @@ class BuildTest(unittest.TestCase):
             self.assertIn("koalicij", text)
         self.assertIn("programų tekstų atitikimas", quiz)
 
+    def test_every_quoted_row_has_source_context(self):
+        doc = json.loads((ROOT / "vaa" / "vilnius_2027_v21.json").read_text("utf-8"))
+        quoted = [
+            (party_id, statement_id, answer)
+            for party_id, rows in doc["answers"].items()
+            for statement_id, answer in rows.items()
+            if answer.get("quote")
+        ]
+        self.assertEqual(len(quoted), 32)
+        for party_id, statement_id, answer in quoted:
+            context = answer.get("source_context", "")
+            self.assertTrue(context.strip(), f"{party_id}/{statement_id} has no context")
+            self.assertGreaterEqual(len(context), 80, f"{party_id}/{statement_id} context too short")
+        review = (DIST / "review_2027.html").read_text("utf-8")
+        for _, _, answer in quoted:
+            self.assertIn(answer["quote"], review)
+
+    def test_review_workbench_never_signs_off(self):
+        review = (DIST / "review_2027.html").read_text("utf-8")
+        self.assertEqual(review.count('class="review-card"'), 32)
+        self.assertIn("human_approved: false", review)
+        self.assertIn("signoff: null", review)
+        self.assertIn("draft: true", review)
+        self.assertIn("Neįskaityta", review)
+        self.assertNotIn('"human_approved": true', review)
+
+    def test_compare_page_defaults_to_two_different_lists(self):
+        compare = (DIST / "compare_2027.html").read_text("utf-8")
+        payload = embedded_json(compare, "compare-data")
+        self.assertEqual(payload["format"], "vaa-compare-workbench-v1")
+        self.assertEqual(len(payload["lists"]), 4)
+        self.assertEqual(len(payload["statements"]), 13)
+        self.assertIn('<option value="tslkd" selected>', compare)
+        self.assertIn('<option value="lsdp" selected>', compare)
+        self.assertEqual(payload["lists"][0]["id"], "tslkd")
+        self.assertEqual(payload["lists"][-1]["id"], "lsdp")
+        for party in payload["lists"]:
+            for statement in payload["statements"]:
+                self.assertIn(statement["id"], payload["cells"][party["id"]])
+        self.assertIn("data-head=", compare)
+
+    def test_voter_guide_uses_official_dates_and_law(self):
+        voter = (DIST / "rinkejui_2027.html").read_text("utf-8")
+        for marker in (
+            "2027 m. sausio 6 d.",
+            "2027 m. vasario 5 d.",
+            "2027 m. kovo 2 d.",
+            "2027 m. kovo 3 d.",
+            "2027 m. kovo 21 d.",
+            "Rinkimų kodekso 8",
+            "Rinkimų kodekso 9",
+            "Rinkimų kodekso 62",
+            "Rinkimų kodekso 138",
+            "Rinkimų kodekso 139",
+            "Rinkimų kodekso 142",
+            "143 straipsnį",
+        ):
+            self.assertIn(marker, voter, marker)
+        self.assertIn("VRK 2027 m. rinkimų grafikas", voter)
+        self.assertIn("ne teisinė konsultacija", voter)
+
+    def test_quiz_has_a_no_javascript_fallback(self):
+        quiz = (DIST / "quiz_v21.html").read_text("utf-8")
+        self.assertIn("<noscript>", quiz)
+        self.assertIn("reikalauja JavaScript", quiz)
+        self.assertIn("sources_2027.html", quiz)
+
+    def test_every_table_has_a_caption(self):
+        for name in PAGES:
+            text = (DIST / name).read_text("utf-8")
+            self.assertEqual(
+                text.count("<table"),
+                text.count("<caption"),
+                f"{name}: tables without captions",
+            )
+
+
+def embedded_json(page: str, script_id: str) -> dict:
+    match = re.search(
+        rf'<script id="{re.escape(script_id)}" type="application/json">(.*?)</script>',
+        page,
+        re.S,
+    )
+    if not match:
+        raise AssertionError(f"missing embedded JSON {script_id}")
+    return json.loads(match.group(1))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,7 +1,7 @@
 {
   "format": "vaa-law-registry-v1",
-  "generated_at": "2026-10-27",
-  "note": "Ištraukos iš šiuo metu galiojančios Rinkimų kodekso redakcijos. Tai nėra teisinė konsultacija; prieš balsuodami patikrinkite oficialų biuletenį ir VRK informaciją.",
+  "generated_at": "2026-10-28",
+  "note": "Ištraukos iš šiuo metu galiojančios Rinkimų kodekso redakcijos. 2026-10-28 papildyti rinkėjo teisės, balsavimo iki rinkimų dienos, balsavimo namuose, dokumentų ir prieinamumo straipsniai. Tai nėra teisinė konsultacija; prieš balsuodami patikrinkite oficialų biuletenį ir VRK informaciją.",
   "source": {
     "id": "rinkimu_kodeksas_2027",
     "title": "Lietuvos Respublikos rinkimų kodekso patvirtinimo, įsigaliojimo ir įgyvendinimo konstitucinis įstatymas",
@@ -16,6 +16,22 @@
   },
   "articles": [
     {
+      "article": 8,
+      "title": "Aktyvioji rinkimų teisė",
+      "excerpt": "2. Teisę rinkti savivaldybės tarybos narius ir merą turi nuolatiniai šios savivaldybės gyventojai, kuriems rinkimų dieną yra sukakę 18 metų.\n3. Nuolatiniu savivaldybės gyventoju, turinčiu teisę rinkti savivaldybės tarybos narius ir merą, laikomas Lietuvos Respublikos pilietis, teisę gyventi Lietuvos Respublikoje turintis kitos Europos Sąjungos valstybės narės pilietis, kitas asmuo, turintis teisę nuolat gyventi Lietuvos Respublikoje ir šią teisę patvirtinantį dokumentą, jeigu jie ne vėliau kaip likus 60 dienų iki rinkimų dienos savo gyvenamąją vietą pagal Lietuvos Respublikos teisės aktus yra deklaravę šios savivaldybės teritorijoje arba yra įtraukti į gyvenamosios vietos nedeklaravusių asmenų apskaitą šioje savivaldybėje.",
+      "applies_to": [
+        "voter_eligibility"
+      ]
+    },
+    {
+      "article": 9,
+      "title": "Aktyviosios rinkimų teisės apribojimai",
+      "excerpt": "1. Teisės rinkti Lietuvos Respublikoje neturi asmuo, teismo pripažintas neveiksniu su rinkimų teisės įgyvendinimu susijusiose srityse.",
+      "applies_to": [
+        "voter_eligibility"
+      ]
+    },
+    {
       "article": 16,
       "title": "Rinkimų apygardų sudarymas",
       "excerpt": "4. Savivaldybės tarybos narių rinkimai rengiami daugiamandatėje rinkimų apygardoje, sutampančioje su savivaldybės teritorija. Mero rinkimai rengiami vienmandatėje rinkimų apygardoje, sutampančioje su savivaldybės teritorija.",
@@ -25,12 +41,78 @@
       ]
     },
     {
+      "article": 62,
+      "title": "Rinkėjo teisė balsuoti bet kurioje savo apygardos rinkimų apylinkėje",
+      "excerpt": "Rinkimų dieną Vyriausiosios rinkimų komisijos nustatyta tvarka rinkėjas, kuris nėra balsavęs, gali balsuoti kitoje savo apygardos rinkimų apylinkėje, jeigu abi šios apygardos rinkimų apylinkės yra elektroninių ryšių priemonėmis prisijungusios prie elektroninio rinkėjų sąrašo ir apylinkių rinkimų komisijos gali patvirtinti, kad rinkėjas nėra balsavęs nė vienoje iš rinkimų apylinkių, o rinkimų apylinkės, į kurios rinkėjų sąrašą yra įrašytas šis rinkėjas, rinkimų komisija patvirtina, kad šios rinkimų apylinkės rinkėjų sąraše yra padarytas įrašas apie šio rinkėjo atvykimą balsuoti į kitą rinkimų apylinkę ir rinkėjo balsas, jeigu bus gautas balsavimo vokais, nebus skaičiuojamas.",
+      "applies_to": [
+        "polling_place"
+      ]
+    },
+    {
       "article": 84,
       "title": "Kandidatų, kandidatų sąrašų ir pareiškinių dokumentų paskelbimas",
       "excerpt": "1. Likus ne mažiau kaip 30 dienų iki rinkimų dienos Vyriausioji rinkimų komisija savo interneto svetainėje paskelbia kandidatų sąrašus, kandidatus, jų pareiškinius dokumentus, kandidatų sąrašų rinkimų numerius, šiuose sąrašuose įrašytų kandidatų rinkimų numerius.",
       "applies_to": [
         "candidate_lists",
         "ballot_numbers"
+      ]
+    },
+    {
+      "article": 131,
+      "title": "Balsavimo patalpų parengimas ir pagalba rengiant rinkimus",
+      "excerpt": "2. Savivaldybės administracija ne vėliau kaip per 20 dienų nuo rinkimų paskelbimo dienos, atsižvelgdama į patalpų, pritaikytų neįgaliems rinkėjams, poreikį konkrečioje rinkimų apylinkėje, privalo įvertinti, ar balsavimo patalpos yra tinkamos ir pritaikytos neįgaliųjų bei senyvo amžiaus rinkėjų poreikiams. Savivaldybės administracija, įvertinusi, kad balsavimo patalpos nėra tinkamos, privalo jas pritaikyti arba išnuomoti pritaikytas. Likus ne mažiau kaip 2 mėnesiams iki rinkimų dienos, rinkimų komisija kartu su savivaldybės administracija atlieka pakartotinį balsavimo patalpų tinkamumo įvertinimą. Balsavimo patalpų tinkamumui įvertinti gali būti pasitelkiamos nevyriausybinės organizacijos. Balsavimo patalpų tinkamumas vertinamas ir nevyriausybinės organizacijos pasitelkiamos Vyriausiosios rinkimų komisijos nustatyta tvarka.",
+      "applies_to": [
+        "accessibility"
+      ]
+    },
+    {
+      "article": 132,
+      "title": "Rinkimų rengimo ir vykdymo išlaidos",
+      "excerpt": "5. Iš savivaldybių biudžetų lėšų mokama už balsavimo patalpų bei apygardų, savivaldybių ir apylinkių rinkimų komisijų buveinių išlaikymą, Vyriausiosios rinkimų komisijos nustatyto inventoriaus įsigijimą ir išsaugojimą, balsavimo patalpų įrengimą ir pritaikymą neįgalių rinkėjų poreikiams, o jeigu galimybės įrengti balsavimo patalpų ar jų pritaikyti neįgalių rinkėjų poreikiams nėra, – už tinkamų patalpų nuomą.",
+      "applies_to": [
+        "accessibility"
+      ]
+    },
+    {
+      "article": 134,
+      "title": "Balsavimas iki rinkimų dienos: bendrosios nuostatos",
+      "excerpt": "3. Šio straipsnio 2 dalies 1 punkte nurodytose vietose balsavimas vyksta paskutinį antradienį, trečiadienį ir ketvirtadienį iki rinkimų dienos nuo 7 iki 20 val.\n…\n5. Balsavimas namuose vyksta paskutinį penktadienį ir šeštadienį iki rinkimų dienos nuo 8 iki 20 val.",
+      "applies_to": [
+        "advance_voting",
+        "home_voting"
+      ]
+    },
+    {
+      "article": 135,
+      "title": "Balsavimo iki rinkimų dienos tvarka ir dokumentai",
+      "excerpt": "6. Šio straipsnio 3 ir 4 dalyse nurodytus veiksmus rinkėjas atlieka pats. Negalią turinčiam rinkėjui privalo būti sudarytos sąlygos balsuojant naudotis pagalbinėmis priemonėmis ir technologijomis. Jeigu rinkėjas dėl neįgalumo šio straipsnio 3 ir 4 dalyse nurodytų veiksmų pats atlikti negali, jo prašymu juos atlieka rinkėjo pasirinktas asmuo. Šis asmuo rinkėjo akivaizdoje privalo užpildyti rinkimų biuletenį (-ius) pagal jo nurodymą ir atlikti šio straipsnio 3 ir 4 dalyse nurodytus veiksmus. Pasirinktas asmuo privalo išsaugoti jį pasitelkusio rinkėjo balsavimo paslaptį.",
+      "applies_to": [
+        "accessibility",
+        "assistance"
+      ]
+    },
+    {
+      "article": 138,
+      "title": "Balsavimo namuose organizavimas",
+      "excerpt": "1. Balsuoti namuose gali tik šie rinkėjai: neįgalieji, neįgaliuosius namuose slaugantys ar juos prižiūrintys (jiems teikiantys pagalbą) asmenys, dėl ligos laikinai nedarbingi rinkėjai, sukakę 70 metų ir vyresni rinkėjai, jeigu jie dėl sveikatos būklės patys negali atvykti rinkimų dieną į rinkimų apylinkę, yra pateikę Vyriausiosios rinkimų komisijos nustatytos formos rinkėjo prašymą balsuoti namuose ir yra įrašyti į namuose balsuojančių rinkėjų sąrašus. Taip pat balsuoti namuose gali dėl 140 straipsnio 3 dalyje nurodytų aplinkybių saviizoliacijoje esantys rinkėjai, pateikę Vyriausiosios rinkimų komisijos nustatytos formos rinkėjo prašymą balsuoti namuose. Rinkimų komisijų nariai, platindami pranešimus apie rinkimus, privalo juos įteikti asmeniškai tiems rinkėjams, kurie turi teisę balsuoti namuose, išskyrus saviizoliacijoje esančius rinkėjus.\n…\n2. Rinkėjų, išskyrus saviizoliacijoje esančius rinkėjus, prašymai balsuoti namuose pateikiami rinkimų apylinkių rinkimų komisijoms. Rinkėjų, įrašytų į rinkimų apylinkės rinkėjų sąrašą, prašymai balsuoti namuose telefonu, elektroniniu paštu ir pateikiant rašytinį prašymą pradedami priimti įteikiant jiems pranešimus apie rinkimus ir baigiami priimti paskutinį trečiadienį iki rinkimų dienos.",
+      "applies_to": [
+        "home_voting"
+      ]
+    },
+    {
+      "article": 139,
+      "title": "Balsavimo vieta ir laikas rinkimų dieną",
+      "excerpt": "2. Rinkimų dieną balsavimas vyksta rinkimų apylinkių balsavimo patalpose nuo 7 iki 20 val.",
+      "applies_to": [
+        "election_day"
+      ]
+    },
+    {
+      "article": 142,
+      "title": "Balsavimo tvarka",
+      "excerpt": "1. Balsuoti atvykęs rinkėjas pateikia apylinkės rinkimų komisijos nariui galiojantį vieną iš šių savo dokumentų: asmens tapatybės kortelę, pasą, vairuotojo pažymėjimą ar kitą valstybės institucijos ar jos įgaliotos įstaigos išduotą dokumentą, pagal kurį galima nustatyti asmens tapatybę.",
+      "applies_to": [
+        "id_document"
       ]
     },
     {

@@ -19,6 +19,7 @@ import html
 import json
 import shutil
 import sys
+from datetime import date, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -35,7 +36,11 @@ MANIFEST = ROOT / "vaa" / "review" / "source_manifest_v21.json"
 CHECKS = ROOT / "vaa" / "review" / "source_checks_v21.json"
 MB_CONTEXT = ROOT / "vaa" / "manobalsas_2024_context.json"
 HUMAN = ROOT / "vaa" / "review" / "human_validation_v21.json"
+GAPS = ROOT / "vaa" / "review" / "coverage_gaps_v21.json"
 DIST = ROOT / "dist"
+DEFAULT_CSP = "default-src 'none'; style-src 'unsafe-inline'; img-src data:"
+SCRIPT_CSP = "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:"
+CALENDAR_URL = "https://vrk.lt/fs/prd/p/2026-10/Rinkimu%20grafikas%202027.pdf"
 
 PAGES = {
     "index.html": "index",
@@ -44,6 +49,9 @@ PAGES = {
     "sources_2027.html": "sources",
     "methodology_2027.html": "methodology",
     "ballot_2027.html": "ballot",
+    "rinkejui_2027.html": "voter",
+    "compare_2027.html": "compare",
+    "review_2027.html": "review",
 }
 DATA_FILES = [
     "vilnius_2027_v21.json",
@@ -180,6 +188,17 @@ def sync_party_mayors(data: dict[str, Any], register: dict[str, Any]) -> dict[st
     return synced
 
 
+def public_register(register: dict[str, Any]) -> dict[str, Any]:
+    """Remove the local fixture path before publishing the register snapshot."""
+    import copy
+
+    doc = copy.deepcopy(register)
+    source = doc.get("source")
+    if isinstance(source, dict):
+        source.pop("fixture", None)
+    return doc
+
+
 def trimmed_register(register: dict[str, Any]) -> dict[str, Any]:
     vilnius = register["vilnius"]
     lists = []
@@ -226,7 +245,7 @@ def trimmed_register(register: dict[str, Any]) -> dict[str, Any]:
             "lists": lists,
         },
         "national": {"participants_count": register.get("national", {}).get("participants_count")},
-        "source": register["source"],
+        "source": public_register(register)["source"],
         "limits": register["limits"],
     }
 
@@ -324,6 +343,18 @@ def status_banner(data: dict[str, Any], register: dict[str, Any]) -> str:
       <strong>Oficialus 2027 m. biuletenis dar nepaskelbtas.</strong>
       VRK galutinius kandidatų sąrašus ir sąrašų numerius numato paskelbti iki {e(final_date)}.
       Šiandien lyginame {len(register['vilnius']['lists'])} Vilniaus miesto sąrašų kampanijos dalyvių įrašus ir tik turimus 2027 m. programinius dokumentus.
+      {internal('register_2027.html', 'Žiūrėti registrą →')}
+    </div>
+    """
+
+
+def pending_banner(register: dict[str, Any]) -> str:
+    st = register["official_status"]
+    final_date = st["candidate_lists_published_by"]["date"]
+    return f"""
+    <div class="banner">
+      <strong>Oficialus 2027 m. biuletenis dar nepaskelbtas.</strong>
+      VRK galutinius kandidatų sąrašus ir sąrašų numerius numato paskelbti iki {e(final_date)}.
       {internal('register_2027.html', 'Žiūrėti registrą →')}
     </div>
     """
@@ -592,6 +623,7 @@ def register_content(data: dict[str, Any], register: dict[str, Any], checks: dic
       <h2>Kampanijos dalyvių sąrašai</h2>
       <div class="table-wrap">
         <table>
+          <caption class="sr-only">Vilniaus miesto 2027 m. kampanijos dalyvių sąrašai ir mero kampanijos dalyviai</caption>
           <thead><tr><th>Sąrašas</th><th>Registracija</th><th>Mero kampanijos dalyvis</th><th>Sąrašo numeris</th><th>Kandidatų pavardės</th><th>Šaltinis</th></tr></thead>
           <tbody>{''.join(rows)}</tbody>
         </table>
@@ -673,6 +705,21 @@ def interpretation_html(answer: dict[str, Any]) -> str:
     )
 
 
+def context_html(answer: dict[str, Any]) -> str:
+    context = answer.get("source_context")
+    if not context:
+        return ""
+    quote = answer.get("quote", "")
+    safe = e(context)
+    if quote:
+        safe = safe.replace(e(quote), f"<mark>{e(quote)}</mark>", 1)
+    return (
+        '<details class="mt1"><summary class="small"><b>Šaltinio kontekstas</b> '
+        '(apie 340 simbolių prieš ir po citatos)</summary>'
+        f'<div class="context-box">{safe}</div></details>'
+    )
+
+
 def sources_content(
     data: dict[str, Any],
     sources: dict[str, Any],
@@ -721,6 +768,7 @@ def sources_content(
                     gate = chip("Neįskaityta", "amber")
                 if answer.get("review_note"):
                     quote_cell += f'<div class="small mt1">{e(answer["review_note"])}</div>'
+                quote_cell += context_html(answer)
                 quote_cell += interpretation_html(answer)
             evidence_rows.append(
                 f"""
@@ -777,6 +825,7 @@ def sources_content(
       <h2>Dabartiniai šaltiniai</h2>
       <div class="table-wrap">
         <table>
+          <caption class="sr-only">2027 m. šaltinių registras su HTTP būsena ir teksto maišos reikšme</caption>
           <thead><tr><th>ID</th><th>Leidėjas / data</th><th>Dokumentas</th><th>HTTP / teksto hash</th><th>Nuoroda</th></tr></thead>
           <tbody>{''.join(source_rows)}</tbody>
         </table>
@@ -790,6 +839,7 @@ def sources_content(
       <p>Žemiau – kiekvienas klausimas kiekvienai partijai. „Neįskaityta“ nereiškia priešingos pozicijos: tai reiškia, kad trūksta pilnos, partijai priskirtos ir patikrintos citatos.</p>
       <div class="table-wrap">
         <table>
+          <caption class="sr-only">Visos 2027 m. partijų pozicijų eilutės</caption>
           <thead><tr><th>Partija</th><th>Teiginys</th><th>Pozicija</th><th>Citata / paaiškinimas</th><th>Šaltinis</th><th>Balas</th></tr></thead>
           <tbody>{''.join(evidence_rows)}</tbody>
         </table>
@@ -959,6 +1009,7 @@ def methodology_content(
       <p>Kiekvienas tavo atsakymas ir partijos pozicija verčiami į 5 balų skalę:</p>
       <div class="table-wrap">
         <table>
+          <caption class="sr-only">Atsakymo ir partijos pozicijos balų lentelė</caption>
           <thead><tr><th>Tavo atsakymas</th><th>Reikšmė</th><th>Partijos pozicija</th><th>Reikšmė</th></tr></thead>
           <tbody>
             <tr><td>Visiškai sutinku</td><td>+2</td><td>Visiškai sutinku</td><td>+2</td></tr>
@@ -1206,6 +1257,1005 @@ def ballot_content(data: dict[str, Any], register: dict[str, Any], law: dict[str
     """
 
 
+LT_MONTHS = (
+    "sausio",
+    "vasario",
+    "kovo",
+    "balandžio",
+    "gegužės",
+    "birželio",
+    "liepos",
+    "rugpjūčio",
+    "rugsėjo",
+    "spalio",
+    "lapkričio",
+    "gruodžio",
+)
+
+
+def lt_date(value: str) -> str:
+    """Format an ISO date for Lithuanian prose without locale dependencies."""
+    try:
+        year, month, day = (int(part) for part in str(value).split("-"))
+    except (TypeError, ValueError):
+        return str(value)
+    if not 1 <= month <= 12:
+        return str(value)
+    return f"{year} m. {LT_MONTHS[month - 1]} {day} d."
+
+
+def topic_map(data: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {topic["id"]: topic for topic in data["topics"]}
+
+
+def review_payload(
+    data: dict[str, Any],
+    register: dict[str, Any],
+    gaps: dict[str, Any],
+    human: dict[str, Any],
+) -> dict[str, Any]:
+    topics = topic_map(data)
+    gap_by = {
+        (gap["party_id"], gap["statement_id"]): gap for gap in gaps.get("gaps", [])
+    }
+    rows: list[dict[str, Any]] = []
+    non_reviewable: list[dict[str, Any]] = []
+    for party in data["parties"]:
+        for statement in data["statements"]:
+            answer = data["answers"][party["id"]][statement["id"]]
+            topic = topics.get(statement["topic_id"], {})
+            if not answer.get("quote"):
+                non_reviewable.append(
+                    {
+                        "row_id": f'{party["id"]}__{statement["id"]}',
+                        "party": party["short_name"],
+                        "statement": statement["text"],
+                        "topic": topic.get("name", statement["topic_id"]),
+                        "stance": answer.get("stance", "unknown"),
+                        "note": answer.get("note", ""),
+                    }
+                )
+                continue
+            gap = gap_by.get((party["id"], statement["id"]), {})
+            rows.append(
+                {
+                    "row_id": f'{party["id"]}__{statement["id"]}',
+                    "party_id": party["id"],
+                    "party": party["short_name"],
+                    "statement_id": statement["id"],
+                    "topic_id": statement["topic_id"],
+                    "topic": topic.get("name", statement["topic_id"]),
+                    "statement": statement["text"],
+                    "stance": answer.get("stance", "unknown"),
+                    "label": stance_label(answer.get("stance", "unknown")),
+                    "scoreable": bool(answer.get("scoreable") is True),
+                    "quote": answer.get("quote", ""),
+                    "source_id": answer.get("source_id", ""),
+                    "source_url": answer.get("source_url", ""),
+                    "source_date": answer.get("source_date", ""),
+                    "context": answer.get("source_context", ""),
+                    "note": answer.get("review_note") or answer.get("note") or "",
+                    "gap_reason": gap.get("reason", ""),
+                    "interpretation": answer.get("interpretation") or {},
+                }
+            )
+    return {
+        "format": "vaa-human-review-workbench-v1",
+        "export_format": human.get("workbench", {}).get(
+            "export_format", "vaa-human-review-draft-v1"
+        ),
+        "generated_at": data["generated_at"],
+        "snapshot_date": register.get("snapshot", {}).get("date")
+        or register["generated_at"],
+        "rows": rows,
+        "non_reviewable": non_reviewable,
+        "disclaimer": (
+            "Tai peržiūros juodraštis, ne patvirtinimas. Eksportas niekada "
+            "nenustato human_approved, signoff ar public_use_allowed. "
+            "Pavadintas žmogus turi pats peržiūrėti šaltinius ir atnaujinti "
+            "vaa/review/human_validation_v21.json."
+        ),
+    }
+
+
+def review_card_html(row: dict[str, Any]) -> str:
+    status_cls = "green" if row["scoreable"] else "amber"
+    status = "Įskaityta" if row["scoreable"] else "Neįskaityta"
+    row_id = row["row_id"]
+    search = " ".join(
+        [
+            row["party"],
+            row["statement"],
+            row["quote"],
+            row["context"],
+            row["source_id"],
+            row["statement_id"],
+        ]
+    ).lower()
+    interpretation = interpretation_html({"interpretation": row["interpretation"]})
+    context = context_html(
+        {"source_context": row["context"], "quote": row["quote"]}
+    )
+    gap = (
+        f'<div class="small mt1"><b>Kodėl neįskaityta:</b> {e(row["gap_reason"])}</div>'
+        if row.get("gap_reason")
+        else ""
+    )
+    return f"""
+    <article class="review-card" data-row="{e(row_id)}" data-party="{e(row['party_id'])}" data-statement="{e(row['statement_id'])}" data-search="{e(search)}">
+      <div class="review-head">
+        <div>{chip(row['party'], 'green')} {chip(row['topic'], 'gray')}</div>
+        <span class="small">{e(row['source_id'])} · {e(row['source_date'])}</span>
+      </div>
+      <p class="small mt1"><b>Teiginys:</b> {e(row['statement'])}</p>
+      <div class="quote">„{e(row['quote'])}“</div>
+      {context}
+      <details class="mt1"><summary class="small"><b>Interpretacijos įrašas</b></summary>{interpretation}</details>
+      {gap}
+      <fieldset class="decision-row">
+        <legend class="sr-only">Sprendimas dėl {e(row['party'])} teiginio „{e(row['statement'])}“</legend>
+        <label><input type="radio" name="decision-{e(row_id)}" value="approve"> Patvirtinu</label>
+        <label><input type="radio" name="decision-{e(row_id)}" value="reject"> Atmetu</label>
+        <label><input type="radio" name="decision-{e(row_id)}" value="needs_more_evidence"> Reikia įrodymų</label>
+        <label><input type="radio" name="decision-{e(row_id)}" value="unclear"> Neaišku</label>
+      </fieldset>
+      <div class="field">
+        <label for="note-{e(row_id)}">Peržiūrėtojo pastaba</label>
+        <textarea id="note-{e(row_id)}" data-note rows="2" placeholder="Ką patikrinote ir kodėl taip nusprendėte"></textarea>
+      </div>
+      <div class="meta">{ext(row['source_url'], 'Atidaryti šaltinį')} · {chip(status, status_cls)}</div>
+    </article>
+    """
+
+
+def review_content(
+    data: dict[str, Any],
+    register: dict[str, Any],
+    gaps: dict[str, Any],
+    human: dict[str, Any],
+) -> str:
+    payload = review_payload(data, register, gaps, human)
+    expected = human.get("workbench", {}).get("reviewable_rows")
+    if expected is not None and len(payload["rows"]) != expected:
+        raise BuildError(
+            f"review workbench has {len(payload['rows'])} rows, expected {expected}"
+        )
+    party_options = "".join(
+        f'<option value="{e(party["id"])}">{e(party["short_name"])}</option>'
+        for party in data["parties"]
+    )
+    cards = "".join(review_card_html(row) for row in payload["rows"])
+    non_rows = "".join(
+        f'<tr><td><strong>{e(row["party"])}</strong></td><td>{e(row["topic"])}</td><td>{e(row["statement"])}</td><td>{e(row["note"])}</td></tr>'
+        for row in payload["non_reviewable"]
+    )
+    reviewable = len(payload["rows"])
+    non_reviewable = len(payload["non_reviewable"])
+    return f"""
+    <section class="hero">
+      <span class="eyebrow"><span class="dot"></span>Žmogaus peržiūra · juodraštis</span>
+      <h1>Peržiūros darbo stalas</h1>
+      <p class="lead">Čia gali peržiūrėti visas {reviewable} cituojamas 2027 m. eilutes: atidaryti šaltinį, perskaityti kontekstą, palyginti su teiginiu ir pažymėti savo sprendimą. Įrankis tik paruošia juodraštį. Jis niekada nepatvirtina eilutės už žmogų.</p>
+      {pending_banner(register)}
+      <div class="banner red"><strong>Tai ne patvirtinimas.</strong> Eksportuotas failas turi <code>draft: true</code>, <code>human_approved: false</code> ir <code>signoff: null</code>. Tik pavadintas peržiūrėtojas gali atnaujinti <code>vaa/review/human_validation_v21.json</code> ir pasirašyti.</div>
+    </section>
+
+    <section class="card">
+      <div class="kicker">Kaip naudotis</div>
+      <h2>Keturi veiksmai vienai eilutei</h2>
+      <ol class="steps">
+        <li><b>Atidaryk šaltinį.</b> Spausk „Atidaryti šaltinį“ ir perskaityk ne tik citatą, bet ir aplinkinį tekstą.</li>
+        <li><b>Patikrink kontekstą.</b> Atidenk „Šaltinio kontekstas“ ir įsitikink, kad citata neapversta ar neišplėšta iš sąlygos.</li>
+        <li><b>Palygink su teiginiu.</b> Ar citata pagrindžia visą teiginį, o ne vien jo dalį? Ar tai savivaldybės, o ne nacionalinio lygmens įsipareigojimas?</li>
+        <li><b>Pažymėk sprendimą ir parašyk pastabą.</b> Sprendimas be pastabos sunkiai patikrinamas. Eksportas lieka juodraščiu.</li>
+      </ol>
+      <div class="note mt2"><strong>Nepriklausomumas.</strong> Peržiūrėtojas neturi būti tas pats žmogus, kuris kodavo eilutę. AI agentas negali pasirašyti nei eilutės, nei teisinės, nei prieinamumo, nei naudotojų testavimo išvados.</div>
+    </section>
+
+    <section class="card" id="review-app">
+      <div class="kicker">Darbo stalas</div>
+      <h2>{reviewable} peržiūrimos eilutės</h2>
+      <div class="tool-bar">
+        <div class="field">
+          <label for="reviewer-name">Peržiūrėjusio žmogaus vardas</label>
+          <input type="text" id="reviewer-name" autocomplete="off" spellcheck="false" placeholder="Vardas Pavardė">
+        </div>
+        <div class="field">
+          <label for="filter-party">Sąrašas</label>
+          <select id="filter-party"><option value="all">Visi sąrašai</option>{party_options}</select>
+        </div>
+        <div class="field">
+          <label for="filter-decision">Sprendimas</label>
+          <select id="filter-decision">
+            <option value="all">Visi</option>
+            <option value="undecided">Be sprendimo</option>
+            <option value="decided">Turi sprendimą</option>
+            <option value="approve">Patvirtinta</option>
+            <option value="reject">Atmesta</option>
+            <option value="needs_more_evidence">Reikia įrodymų</option>
+            <option value="unclear">Neaišku</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="filter-search">Paieška</label>
+          <input type="text" id="filter-search" autocomplete="off" spellcheck="false" placeholder="Partija, teiginys, citata">
+        </div>
+      </div>
+      <p class="progress" id="review-progress" role="status" aria-live="polite">0 / {reviewable} eilučių turi sprendimą</p>
+      <div class="note" id="review-empty" hidden>Pagal pasirinktus filtrus eilučių nėra.</div>
+      <div class="review-list">{cards}</div>
+      <div class="inline-links">
+        <button class="btn btn-primary btn-sm" type="button" id="export-draft">Atsisiųsti juodraštį</button>
+        <button class="btn btn-soft btn-sm" type="button" id="copy-draft">Kopijuoti juodraštį</button>
+      </div>
+      <p class="small mt1" id="draft-status" role="status" aria-live="polite"></p>
+      <div class="field mt2">
+        <label for="draft-output">Eksporto peržiūra</label>
+        <textarea id="draft-output" class="export-out" readonly aria-describedby="draft-status"></textarea>
+      </div>
+      <p class="small mt1">Failo formatas <code>{e(payload['export_format'])}</code>. Jame yra visi {reviewable} eilučių įrašai, net tie, kurių dar neperžiūrėjai, kad darbą būtų galima tęsti.</p>
+    </section>
+
+    <section class="card mt2">
+      <div class="kicker">Kas lieka už darbo stalo</div>
+      <h2>{non_reviewable} kombinacijos be cituojamos pozicijos</h2>
+      <p>Šios kombinacijos neturi cituojamos pozicijos, todėl jų negalima peržiūrėti kaip citatos. Jos lieka „nėra pozicijos“ ir niekada nevertinamos kaip priešingos. Žemiau – priežastys, kad spragos nebūtų paslėptos.</p>
+      <details><summary><b>Rodyti {non_reviewable} kombinacijas</b></summary>
+        <div class="table-wrap mt1">
+          <table>
+            <caption class="sr-only">Kombinacijos be cituojamos pozicijos</caption>
+            <thead><tr><th>Sąrašas</th><th>Tema</th><th>Teiginys</th><th>Kodėl nėra citatos</th></tr></thead>
+            <tbody>{non_rows}</tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <section class="card mt2">
+      <div class="kicker">Toliau</div>
+      <h2>Ką daryti su juodraščiu</h2>
+      <p>Peržiūrėjęs eilutes, atsisiųsk juodraštį ir perduok jį atsakingam žmogui. Jis turi patikrinti kiekvieną sprendimą, įrašyti savo vardą, datą ir priežastį į peržiūros paketą. Tik tada galima keisti <code>human_approved</code> ir <code>signoff</code>.</p>
+      <div class="inline-links">
+        {internal('sources_2027.html', 'Visi šaltiniai ir citatos', 'btn btn-soft btn-sm')}
+        {internal('methodology_2027.html', 'Metodika', 'btn btn-ghost btn-sm')}
+        {internal('data/human_validation_v21.json', 'Peržiūros paketas', 'btn btn-ghost btn-sm')}
+      </div>
+    </section>
+    <script id="review-data" type="application/json">{json_script(payload)}</script>
+    """
+
+
+def compare_payload(
+    data: dict[str, Any],
+    register: dict[str, Any],
+    gaps: dict[str, Any],
+) -> dict[str, Any]:
+    topics = topic_map(data)
+    gap_by = {
+        (gap["party_id"], gap["statement_id"]): gap for gap in gaps.get("gaps", [])
+    }
+    lists = []
+    for party in data["parties"]:
+        register_row = next(
+            (
+                row
+                for row in register.get("vilnius", {}).get("lists", [])
+                if row.get("party_id") == party["id"]
+            ),
+            {},
+        )
+        lists.append(
+            {
+                "id": party["id"],
+                "name": party["short_name"],
+                "full_name": party["name"],
+                "mayor": (register_row.get("mayor_candidate") or {}).get("name") or "",
+            }
+        )
+    statements = [
+        {
+            "id": statement["id"],
+            "topic": topics.get(statement["topic_id"], {}).get(
+                "name", statement["topic_id"]
+            ),
+            "text": statement["text"],
+        }
+        for statement in data["statements"]
+    ]
+    cells: dict[str, dict[str, Any]] = {}
+    for party in data["parties"]:
+        cells[party["id"]] = {}
+        for statement in data["statements"]:
+            answer = data["answers"][party["id"]][statement["id"]]
+            gap = gap_by.get((party["id"], statement["id"]), {})
+            stance = answer.get("stance", "unknown")
+            scoreable = answer.get("scoreable") is True
+            if scoreable:
+                label = stance_label(stance)
+            elif stance == "unknown":
+                label = "Nėra pozicijos"
+            else:
+                label = "Neįskaityta"
+            interpretation = answer.get("interpretation") or {}
+            cells[party["id"]][statement["id"]] = {
+                "stance": stance,
+                "label": label,
+                "scoreable": scoreable,
+                "quote": answer.get("quote", ""),
+                "source_id": answer.get("source_id", ""),
+                "source_url": answer.get("source_url", ""),
+                "source_date": answer.get("source_date", ""),
+                "context": answer.get("source_context", ""),
+                "note": answer.get("review_note") or answer.get("note") or "",
+                "gap_reason": gap.get("reason", ""),
+                "supports_full": bool(interpretation.get("supports_full_proposition")),
+                "document_status": interpretation.get("document_status", ""),
+            }
+    return {
+        "format": "vaa-compare-workbench-v1",
+        "generated_at": data["generated_at"],
+        "lists": lists,
+        "statements": statements,
+        "cells": cells,
+    }
+
+
+def compare_cell_html(cell: dict[str, Any]) -> str:
+    if cell["scoreable"]:
+        status_cls = "green"
+    elif cell["stance"] == "unknown":
+        status_cls = "gray"
+    else:
+        status_cls = "amber"
+    parts = [chip(cell["label"], status_cls)]
+    if cell.get("quote"):
+        parts.append(f'<div class="quote mt1">„{e(cell["quote"])}“</div>')
+    elif cell.get("note"):
+        parts.append(f'<div class="small mt1">{e(cell["note"])}</div>')
+    if cell.get("context"):
+        parts.append(
+            '<details class="mt1"><summary class="small">Šaltinio kontekstas</summary>'
+            f'<div class="context-box">{e(cell["context"])}</div></details>'
+        )
+    if cell.get("source_url"):
+        parts.append(
+            f'<div class="meta mt1">{ext(cell["source_url"], cell.get("source_id") or "šaltinis")}'
+            f' · {e(cell.get("source_date", ""))}</div>'
+        )
+    if cell.get("gap_reason"):
+        parts.append(
+            f'<div class="small mt1"><b>Kodėl neįskaityta:</b> {e(cell["gap_reason"])}</div>'
+        )
+    if cell.get("quote") and cell.get("supports_full") is False:
+        parts.append(
+            '<div class="small mt1">Interpretacija: citata nepagrindžia viso teiginio.</div>'
+        )
+    return "".join(parts)
+
+
+def compare_table_html(
+    payload: dict[str, Any], left: str, right: str
+) -> str:
+    left_name = next(
+        (row["name"] for row in payload["lists"] if row["id"] == left), left
+    )
+    right_name = next(
+        (row["name"] for row in payload["lists"] if row["id"] == right), right
+    )
+    rows = []
+    for statement in payload["statements"]:
+        rows.append(
+            f"""
+            <tr>
+              <td><strong>{e(statement['text'])}</strong><div class="meta">{e(statement['topic'])}</div></td>
+              <td data-head="{e(left_name)}">{compare_cell_html(payload['cells'][left][statement['id']])}</td>
+              <td data-head="{e(right_name)}">{compare_cell_html(payload['cells'][right][statement['id']])}</td>
+            </tr>
+            """
+        )
+    return "".join(rows)
+
+
+def compare_content(
+    data: dict[str, Any],
+    register: dict[str, Any],
+    gaps: dict[str, Any],
+) -> str:
+    payload = compare_payload(data, register, gaps)
+    left = payload["lists"][0]["id"]
+    right = payload["lists"][-1]["id"]
+
+    def options_for(selected: str) -> str:
+        return "".join(
+            f'<option value="{e(row["id"])}"'
+            + (' selected' if row["id"] == selected else "")
+            + f'>{e(row["name"])} – {e(row["full_name"])}</option>'
+            for row in payload["lists"]
+        )
+
+    options_a = options_for(left)
+    options_b = options_for(right)
+    counts = {}
+    for row in payload["lists"]:
+        values = payload["cells"][row["id"]].values()
+        counts[row["id"]] = {
+            "scoreable": sum(1 for cell in values if cell["scoreable"]),
+            "unknown": sum(1 for cell in values if cell["stance"] == "unknown"),
+            "non_scoreable": sum(
+                1
+                for cell in values
+                if cell["stance"] != "unknown" and not cell["scoreable"]
+            ),
+        }
+    summary_rows = "".join(
+        f'<li><b>{e(row["name"])}</b>: {counts[row["id"]]["scoreable"]} įskaitomos, '
+        f'{counts[row["id"]]["non_scoreable"]} neįskaitomos, '
+        f'{counts[row["id"]]["unknown"]} be pozicijos.</li>'
+        for row in payload["lists"]
+    )
+    return f"""
+    <section class="hero">
+      <span class="eyebrow"><span class="dot"></span>Palyginimas · du sąrašai</span>
+      <h1>Palygink du sąrašus pagal tuos pačius teiginius</h1>
+      <p class="lead">Pasirink du Vilniaus miesto sąrašus ir pamatyk, kur jie turi tą pačią cituojamą poziciją, kur pozicija neįskaitoma ir kur jos visai nėra. Tai programų tekstų palyginimas, ne rekomendacija ir ne prognozė.</p>
+      {pending_banner(register)}
+      <div class="banner"><strong>Trūkstama pozicija nėra „prieš“.</strong> „Nėra pozicijos“ reiškia, kad 2027 m. dokumente neradome tinkamos citatos. Tokia eilutė negauna neigiamo balo ir nėra laikoma priešinga pozicija.</div>
+    </section>
+
+    <section class="card">
+      <div class="kicker">Aprėptis</div>
+      <h2>Ką kiekvienas sąrašas turi</h2>
+      <ul class="list-clean">{summary_rows}</ul>
+      <p class="small mt1">Skaičiai susiję su {len(payload['statements'])} klausimyno teiginių. Visi įskaitomi įrašai šiame duomenų rinkinyje yra „sutinku“ krypties; priešingų įskaitomų pozicijų kol kas nėra.</p>
+    </section>
+
+    <section class="card mt2" id="compare-app">
+      <div class="kicker">Palyginimo lentelė</div>
+      <h2>Teiginys po teiginio</h2>
+      <div class="compare-controls">
+        <div class="field">
+          <label for="list-a">Sąrašas A</label>
+          <select id="list-a">{options_a}</select>
+        </div>
+        <div class="field">
+          <label for="list-b">Sąrašas B</label>
+          <select id="list-b">{options_b}</select>
+        </div>
+        <button class="btn btn-soft btn-sm" type="button" id="swap-lists">Sukeisti A ir B</button>
+      </div>
+      <p class="small mt1" id="compare-warning" hidden>Pasirinkai tą patį sąrašą abiejose pusėse. Pakeisk vieną, kad palyginimas būtų prasmingas.</p>
+      <p class="small mt1" id="compare-summary" role="status" aria-live="polite"></p>
+      <div class="table-wrap mt2">
+        <table class="compare-table">
+          <caption class="sr-only">Dviejų sąrašų palyginimas pagal klausimyno teiginius</caption>
+          <thead><tr><th>Teiginys</th><th id="compare-head-a">{e(payload['lists'][0]['name'])}</th><th id="compare-head-b">{e(payload['lists'][-1]['name'])}</th></tr></thead>
+          <tbody id="compare-body">{compare_table_html(payload, left, right)}</tbody>
+        </table>
+      </div>
+      <div class="tag-row mt2">{chip('Įskaityta', 'green')} {chip('Neįskaityta', 'amber')} {chip('Nėra pozicijos', 'gray')}</div>
+      <div class="share-field">
+        <label class="lbl" for="share-url">Nuoroda į šį palyginimą</label>
+        <input type="text" id="share-url" readonly value="compare_2027.html#a={e(left)}&amp;b={e(right)}">
+      </div>
+      <p class="small mt1">Pasirinkimas įrašomas į adreso fragmentą (<code>#a=…&amp;b=…</code>). Jis nepalieka šios svetainės ir nenaudoja slapukų.</p>
+    </section>
+
+    <section class="card mt2">
+      <div class="kicker">Kaip skaityti</div>
+      <h2>Trys būsenos, ne du „už“ ir „prieš“</h2>
+      <div class="grid grid-3">
+        <div><h3>Įskaityta</h3><p class="small">Yra tiksli citata, ji priskirta sąrašui ir pagrindžia visą teiginį. Tik ši būsena patenka į klausimyno balą.</p></div>
+        <div><h3>Neįskaityta</h3><p class="small">Citata yra, bet ji pagrindžia tik dalį teiginio, yra ne savivaldybės lygmens arba dokumentas netinkamas. Priežastis rodoma lentelėje.</p></div>
+        <div><h3>Nėra pozicijos</h3><p class="small">2027 m. dokumente neradome tinkamos citatos. Tai spraga, ne priešingas pažadas ir ne neigiamas balas.</p></div>
+      </div>
+      <div class="callout warn mt2"><strong>Nelygink sąrašų vien pagal įskaitomų eilučių skaičių.</strong> Didesnis skaičius reiškia daugiau rastos cituojamos medžiagos, o ne geresnę programą ar didesnę politinę įtaką.</div>
+      <div class="inline-links">
+        {internal('sources_2027.html', 'Šaltiniai ir citatos', 'btn btn-soft btn-sm')}
+        {internal('quiz_v21.html', 'Klausimynas', 'btn btn-ghost btn-sm')}
+        {internal('methodology_2027.html', 'Metodika', 'btn btn-ghost btn-sm')}
+      </div>
+    </section>
+    <script id="compare-data" type="application/json">{json_script(payload)}</script>
+    """
+
+
+def voter_content(
+    data: dict[str, Any], register: dict[str, Any], law: dict[str, Any]
+) -> str:
+    st = register["official_status"]
+    snapshot = register.get("snapshot", {}).get("date") or register["generated_at"]
+    election_date = register["election"]["date"]
+    final_date = st["candidate_lists_published_by"]["date"]
+    preference_votes = register.get("election", {}).get("preference_votes", 5)
+    election_day = date.fromisoformat(election_date)
+    residence_deadline = election_day - timedelta(days=60)
+    home_request_deadline = election_day - timedelta(days=1)
+    while home_request_deadline.weekday() != 2:
+        home_request_deadline -= timedelta(days=1)
+    events = [
+        (
+            residence_deadline.isoformat(),
+            "Paskutinė diena deklaruoti gyvenamąją vietą",
+            "Skaičiuojama pagal Rinkimų kodekso 8 straipsnio 3 dalį: ne vėliau kaip likus 60 dienų iki rinkimų dienos. Data apskaičiuota nuo 2027-03-07.",
+        ),
+        (
+            "2027-02-04",
+            "VRK sprendimai dėl kandidatų sąrašų",
+            "Paskutinė diena, kai VRK priima sprendimą registruoti kandidatą, kandidatų sąrašą arba jų neregistruoti.",
+        ),
+        (
+            final_date,
+            "VRK paskelbia galutinius sąrašus ir numerius",
+            "Pagal Rinkimų kodekso 84 straipsnį VRK paskelbia kandidatų sąrašus, kandidatus, jų numerius ir pareiškinius dokumentus.",
+        ),
+        (
+            "2027-02-27",
+            "Baigiamas pranešimų apie rinkimus įteikimas",
+            "Kartu su pranešimu rinkėjui įteikiamas leidinys su kandidatų sąrašų programomis.",
+        ),
+        (
+            "2027-02-28",
+            "Galutiniai rinkėjų sąrašai",
+            "Išankstiniai rinkėjų sąrašai su pripažintais pakeitimais tvirtinami kaip galutiniai.",
+        ),
+        (
+            "2027-03-02",
+            "Prasideda balsavimas iki rinkimų dienos",
+            "Balsuoti galima savivaldybės pastate ar kitose suderintose patalpose iki kovo 4 d., 7–20 val.",
+        ),
+        (
+            home_request_deadline.isoformat(),
+            "Paskutinė diena prašyti balsuoti namuose",
+            "Pagal Rinkimų kodekso 138 straipsnio 2 dalį prašymai priimami iki paskutinio trečiadienio iki rinkimų dienos.",
+        ),
+        (
+            "2027-03-05",
+            "Balsavimas namuose",
+            "Namuose balsuojama kovo 5–6 d., 8–20 val. Tik tiems rinkėjams, kurie turi teisę ir yra įrašyti į namuose balsuojančių rinkėjų sąrašą.",
+        ),
+        (
+            election_date,
+            "Rinkimų diena",
+            "Balsavimas apylinkėse vyksta 7–20 val. Tai dviejų sprendimų diena: tarybos sąrašas ir mero kandidatas.",
+        ),
+        (
+            "2027-03-21",
+            "Antrasis mero rinkimų turas, jei reikia",
+            "Jei per pirmą balsavimą nė vienas kandidatas nesurenka reikiamos daugumos, po dviejų savaičių rengiamas pakartotinis balsavimas dėl dviejų daugiausia balsų gavusių kandidatų.",
+        ),
+    ]
+    first_future = next(
+        (index for index, event in enumerate(events) if event[0] >= snapshot), None
+    )
+    timeline = []
+    for index, (event_date, title, text) in enumerate(events):
+        cls = "done" if event_date < snapshot else ("next" if index == first_future else "future")
+        timeline.append(
+            f'<li class="{cls}"><b>{e(lt_date(event_date))} · {e(title)}</b><span>{e(text)}</span></li>'
+        )
+    art8 = law_article(law, 8)
+    art9 = law_article(law, 9)
+    art16 = law_article(law, 16)
+    art62 = law_article(law, 62)
+    art84 = law_article(law, 84)
+    art131 = law_article(law, 131)
+    art132 = law_article(law, 132)
+    art134 = law_article(law, 134)
+    art135 = law_article(law, 135)
+    art138 = law_article(law, 138)
+    art139 = law_article(law, 139)
+    art142 = law_article(law, 142)
+    art143 = law_article(law, 143)
+    art158 = law_article(law, 158)
+    art167 = law_article(law, 167)
+    art168 = law_article(law, 168)
+    art171 = law_article(law, 171)
+    calendar = ext(CALENDAR_URL, "VRK 2027 m. rinkimų grafikas")
+    return f"""
+    <section class="hero">
+      <span class="eyebrow"><span class="dot"></span>Rinkėjui · {e(election_date)}</span>
+      <h1>Ką daryti prieš balsuojant ir balsavimo dieną</h1>
+      <p class="lead">Praktinis Vilniaus rinkėjo vadovas: kas gali balsuoti, kokie terminai, kaip balsuoti iš anksto, namuose ar savo apylinkėje, kokių dokumentų reikia ir kaip elgtis, jei reikia pagalbos. Datos remiasi oficialiu {calendar} ir galiojančiu Rinkimų kodeksu.</p>
+      {pending_banner(register)}
+      <div class="banner"><strong>Rinkėjai iš anksto neregistruojami.</strong> Politinės kampanijos dalyvių registracija baigėsi {e(lt_date('2026-10-28'))}, bet tai ne rinkėjo registracija. Rinkėjas įrašomas į apylinkės rinkėjų sąrašą pagal deklaruotą gyvenamąją vietą. Atskirai prašyti reikia tik balsavimo namuose.</div>
+    </section>
+
+    <section class="grid grid-4">
+      <div class="card flat"><div class="kicker">Rinkimų diena</div><h2>{e(lt_date(election_date))}</h2><p class="small">Balsavimas apylinkėse 7–20 val. ({law_citation(law, 139, 'Rinkimų kodekso 139 str. 2 d.')}).</p></div>
+      <div class="card flat"><div class="kicker">Iš anksto</div><h2>Kovo 2–4 d.</h2><p class="small">7–20 val. savivaldybės pastate ar kitose suderintose patalpose ({law_citation(law, 134, '134 str. 3 d.')}).</p></div>
+      <div class="card flat"><div class="kicker">Namuose</div><h2>Kovo 5–6 d.</h2><p class="small">8–20 val. Tik turintiems teisę ir pateikus prašymą iki kovo 3 d. ({law_citation(law, 138, '138 str.')}).</p></div>
+      <div class="card flat"><div class="kicker">Antras turas</div><h2>Kovo 21 d.</h2><p class="small">Mero rinkimuose, jei pirmame ture nė vienas negauna reikiamos daugumos ({law_citation(law, 167, '167 str. 4 d.')}).</p></div>
+    </section>
+
+    <section class="card mt2">
+      <div class="kicker">Teisė balsuoti</div>
+      <h2>Kas gali balsuoti Vilniaus savivaldybės rinkimuose?</h2>
+      <div class="grid grid-2">
+        <div>
+          <h3>Amžius ir gyvenamoji vieta</h3>
+          <p>Pagal {law_citation(law, 8, 'Rinkimų kodekso 8 straipsnio 2 dalį')} teisę rinkti savivaldybės tarybos narius ir merą turi nuolatiniai šios savivaldybės gyventojai, kuriems rinkimų dieną yra sukakę 18 metų.</p>
+          <p>Pagal to paties straipsnio 3 dalį nuolatiniu gyventoju laikomas Lietuvos pilietis, kitos ES valstybės narės pilietis, turintis teisę gyventi Lietuvoje, arba kitas asmuo, turintis teisę nuolat gyventi Lietuvoje ir tai patvirtinantį dokumentą, jeigu jie ne vėliau kaip likus 60 dienų iki rinkimų dienos yra deklaravę gyvenamąją vietą šioje savivaldybėje arba įtraukti į nedeklaravusių asmenų apskaitą.</p>
+          <div class="note mt1"><strong>Data:</strong> 60 dienų iki 2027 m. kovo 7 d. yra <b>{e(lt_date(residence_deadline.isoformat()))}</b>. Tai apskaičiuota data, ne atskiras VRK grafikos punktas.</div>
+        </div>
+        <div>
+          <h3>Apribojimai</h3>
+          <p>Pagal {law_citation(law, 9, 'Rinkimų kodekso 9 straipsnį')} teisės rinkti neturi asmuo, teismo pripažintas neveiksniu su rinkimų teisės įgyvendinimu susijusiose srityse.</p>
+          <p>Tai visuotinė rinkimų teisė: nereikia specialios registracijos partijoje, nereikia mokėti mokesčio ir nereikia išankstinės registracijos balsuoti. Pakanka būti įrašytam į savo apylinkės rinkėjų sąrašą.</p>
+          <h3 class="mt2">Dėl ko pasitikrinti</h3>
+          <ul class="list-clean">
+            <li>Ar tavo deklaruota gyvenamoji vieta yra Vilniaus mieste?</li>
+            <li>Ar rinkimų dieną tau jau sukaks 18 metų?</li>
+            <li>Ar esi teismo pripažintas neveiksniu su rinkimų teise susijusioje srityje?</li>
+          </ul>
+        </div>
+      </div>
+      <p class="small mt2">Savivaldybės taryba renkama daugiamandatėje apygardoje, meras – vienmandatėje; abi apygardos sutampa su savivaldybės teritorija ({law_citation(law, 16, 'Rinkimų kodekso 16 straipsnio 4 dalis')}). Vilniaus miesto apygarda – Nr. {e(register['election']['apygarda'])}.</p>
+    </section>
+
+    <section class="card mt2">
+      <div class="kicker">Terminai</div>
+      <h2>Ką reikia padaryti iki rinkimų</h2>
+      <ul class="timeline">{''.join(timeline)}</ul>
+      <p class="small mt2">Visos datos, išskyrus gyvenamosios vietos deklaravimo ir prašymo balsuoti namuose datas, paimtos iš {calendar}. Pastarosios dvi apskaičiuotos pagal Rinkimų kodekso 8 ir 138 straipsnius. Prieš rinkimus patikrink VRK puslapį: tvarka gali būti tikslinama.</p>
+    </section>
+
+    <section class="card mt2">
+      <div class="kicker">Balsavimo būdai</div>
+      <h2>Keturi keliai iki biuletenio</h2>
+      <div class="grid grid-2">
+        <div>
+          <h3>1. Rinkimų dieną savo apylinkėje</h3>
+          <p>Atvyk į savo apylinkės balsavimo patalpas {e(lt_date(election_date))} nuo 7 iki 20 val. ({law_citation(law, 139, '139 str. 2 d.')}). Balsavimo vieta priklauso nuo tavo deklaruotos gyvenamosios vietos; ją rasi VRK informacijoje arba pranešime apie rinkimus.</p>
+          <p>Pateik asmens dokumentą, gauk biuletenį (-ius), pažymėk tarybos sąrašą ir mero kandidatą. Tai du atskiri sprendimai.</p>
+        </div>
+        <div>
+          <h3>2. Iš anksto</h3>
+          <p>Balsavimas iki rinkimų dienos vyksta kovo 2–4 d. nuo 7 iki 20 val. savivaldybės pastate ar (ir) kitose balsavimui tinkamose ir su savivaldybės administracija suderintose patalpose ({law_citation(law, 134, '134 str. 3 d.')}).</p>
+          <p>Išankstinis balsavimas patogus, jei rinkimų dieną nebūsi savo apylinkėje. Balsuoti galima tik vieną kartą: jei jau balsavai iš anksto, rinkimų dieną antrą kartą balsuoti negalima.</p>
+        </div>
+        <div>
+          <h3>3. Namuose</h3>
+          <p>Balsuoti namuose gali neįgalieji, neįgaliuosius slaugantys ar prižiūrintys asmenys, dėl ligos laikinai nedarbingi rinkėjai ir 70 metų bei vyresni rinkėjai, jeigu dėl sveikatos būklės patys negali atvykti į apylinkę, yra pateikę VRK formos prašymą ir įrašyti į namuose balsuojančių rinkėjų sąrašą ({law_citation(law, 138, '138 str. 1 d.')}).</p>
+          <p>Prašymai priimami iki paskutinio trečiadienio iki rinkimų dienos – <b>{e(lt_date(home_request_deadline.isoformat()))}</b> ({law_citation(law, 138, '138 str. 2 d.')}). Balsuojama kovo 5–6 d. 8–20 val. ({law_citation(law, 134, '134 str. 5 d.')}).</p>
+        </div>
+        <div>
+          <h3>4. Kitoje savo apygardos apylinkėje</h3>
+          <p>Rinkimų dieną, jei dar nebalsavai, gali balsuoti kitoje savo apygardos apylinkėje, jeigu abi apylinkės prisijungusios prie elektroninio rinkėjų sąrašo ir komisijos gali patvirtinti, kad nebalsavai nė vienoje apylinkėje ({law_citation(law, 62, 'Rinkimų kodekso 62 straipsnis')}).</p>
+          <p>Tai ne leidimas balsuoti bet kurioje Lietuvos apylinkėje: apylinkė turi būti toje pačioje rinkimų apygardoje.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid grid-2 mt2">
+      <div class="card">
+        <div class="kicker">Dokumentai</div>
+        <h2>Ką būtina turėti</h2>
+        <p>Balsuoti atvykęs rinkėjas pateikia vieną galiojantį dokumentą ({law_citation(law, 142, 'Rinkimų kodekso 142 straipsnio 1 dalis')}):</p>
+        <ul class="list-clean">
+          <li>asmens tapatybės kortelę;</li>
+          <li>pasą;</li>
+          <li>vairuotojo pažymėjimą;</li>
+          <li>kitą valstybės institucijos ar jos įgaliotos įstaigos išduotą dokumentą, pagal kurį galima nustatyti asmens tapatybę.</li>
+        </ul>
+        <div class="callout warn mt2"><strong>Jei dokumento neturi ar jis pasibaigęs,</strong> kreipkis į VRK arba savo apylinkės rinkimų komisiją prieš rinkimų dieną. Neatidėk to paskutinei minutei.</div>
+      </div>
+      <div class="card">
+        <div class="kicker">Pagalba ir prieinamumas</div>
+        <h2>Jei pats negaliu užpildyti biuletenio</h2>
+        <p>Negalią turinčiam rinkėjui turi būti sudarytos sąlygos balsuojant naudotis pagalbinėmis priemonėmis ir technologijomis. Jei dėl neįgalumo rinkėjas pats negali atlikti balsavimo veiksmų, jo prašymu juos atlieka rinkėjo pasirinktas asmuo. Šis asmuo privalo užpildyti biuletenį rinkėjo akivaizdoje pagal jo nurodymą ir saugoti balsavimo paslaptį ({law_citation(law, 135, '135 str. 6 d.')}).</p>
+        <p>Balsavimo patalpos turi būti įvertintos ir pritaikytos neįgalių bei senyvo amžiaus rinkėjų poreikiams ({law_citation(law, 131, '131 str. 2 d.')}), o tam numatytos savivaldybės biudžeto lėšos ({law_citation(law, 132, '132 str. 5 d.')}).</p>
+        <p class="small">Jei reikia pagalbos ar pritaikytos patalpos, susisiek su savivaldybės rinkimų komisija arba VRK iš anksto, kad spėtum pasiruošti.</p>
+      </div>
+    </section>
+
+    <section class="card mt2">
+      <div class="kicker">Antrasis turas</div>
+      <h2>Meras gali būti renkamas dar kartą</h2>
+      <p>Mero rinkimuose kandidatas laikomas išrinktu pirmą kartą balsuojant, jei gavo daugiau kaip pusę rinkimuose dalyvavusių rinkėjų balsų ir rinkimuose dalyvavo ne mažiau kaip 40 % į apygardos rinkėjų sąrašus įrašytų rinkėjų. Jei dalyvavo mažiau kaip 40 %, išrinktu laikomas daugiausia, bet ne mažiau kaip 1/5 visų įrašytų rinkėjų balsų gavęs kandidatas ({law_citation(law, 167, '167 str. 4 d.')}).</p>
+      <p>Jei per pirmą balsavimą nė vienas kandidatas nesurenka reikiamos daugumos, ne vėliau kaip po dviejų savaičių rengiamas pakartotinis balsavimas dėl dviejų daugiausia balsų gavusių kandidatų ({law_citation(law, 167, '167 str. 4 d. 3 p.')}). Pagal {calendar} antrasis turas numatytas <b>{e(lt_date('2027-03-21'))}</b>: balsavimas iki rinkimų dienos kovo 16–18 d. 7–20 val., balsavimas namuose kovo 19–20 d. 8–20 val.</p>
+      <p class="small">Antrasis turas vyksta tik mero rinkimuose. Tarybos sudėtis nustatoma pagal pirmojo balsavimo rezultatus.</p>
+    </section>
+
+    <section class="card mt2">
+      <div class="kicker">Dažnos klaidos</div>
+      <h2>Ko nedaryti</h2>
+      <div class="grid grid-2">
+        <div>
+          <ul class="list-clean">
+            <li>Nežymėk kelių tarybos sąrašų viename biuletenyje.</li>
+            <li>Neįrašyk daugiau pirmumo balsų numerių, nei leidžia sąrašo dydis.</li>
+            <li>Nefotografuok pažymėto biuletenio ir neimk jo iš apylinkės.</li>
+            <li>Nebalsuok du kartus – nei iš anksto, nei skirtingose apylinkėse.</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="list-clean">
+            <li>Nepamiršk, kad tarybos sąrašas ir mero kandidatas yra du atskiri sprendimai.</li>
+            <li>Nepainiok partijos sąrašo numerio su kandidato rinkimų numeriu.</li>
+            <li>Nesivadovauk šiuo puslapiu kaip oficialiu biuleteniu – jo dar nėra.</li>
+            <li>Jei sugadinai biuletenį, kreipkis į apylinkės komisiją; ji paaiškins tvarką.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warn mt2"><strong>Pirmumo balsai.</strong> Pagal {law_citation(law, 143, '143 straipsnį')} gali įrašyti iki {e(str(preference_votes))} pasirinktų kandidatų numerių, o jei sąraše mažiau kandidatų – mažiau. Pagal {law_citation(law, 158, '158 straipsnį')} neįskaitomi pirmumo balsai, jei numeris nesamas arba pagal įrašą neįmanoma nustatyti valios. Pagal {law_citation(law, 171, '171 straipsnį')} pirmumo balsai keičia kandidatų eilę sąraše.</div>
+    </section>
+
+    <section class="card mt2">
+      <div class="kicker">Kur patikrinti</div>
+      <h2>Oficialūs šaltiniai</h2>
+      <ul class="list-clean">
+        <li>{ext(register['election']['official_page'], 'VRK 2027 m. savivaldybių tarybų ir merų rinkimai')} – bendra informacija, apylinkės, balsavimo tvarka.</li>
+        <li>{ext(CALENDAR_URL, 'VRK 2027 m. rinkimų grafikas')} – oficialios datos ir terminai.</li>
+        <li>{ext(law['source']['url'], 'Rinkimų kodeksas')} – galiojanti redakcija Teisės aktų registre ({e(law['source']['in_force_from'])} – {e(law['source']['in_force_to'])}).</li>
+        <li>{ext(st['ballot_examples_url'], 'Biuletenių pavyzdžiai')} – kol kas „Informacija ruošiama“.</li>
+        <li>{ext('https://www.vrk.lt/lt/2027-m-kovo-7-d-savivaldybiu-tarybu-nariu-ir-meru-rinkimai/mokomoji-medziaga', 'VRK mokomoji medžiaga')} – paaiškinimai rinkėjams.</li>
+      </ul>
+      <div class="banner mt2"><strong>Tai ne teisinė konsultacija.</strong> Puslapis paaiškina bendrą tvarką pagal {e(snapshot)} galiojusią Rinkimų kodekso redakciją ir VRK grafiką. Konkrečiu atveju vadovaukis oficialiu biuleteniu, apylinkės komisijos nurodymais ir VRK informacija.</div>
+      <div class="inline-links">
+        {internal('ballot_2027.html', 'Kaip pažymėti biuletenį', 'btn btn-primary btn-sm')}
+        {internal('register_2027.html', 'Sąrašų registras', 'btn btn-soft btn-sm')}
+        {internal('sources_2027.html', 'Šaltiniai', 'btn btn-ghost btn-sm')}
+      </div>
+    </section>
+    """
+
+
+REVIEW_SCRIPT = """
+<script>
+(function(){
+  "use strict";
+  var app = document.getElementById("review-app");
+  if (!app) { return; }
+  var payload = JSON.parse(document.getElementById("review-data").textContent);
+  var cards = Array.prototype.slice.call(app.querySelectorAll(".review-card"));
+  var partyFilter = document.getElementById("filter-party");
+  var decisionFilter = document.getElementById("filter-decision");
+  var searchFilter = document.getElementById("filter-search");
+  var progress = document.getElementById("review-progress");
+  var reviewer = document.getElementById("reviewer-name");
+  var output = document.getElementById("draft-output");
+  var status = document.getElementById("draft-status");
+  var empty = document.getElementById("review-empty");
+  var known = ["approve","reject","needs_more_evidence","unclear"];
+
+  function currentDecision(card){
+    var checked = card.querySelector('input[type="radio"]:checked');
+    return checked ? checked.value : "";
+  }
+  function refresh(){
+    var query = (searchFilter.value || "").trim().toLowerCase();
+    var party = partyFilter.value;
+    var wanted = decisionFilter.value;
+    var decided = 0;
+    var shown = 0;
+    cards.forEach(function(card){
+      var decision = currentDecision(card);
+      if (decision) { decided += 1; }
+      var visible = true;
+      if (party !== "all" && card.getAttribute("data-party") !== party) { visible = false; }
+      if (query && (card.getAttribute("data-search") || "").indexOf(query) === -1) { visible = false; }
+      if (wanted === "undecided" && decision) { visible = false; }
+      if (wanted === "decided" && !decision) { visible = false; }
+      if (known.indexOf(wanted) !== -1 && decision !== wanted) { visible = false; }
+      card.hidden = !visible;
+      if (visible) { shown += 1; }
+    });
+    progress.textContent = decided + " / " + cards.length + " eilučių turi sprendimą";
+    empty.hidden = shown !== 0;
+  }
+  function collect(){
+    var rows = cards.map(function(card){
+      var note = card.querySelector("textarea[data-note]");
+      return {
+        row_id: card.getAttribute("data-row"),
+        party_id: card.getAttribute("data-party"),
+        statement_id: card.getAttribute("data-statement"),
+        decision: currentDecision(card),
+        note: note ? note.value : ""
+      };
+    });
+    var decided = rows.filter(function(row){ return row.decision; }).length;
+    return {
+      format: payload.export_format,
+      draft: true,
+      human_approved: false,
+      signoff: null,
+      generated_at: new Date().toISOString(),
+      dataset_generated_at: payload.generated_at,
+      reviewer: (reviewer.value || "").trim(),
+      counts: {
+        reviewable: rows.length,
+        decided: decided,
+        undecided: rows.length - decided
+      },
+      decisions: rows,
+      disclaimer: payload.disclaimer
+    };
+  }
+  function prepare(){
+    var draft = collect();
+    var text = JSON.stringify(draft, null, 2);
+    output.value = text;
+    if (!draft.reviewer) {
+      status.textContent = "Juodraštis paruoštas be peržiūrėjusio vardo. Įrašyk jį prieš perduodamas failą.";
+    } else {
+      status.textContent = "Juodraštis paruoštas. Jis nepatvirtina nė vienos eilutės ir nekeičia signoff.";
+    }
+    return text;
+  }
+  function updatePreview(){
+    output.value = JSON.stringify(collect(), null, 2);
+  }
+  document.getElementById("export-draft").addEventListener("click", function(){
+    var text = prepare();
+    var blob = new Blob([text], {type:"application/json"});
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement("a");
+    link.href = url;
+    link.download = "vaa-human-review-draft.json";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+  });
+  document.getElementById("copy-draft").addEventListener("click", function(){
+    var text = prepare();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function(){
+        status.textContent = "Juodraštis nukopijuotas. Jis vis dar nėra patvirtinimas.";
+      }).catch(function(){
+        output.focus();
+        output.select();
+        status.textContent = "Automatinis kopijavimas nepavyko. Tekstas pažymėtas – nukopijuok rankiniu būdu.";
+      });
+    } else {
+      output.focus();
+      output.select();
+      status.textContent = "Automatinis kopijavimas nepalaikomas. Tekstas pažymėtas – nukopijuok rankiniu būdu.";
+    }
+  });
+  app.addEventListener("change", function(event){
+    if (event.target && event.target.type === "radio") { refresh(); updatePreview(); }
+  });
+  app.addEventListener("input", function(event){
+    if (!event.target) { return; }
+    if (event.target.getAttribute("data-note") !== null || event.target === reviewer) {
+      updatePreview();
+    }
+  });
+  [partyFilter, decisionFilter, searchFilter].forEach(function(control){
+    control.addEventListener("input", refresh);
+    control.addEventListener("change", refresh);
+  });
+  updatePreview();
+  refresh();
+})();
+</script>
+"""
+
+
+COMPARE_SCRIPT = """
+<script>
+(function(){
+  "use strict";
+  var app = document.getElementById("compare-app");
+  if (!app) { return; }
+  var payload = JSON.parse(document.getElementById("compare-data").textContent);
+  var selectA = document.getElementById("list-a");
+  var selectB = document.getElementById("list-b");
+  var body = document.getElementById("compare-body");
+  var headA = document.getElementById("compare-head-a");
+  var headB = document.getElementById("compare-head-b");
+  var share = document.getElementById("share-url");
+  var summary = document.getElementById("compare-summary");
+  var warning = document.getElementById("compare-warning");
+
+  function listById(id){
+    for (var index = 0; index < payload.lists.length; index += 1) {
+      if (payload.lists[index].id === id) { return payload.lists[index]; }
+    }
+    return payload.lists[0];
+  }
+  function el(tag, cls, text){
+    var node = document.createElement(tag);
+    if (cls) { node.className = cls; }
+    if (text !== undefined && text !== null) { node.textContent = text; }
+    return node;
+  }
+  function cellNode(cell){
+    var wrap = el("div");
+    var chipClass = cell.scoreable ? "green" : (cell.stance === "unknown" ? "gray" : "amber");
+    wrap.appendChild(el("span", "chip " + chipClass, cell.label));
+    if (cell.quote) {
+      wrap.appendChild(el("blockquote", "quote mt1", "„" + cell.quote + "“"));
+    } else if (cell.note) {
+      wrap.appendChild(el("p", "small mt1", cell.note));
+    }
+    if (cell.context) {
+      var details = el("details", "mt1");
+      details.appendChild(el("summary", "small", "Šaltinio kontekstas"));
+      details.appendChild(el("div", "context-box", cell.context));
+      wrap.appendChild(details);
+    }
+    if (cell.source_url) {
+      var link = el("a", "small", cell.source_id || "šaltinis");
+      link.href = cell.source_url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      wrap.appendChild(link);
+      if (cell.source_date) { wrap.appendChild(el("div", "meta", cell.source_date)); }
+    }
+    if (cell.gap_reason) {
+      wrap.appendChild(el("div", "small mt1", "Kodėl neįskaityta: " + cell.gap_reason));
+    }
+    if (cell.quote && cell.supports_full === false) {
+      wrap.appendChild(el("div", "small mt1", "Interpretacija: citata nepagrindžia viso teiginio."));
+    }
+    return wrap;
+  }
+  function render(){
+    var left = selectA.value;
+    var right = selectB.value;
+    headA.textContent = listById(left).name;
+    headB.textContent = listById(right).name;
+    body.textContent = "";
+    var both = 0;
+    var one = 0;
+    var none = 0;
+    payload.statements.forEach(function(statement){
+      var cellA = payload.cells[left][statement.id];
+      var cellB = payload.cells[right][statement.id];
+      if (cellA.scoreable && cellB.scoreable) { both += 1; }
+      else if (cellA.scoreable || cellB.scoreable) { one += 1; }
+      else { none += 1; }
+      var row = document.createElement("tr");
+      var statementCell = document.createElement("td");
+      statementCell.appendChild(el("strong", "", statement.text));
+      statementCell.appendChild(el("div", "meta", statement.topic));
+      row.appendChild(statementCell);
+      var cellNodeA = document.createElement("td");
+      cellNodeA.setAttribute("data-head", listById(left).name);
+      cellNodeA.appendChild(cellNode(cellA));
+      row.appendChild(cellNodeA);
+      var cellNodeB = document.createElement("td");
+      cellNodeB.setAttribute("data-head", listById(right).name);
+      cellNodeB.appendChild(cellNode(cellB));
+      row.appendChild(cellNodeB);
+      body.appendChild(row);
+    });
+    summary.textContent = both + " teiginiai turi įskaitomą poziciją abiejuose sąrašuose; " + one + " – tik viename; " + none + " – nė viename.";
+    warning.hidden = left !== right;
+    var fragment = "#a=" + encodeURIComponent(left) + "&b=" + encodeURIComponent(right);
+    share.value = window.location.href.split("#")[0] + fragment;
+    try {
+      window.history.replaceState(null, "", fragment);
+    } catch (error) {
+      /* Some file:// contexts refuse replaceState; the table still works. */
+    }
+  }
+  function initial(){
+    var params = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+    var left = params.get("a");
+    var right = params.get("b");
+    if (left && payload.cells[left]) { selectA.value = left; }
+    if (right && payload.cells[right]) { selectB.value = right; }
+  }
+  selectA.addEventListener("change", render);
+  selectB.addEventListener("change", render);
+  document.getElementById("swap-lists").addEventListener("click", function(){
+    var left = selectA.value;
+    selectA.value = selectB.value;
+    selectB.value = left;
+    render();
+  });
+  share.addEventListener("focus", function(){ share.select(); });
+  initial();
+  render();
+})();
+</script>
+"""
+
+
 def build_quiz(
     data: dict[str, Any],
     register: dict[str, Any],
@@ -1226,7 +2276,15 @@ def build_quiz(
     return quiz
 
 
-def static_page(title: str, description: str, content: str, active: str, generated: str) -> str:
+def static_page(
+    title: str,
+    description: str,
+    content: str,
+    active: str,
+    generated: str,
+    script: str = "",
+    csp: str = DEFAULT_CSP,
+) -> str:
     template = STATIC_TEMPLATE.read_text("utf-8")
     nav = {
         "quiz": "__NAV_QUIZ__",
@@ -1234,17 +2292,34 @@ def static_page(title: str, description: str, content: str, active: str, generat
         "sources": "__NAV_SOURCES__",
         "methodology": "__NAV_METHOD__",
         "ballot": "__NAV_BALLOT__",
+        "voter": "__NAV_VOTER__",
     }
     for key, token in nav.items():
         template = template.replace(token, ' aria-current="page"' if key == active else "")
     page = (
-        template.replace("__TITLE__", e(title))
+        template.replace("__CSP__", csp)
+        .replace("__TITLE__", e(title))
         .replace("__DESCRIPTION__", e(description))
         .replace("__CONTENT__", content)
         .replace("__GENERATED__", e(generated))
+        .replace("__SCRIPT__", script)
     )
-    if "__" in page:
-        raise BuildError("unreplaced placeholder in static template")
+    for token in (
+        "__CSP__",
+        "__TITLE__",
+        "__DESCRIPTION__",
+        "__CONTENT__",
+        "__GENERATED__",
+        "__SCRIPT__",
+        "__NAV_QUIZ__",
+        "__NAV_REGISTER__",
+        "__NAV_SOURCES__",
+        "__NAV_METHOD__",
+        "__NAV_BALLOT__",
+        "__NAV_VOTER__",
+    ):
+        if token in page:
+            raise BuildError(f"unreplaced placeholder {token} in static template")
     return page
 
 
@@ -1258,7 +2333,15 @@ def copy_data(target: Path) -> None:
     data_dir = target / "data"
     data_dir.mkdir(parents=True, exist_ok=True)
     for name in DATA_FILES:
-        shutil.copy2(ROOT / "vaa" / name, data_dir / name)
+        if name == "vilnius_2027_register.json":
+            doc = public_register(
+                json.loads((ROOT / "vaa" / name).read_text("utf-8"))
+            )
+            (data_dir / name).write_text(
+                json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+            )
+        else:
+            shutil.copy2(ROOT / "vaa" / name, data_dir / name)
     for name in REVIEW_FILES:
         shutil.copy2(ROOT / "vaa" / "review" / name, data_dir / name)
     (target / ".nojekyll").write_text("", encoding="utf-8")
@@ -1274,6 +2357,9 @@ def copy_data(target: Path) -> None:
 def build() -> dict[str, str]:
     data, register, sources, manifest, checks, mb, law = load_all()
     human = load_human()
+    gaps = json.loads(GAPS.read_text("utf-8"))
+    if gaps.get("format") != "vaa-coverage-gaps-v21":
+        raise BuildError("coverage gaps format invalid")
     snapshot = register.get("snapshot", {}).get("date") or register["generated_at"]
     pages = {
         "index.html": static_page(
@@ -1312,6 +2398,31 @@ def build() -> dict[str, str]:
             "ballot",
             data["generated_at"],
         ),
+        "rinkejui_2027.html": static_page(
+            "Rinkėjui",
+            "Praktinis Vilniaus rinkėjo vadovas: teisė balsuoti, terminai, balsavimas iš anksto ir namuose, dokumentai, pagalba ir antrasis turas.",
+            voter_content(data, register, law),
+            "voter",
+            data["generated_at"],
+        ),
+        "compare_2027.html": static_page(
+            "Palyginti sąrašus",
+            "Dviejų Vilniaus 2027 m. sąrašų palyginimas pagal tuos pačius programų teiginius, citatas ir aprėpties spragas.",
+            compare_content(data, register, gaps),
+            "compare",
+            data["generated_at"],
+            script=COMPARE_SCRIPT,
+            csp=SCRIPT_CSP,
+        ),
+        "review_2027.html": static_page(
+            "Peržiūros darbo stalas",
+            "Žmogaus peržiūros darbo stalas 32 cituojamoms 2027 m. eilutėms: šaltinio kontekstas, sprendimai ir juodraščio eksportas.",
+            review_content(data, register, gaps, human),
+            "review",
+            data["generated_at"],
+            script=REVIEW_SCRIPT,
+            csp=SCRIPT_CSP,
+        ),
     }
     write_pages(pages, ROOT)
     if DIST.exists():
@@ -1346,18 +2457,70 @@ def check() -> None:
                 raise BuildError(f"suspiciously small output: {path.relative_to(ROOT)}")
     for name in PAGES:
         text = (DIST / name).read_text("utf-8")
-        if "__" in text:
-            raise BuildError(f"placeholder left in {name}")
-        if "<!--" in text and "__" in text:
-            raise BuildError(f"template artifact in {name}")
+        for token in (
+            "__CSP__",
+            "__TITLE__",
+            "__DESCRIPTION__",
+            "__CONTENT__",
+            "__GENERATED__",
+            "__SCRIPT__",
+            "__NAV_QUIZ__",
+            "__NAV_REGISTER__",
+            "__NAV_SOURCES__",
+            "__NAV_METHOD__",
+            "__NAV_BALLOT__",
+            "__NAV_VOTER__",
+        ):
+            if token in text:
+                raise BuildError(f"placeholder {token} left in {name}")
+        for marker in ("fixtures/", ".cache/", "/Users/", "palace.yaml", "docs/superpowers"):
+            if marker in text:
+                raise BuildError(f"private path {marker} leaked into {name}")
+    for bad_dir in (".cache", "fixtures", "docs", ".claude", ".freebuff"):
+        if (DIST / bad_dir).exists():
+            raise BuildError(f"private directory copied into dist: {bad_dir}")
+    for path in sorted((DIST / "data").glob("*.json")):
+        text = path.read_text("utf-8")
+        for marker in ("fixtures/", ".cache/", "/Users/", "palace.yaml", ".claude", ".freebuff", "docs/superpowers"):
+            if marker in text:
+                raise BuildError(f"private path {marker} leaked into data/{path.name}")
     quiz = (DIST / "quiz_v21.html").read_text("utf-8")
     for marker in ("V21Engine", "selected_topics", "app-data", "register-data", "meta-data"):
         if marker not in quiz:
             raise BuildError(f"quiz missing {marker}")
-    for name in ("index.html", "register_2027.html", "sources_2027.html", "methodology_2027.html", "ballot_2027.html"):
+    if "/*__" in quiz:
+        raise BuildError("unreplaced placeholder in quiz template")
+    for name in (
+        "index.html",
+        "register_2027.html",
+        "sources_2027.html",
+        "methodology_2027.html",
+        "ballot_2027.html",
+        "rinkejui_2027.html",
+        "compare_2027.html",
+        "review_2027.html",
+    ):
         text = (DIST / name).read_text("utf-8")
         if "Oficialus 2027 m. biuletenis dar nepaskelbtas" not in text and name != "ballot_2027.html":
             raise BuildError(f"{name}: missing status disclosure")
+    for name in ("compare_2027.html", "review_2027.html"):
+        text = (DIST / name).read_text("utf-8")
+        if SCRIPT_CSP not in text:
+            raise BuildError(f"{name}: missing script CSP")
+        if "id=\"review-app\"" not in text and "id=\"compare-app\"" not in text:
+            raise BuildError(f"{name}: missing app root")
+    review = (DIST / "review_2027.html").read_text("utf-8")
+    for marker in ("vaa-human-review-draft-v1", "human_approved", "signoff", "review-data"):
+        if marker not in review:
+            raise BuildError(f"review page missing {marker}")
+    compare = (DIST / "compare_2027.html").read_text("utf-8")
+    for marker in ("compare-data", "compare-table", "share-url"):
+        if marker not in compare:
+            raise BuildError(f"compare page missing {marker}")
+    voter = (DIST / "rinkejui_2027.html").read_text("utf-8")
+    for marker in ("Rinkimų kodekso 8", "Rinkimų kodekso 138", "2027 m. kovo 2 d.", "2027 m. kovo 21 d."):
+        if marker not in voter:
+            raise BuildError(f"voter page missing {marker}")
     print(f"OK: {len(PAGES)} pages, clean dist/, {len(required)} checked files")
 
 

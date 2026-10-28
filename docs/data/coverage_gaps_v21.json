@@ -369,8 +369,43 @@
         "url": "https://tsajunga.lt/aktualijos/ts-lkd-savivaldos-rinkimu-programa-demesys-saugumui-seimai-ir-asmeninei-atsakomybei/",
         "already_in_dataset_as": "tslkd_programme (tas pats PDF, kurį straipsnis susieja su programa „Savivalda kiekvienai dienai“)",
         "outcome": "Partijos pranešimas teigia, kad programa suvažiavime patvirtinta 2026-09-05, bet pats paskelbtas PDF vis dar pavadintas „programos projektas“. Todėl dokumento būsena lieka draft, o citatos imamos tik iš PDF. Naujų citatų, kurių nebūtų PDF, straipsnyje nerasta; naujų įskaitomų pozicijų nėra."
+      },
+      {
+        "url": "https://liberalai.lt/rinkimai/savivaldos-rinkimai/",
+        "evaluated_at": "2026-10-28",
+        "http_status": 200,
+        "content_sha256": "8fa4a6a30c1be16ae079f0e0d70950c6211ed276b7a640bd488916ad2f68e2a3",
+        "page_published_metadata": "2022-11-10",
+        "page_modified_metadata": "2023-03-08",
+        "outcome": "Atmesta kaip 2027 m. šaltinis. Puslapio paties metadata rodo 2022-11-10 publikavimą ir 2023-03-08 atnaujinimą, tad tai 2023 m. savivaldos rinkimų medžiaga, ne 2027 m. kampanijos dokumentas. Tekste yra aštuoni programiniai punktai, įskaitant „Užtikrinsime prieinamą transportą“ ir „civilinei saugai“, bet jų negalima priskirti 2027 m. Vilniaus sąrašui."
+      },
+      {
+        "url": "https://liberalai.lt/",
+        "evaluated_at": "2026-10-28",
+        "http_status": 200,
+        "content_sha256": "388a1514f9516e851b07f13d90de86b745d6c87fe7f6597a9c20c23fab3407e3",
+        "page_published_metadata": "nėra šakninio puslapio datos; article:published_time 2026-10-15 priklauso tituliniame puslapyje rodomam naujienos įrašui",
+        "outcome": "Atmesta kaip 2027 m. šaltinis. Šakninis partijos puslapis neturi savo publikavimo datos, o metadata priklauso naujienų įrašui. Tekste yra teiginiams artimų frazių („Prieinamas, pagal galimybes nemokamas viešasis transportas“, „Šiuolaikiškų priedangų ir slėptuvių įrengimas“, „ženklus dalyvaujamasis biudžetas“), bet be patikimos 2027 m. kampanijos datos ir Vilniaus sąrašo priskyrimo jos lieka nepanaudotos."
+      },
+      {
+        "url": "https://liberalai.lt/programa/i-zmogui-ir-aplinkai-draugiska-infrastruktura/",
+        "evaluated_at": "2026-10-28",
+        "http_status": 200,
+        "content_sha256": "0c13d6e0017ca7d14e34595391b67810c0a3bc19e76afd2a315a017acf3e6eae",
+        "page_published_metadata": "2022-11-23",
+        "page_modified_metadata": "2022-11-23",
+        "outcome": "Atmesta kaip 2027 m. šaltinis: 2022 m. programos skiltis. Ji galėjo būti naudojama 2023 m. rinkimuose, bet negali būti 2027 m. Vilniaus sąrašo pažadas."
+      },
+      {
+        "url": "https://liberalai.lt/programa/vii-svarbiausias-prioritetas-saugiai-besijauciantis-zmogus/",
+        "evaluated_at": "2026-10-28",
+        "http_status": 200,
+        "content_sha256": "20caa1cc071a30b5778f8019931069e86fede6ce1e1185c43890d53e418d8848",
+        "page_published_metadata": "2022-11-23",
+        "page_modified_metadata": "2022-11-23",
+        "outcome": "Atmesta kaip 2027 m. šaltinis: 2022 m. programos skiltis. Saugumo frazės negali būti priskirtos 2027 m. kampanijai."
       }
     ],
-    "result": "Po šios peržiūros įskaitomų pozicijų skaičius nepakito: 26. Trūkstamos pozicijos lieka unknown arba non_scoreable."
+    "result": "Po 2026-10-28 papildomos Liberalų sąjūdžio svetainės peržiūros įskaitomų pozicijų skaičius nepakito: 26. Rasti programiniai puslapiai yra 2022–2023 m. medžiaga, o šakninis puslapis neturi patikimos 2027 m. publikavimo datos. Trūkstamos pozicijos lieka unknown arba non_scoreable; jos neverčiamos neigiamu balu."
   }
 }

@@ -1,6 +1,6 @@
 {
   "format": "vaa-source-manifest-v21",
-  "generated_at": "2026-10-27T06:36:44.244862+00:00",
+  "generated_at": "2026-10-28T09:02:15.004163+00:00",
   "sources": [
     {
       "url": "https://tsajunga.lt/wp-content/uploads/2026/09/savivalda_kiekvienai_dienai.pdf",
@@ -201,6 +201,26 @@
       "published": "2024-01-01",
       "label": "Mano Balsas 2024 m. Seimo rinkimų testas",
       "kind": "html"
+    },
+    {
+      "url": "https://vrk.lt/fs/prd/p/2026-10/Rinkimu%20grafikas%202027.pdf",
+      "final_url": "https://vrk.lt/fs/prd/p/2026-10/Rinkimu%20grafikas%202027.pdf",
+      "retrieved_at": "2026-10-28T09:02:15.003852+00:00",
+      "http_status": 200,
+      "mime_type": "application/pdf",
+      "content_sha256": "d66ca20fd3d9288173600499425c41c768bf91381d95db175f50ef8d5667b8a2",
+      "text_sha256": "d41248d1909d2b8047193934312859b9c519b35831b523338925bc2db92badbd",
+      "extraction_method": "pdftotext -layout (Poppler)",
+      "extraction_warnings": [
+        "PDF lentelės stulpeliai gali keisti eilučių tvarką; datos tikrintos su oficialiu grafiku"
+      ],
+      "transport": "https",
+      "bytes": 216027,
+      "source_id": "vrk_calendar_2027",
+      "publisher": "Vyriausioji rinkimų komisija",
+      "published": "2026-10-06",
+      "label": "2027 m. kovo 7 d. savivaldybių tarybų ir merų rinkimų grafikas",
+      "kind": "pdf"
     }
   ]
 }

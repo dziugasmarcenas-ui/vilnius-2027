@@ -1,0 +1,82 @@
+name: Source watch
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install PDF text extraction
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+      - name: Compare source hashes with the published manifest
+        id: watch
+        continue-on-error: true
+        run: python vaa_watch_v21.py --report source-watch-report.json
+      - name: Upload the watch report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-watch-report
+          path: source-watch-report.json
+          retention-days: 90
+      - name: Open or update a source-watch issue
+        if: steps.watch.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('source-watch-report.json', 'utf8'));
+            const changed = report.sources.filter((row) => !row.ok);
+            const lines = changed.map(
+              (row) => `- **${row.source_id}** — \`${row.state}\` — ${row.url}`
+            );
+            const body = [
+              'The weekly source watch found changed or unreachable sources.',
+              '',
+              ...lines,
+              '',
+              `Checked at ${report.checked_at}. Snapshot ${report.snapshot}.`,
+              '',
+              'A changed text hash means at least one quotation may no longer exist.',
+              'Read the source, then re-run `python3 vaa_sources_v21.py --refresh` deliberately.',
+              'Do not merge a refresh without a human re-reading the affected rows.',
+            ].join('\n');
+            const label = 'source-watch';
+            const open = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: label,
+              per_page: 1,
+            });
+            if (open.data.length) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: open.data[0].number,
+                body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `Source watch: ${changed.length} changed source(s)`,
+                body,
+                labels: [label],
+              });
+            }
+      - name: Fail after reporting
+        if: steps.watch.outcome == 'failure'
+        run: exit 1

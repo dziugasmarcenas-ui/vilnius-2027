@@ -1,6 +1,6 @@
 {
   "format": "vaa-source-registry-v21",
-  "generated_at": "2026-10-27",
+  "generated_at": "2026-10-28",
   "note": "Current 2027 campaign sources and the in-force Election Code. National Mano Balsas 2024 material is context, never a 2027 municipal position.",
   "sources": [
     {
@@ -82,6 +82,14 @@
       "published": "2024-01-01",
       "label": "Mano Balsas 2024 m. Seimo rinkimų testas",
       "kind": "html"
+    },
+    {
+      "id": "vrk_calendar_2027",
+      "url": "https://vrk.lt/fs/prd/p/2026-10/Rinkimu%20grafikas%202027.pdf",
+      "publisher": "Vyriausioji rinkimų komisija",
+      "published": "2026-10-06",
+      "label": "2027 m. kovo 7 d. savivaldybių tarybų ir merų rinkimų grafikas",
+      "kind": "pdf"
     }
   ]
 }

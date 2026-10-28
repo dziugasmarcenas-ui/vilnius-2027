@@ -464,7 +464,6 @@
   },
   "source": {
     "index_url": "https://www.vrk.lt/statiniai/puslapiai/politKamp/1884/dalyviai/dalyviaiPagalPartijas.html",
-    "fixture": "fixtures/vrk_2027_dalyviai.html",
     "manifest": "vaa/review/vrk_2027_manifest.json",
     "index_sha256": "7fec378a262004a7914710c5e324f6aa76154e6409f7e394a1fa73f703ce76d8",
     "index_text_sha256": "cac287f8e66424326887ff433ba2de29d11eaa7394419c03ca183da4bbd770c5",
