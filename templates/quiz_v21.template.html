@@ -238,10 +238,12 @@ details[open]>summary::after{content:"–"}
   *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.001ms!important;animation-duration:.001ms!important}
 }
 @media print{
-  .site-header,.footer,.actionbar,.btn{display:none!important}
+  .site-header,.actionbar,.btn{display:none!important}
   body{background:#fff}
   .card,.party-card,.plan-card{box-shadow:none;break-inside:avoid}
   main.wrap{max-width:none;padding:0}
+  .footer{padding:16px 0 0;background:#fff}
+  .footer-links{display:none!important}
 }
 </style>
 </head>

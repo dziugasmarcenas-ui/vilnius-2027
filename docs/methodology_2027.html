@@ -21,6 +21,7 @@ a{color:var(--green);text-underline-offset:3px}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;overflow-wrap:anywhere;word-break:break-word}
 a:hover{color:#123c2c}
 button{font:inherit}
+button:focus-visible,a:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #8fc4a6;outline-offset:2px;border-radius:4px}
 h1,h2,h3,h4{font-family:Georgia,"Times New Roman",serif;line-height:1.2;letter-spacing:-.02em;margin:0;color:var(--ink)}
 h1{font-size:clamp(30px,4vw,42px)}
 h2{font-size:clamp(21px,2.4vw,28px);margin-bottom:8px}
@@ -186,10 +187,12 @@ fieldset.decision-row{border:0;padding:0;min-width:0}
   .compare-table td[data-head]::before{content:attr(data-head);display:block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 }
 @media print{
-  .site-header,.footer,.actions{display:none!important}
+  .site-header,.actions{display:none!important}
   body{background:#fff}
   .card{box-shadow:none;break-inside:avoid}
   main.wrap{max-width:none;padding:0}
+  .footer{padding:16px 0 0;background:#fff}
+  .footer-links{display:none!important}
 }
 </style>
 </head>
