@@ -187,6 +187,7 @@ These checks confirm that the visual pass did not break layout, colour or keyboa
 ### Release hardening
 
 - `vaa_watch_v21.py` re-fetches every manifest source and compares content and text hashes. Byte-only changes pass; a changed text hash fails and asks for a human re-read. `.github/workflows/source-watch.yml` runs weekly, uploads the report and opens or updates an issue.
+- Two sources (`e-tar.lt`, `vrk.lt`) answer a normal network but refuse GitHub-hosted runners with 403. `vaa/review/ci_reachability_v21.json` records a dated local read that matched the snapshot text hash. While that check is under 45 days old the refusal is reported as `blocked_from_ci` and does not fail the run; it stays visible in the log, the JSON report and the workflow job summary. A 404, a 5xx, a timeout, a stale check or a hash mismatch still fails. `python3 vaa_watch_v21.py --attest-blocked` re-reads those sources from a normal network and refreshes the dates, refusing to stamp anything whose text no longer matches the manifest.
 - `vaa_links_v21.py` checks every local target, fragment, external HTTPS link and private-path leak; `--online` also requests external URLs.
 - `vaa_audit_v21.py` checks one `h1`, heading order, duplicate ids, landmarks, labels, alt text, table headers, captions and inline handlers.
 - `lighthouserc.json` and `.github/workflows/lighthouse.yml` run Lighthouse CI after the build, link audit and HTML audit.
@@ -235,7 +236,7 @@ These are real limitations, not test-count issues:
 7. **No professional legal signoff.** The app is a civic information tool, not legal advice.
 8. **Coverage expansion found no new scoreable position.** Liberalų sąjūdis 2027 evidence could not be added from the pages found, and the TS-LKD participatory-budget passage cannot be quoted exactly until a clean text exists.
 9. **The compare view is not a ranking.** It compares programme text on the same statements; it does not measure delivery, competence, or coalition power.
-10. **Source-watch issue #1 is open.** Five cited pages changed text after the snapshot. Every quotation is still present, but a human must read the changed pages in context before any refresh. Until then the snapshot stays at 2026-10-28.
+10. **Source-watch issue #1 is open.** Five cited pages changed text after the snapshot. Every quotation is still present, but a human must read the changed pages in context before any refresh. Until then the snapshot stays at 2026-10-28. The two 403 sources are now reported as `blocked_from_ci` against a dated local check, so they no longer fail the weekly run on their own; the five text changes still do.
 
 ## 12. Where to look
 
@@ -249,6 +250,7 @@ These are real limitations, not test-count issues:
 - Context check: `python3 vaa_context_v21.py --check`
 - Source check: `python3 vaa_sources_v21.py --check`
 - Source watch: `python3 vaa_watch_v21.py`
+- CI-block attestation: `python3 vaa_watch_v21.py --attest-blocked`
 - Link audit: `python3 vaa_links_v21.py`
 - HTML audit: `python3 vaa_audit_v21.py`
 - Tests: `python3 -m unittest discover -s tests -q`

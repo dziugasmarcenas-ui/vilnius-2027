@@ -31,6 +31,45 @@ jobs:
           name: source-watch-report
           path: source-watch-report.json
           retention-days: 90
+      - name: Summarise the watch report
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          import os
+
+          report = json.load(open("source-watch-report.json", encoding="utf-8"))
+          counts = report["counts"]
+          lines = [
+              "## Source watch",
+              "",
+              f"{counts['total']} sources: {counts['unchanged']} unchanged, "
+              f"{counts['content_only']} byte-only, "
+              f"{counts.get('blocked_from_ci', 0)} blocked from CI, "
+              f"{counts['changed']} changed",
+              "",
+          ]
+          for row in report["sources"]:
+              if row["state"] == "blocked_from_ci":
+                  attestation = row.get("ci_attestation") or {}
+                  lines.append(
+                      f"- `{row['source_id']}` refused this runner with HTTP "
+                      f"{row['http_status']}; local check "
+                      f"{attestation.get('verified_locally_at')} matched the snapshot"
+                  )
+          for row in report["sources"]:
+              if row["state"] not in (
+                  "unchanged",
+                  "content_changed_text_same",
+                  "blocked_from_ci",
+              ):
+                  lines.append(
+                      f"- `{row['source_id']}` {row['state']} "
+                      f"(HTTP {row['http_status']})"
+                  )
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as out:
+              out.write("\n".join(lines) + "\n")
+          PY
       - name: Open or update a source-watch issue
         if: steps.watch.outcome == 'failure'
         uses: actions/github-script@v7
@@ -38,14 +77,25 @@ jobs:
           script: |
             const fs = require('fs');
             const report = JSON.parse(fs.readFileSync('source-watch-report.json', 'utf8'));
-            const changed = report.sources.filter((row) => !row.ok);
+            const changed = report.sources.filter(
+              (row) => !row.ok && row.state !== 'blocked_from_ci'
+            );
+            const blocked = report.sources.filter((row) => row.state === 'blocked_from_ci');
             const lines = changed.map(
               (row) => `- **${row.source_id}** — \`${row.state}\` — ${row.url}`
+            );
+            const blockedLines = blocked.map(
+              (row) =>
+                `- **${row.source_id}** — refused this runner with HTTP ${row.http_status}; ` +
+                `local check ${
+                  (row.ci_attestation || {}).verified_locally_at || 'unknown'
+                } matched the snapshot, so it is not counted as a content change`
             );
             const body = [
               'The weekly source watch found changed or unreachable sources.',
               '',
               ...lines,
+              ...(blockedLines.length ? ['', 'Excused CI blocks:', ...blockedLines] : []),
               '',
               `Checked at ${report.checked_at}. Snapshot ${report.snapshot}.`,
               '',

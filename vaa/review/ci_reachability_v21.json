@@ -1,0 +1,36 @@
+{
+  "format": "vaa-ci-reachability-v21",
+  "note": "Sources that answer this project's normal network but refuse GitHub-hosted runners. Each entry records a dated local verification whose text hash matched the manifest snapshot. A blocked status is only excused while the verification is recent; the watch fails again once it goes stale or the recorded hashes change.",
+  "max_age_days": 45,
+  "sources": [
+    {
+      "source_id": "rinkimu_kodeksas_2027",
+      "url": "https://www.e-tar.lt/rs/legalact/418f26f0082b11edb4cae1b158f98ea5/",
+      "blocked_statuses": [
+        403,
+        429
+      ],
+      "observed_on_ci_at": "2026-10-28T19:02:34.836637+00:00",
+      "observed_on_ci_run": "40750527989",
+      "verified_locally_at": "2026-10-28T19:13:35.799502+00:00",
+      "verified_http_status": 200,
+      "verified_text_sha256": "ef57dfe29e2628e2e6a3df740aa980507a9f0765a55d24fcedd7f257935bd452",
+      "note": "e-tar.lt returns 403 to GitHub-hosted runners; a normal network read returns the same text as the snapshot."
+    },
+    {
+      "source_id": "vrk_calendar_2027",
+      "url": "https://vrk.lt/fs/prd/p/2026-10/Rinkimu%20grafikas%202027.pdf",
+      "blocked_statuses": [
+        403,
+        429
+      ],
+      "observed_on_ci_at": "2026-10-28T19:02:34.836637+00:00",
+      "observed_on_ci_run": "40750527989",
+      "verified_locally_at": "2026-10-28T19:13:35.799502+00:00",
+      "verified_http_status": 200,
+      "verified_text_sha256": "d41248d1909d2b8047193934312859b9c519b35831b523338925bc2db92badbd",
+      "note": "vrk.lt returns 403 to GitHub-hosted runners; a normal network read returns the same PDF text as the snapshot."
+    }
+  ],
+  "verified_at": "2026-10-28T19:13:35.799502+00:00"
+}

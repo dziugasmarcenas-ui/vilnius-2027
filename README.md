@@ -54,7 +54,8 @@ The source scripts check:
 
 Release hardening:
 
-- `vaa_watch_v21.py` re-fetches every manifest source and fails when the extracted text changes. A weekly workflow uploads the report and opens an issue.
+- `vaa_watch_v21.py` re-fetches every manifest source and fails when the extracted text changes. A weekly workflow uploads the report, writes a job summary and opens an issue.
+  Two sources (`e-tar.lt`, `vrk.lt`) answer a normal network but refuse GitHub runners with 403. `vaa/review/ci_reachability_v21.json` records a dated local read whose text hash matched the snapshot; while that check is under 45 days old the refusal is reported as `blocked_from_ci` instead of a failure. Any other status, or an expired or mismatched check, still fails. `python3 vaa_watch_v21.py --attest-blocked` refreshes the dates from a normal network.
 - `vaa_links_v21.py` checks local files, fragments, HTTPS-only external links and private-path leaks.
 - `vaa_audit_v21.py` checks heading order, duplicate ids, landmarks, labels, alt text, table headers and inline handlers.
 - `lighthouserc.json` and `.github/workflows/lighthouse.yml` run Lighthouse CI on the built site.

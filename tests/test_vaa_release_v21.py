@@ -4,6 +4,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from datetime import datetime, timezone
 from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -112,6 +113,160 @@ class WatchTest(unittest.TestCase):
         self.assertEqual(saved["format"], vaa_watch_v21.FORMAT)
         self.assertEqual(saved["counts"]["unchanged"], 1)
         self.assertEqual(saved["changed"], [])
+        self.assertEqual(saved["blocked_from_ci"], [])
+
+    def attestation(self, **overrides):
+        row = {
+            "source_id": "s1",
+            "blocked_statuses": [403, 429],
+            "verified_locally_at": "2026-10-28T12:00:00+00:00",
+            "verified_http_status": 200,
+            "verified_text_sha256": "t1",
+        }
+        row.update(overrides)
+        return row
+
+    def test_known_ci_block_with_a_fresh_matching_check_is_not_a_change(self):
+        state = vaa_watch_v21.classify(
+            self.row(),
+            self.observed(http_status=403, content_sha256=None, text_sha256=None),
+            self.attestation(),
+            now=datetime(2026, 10, 28, 18, tzinfo=timezone.utc),
+        )
+        self.assertEqual(state, vaa_watch_v21.BLOCKED_FROM_CI)
+        self.assertNotIn(state, vaa_watch_v21.CHANGED_STATES)
+        self.assertNotIn(state, vaa_watch_v21.OK_STATES)
+
+    def test_ci_block_is_not_excused_without_an_attestation(self):
+        state = vaa_watch_v21.classify(
+            self.row(), self.observed(http_status=403, text_sha256=None)
+        )
+        self.assertEqual(state, vaa_watch_v21.BAD_STATUS)
+
+    def test_ci_block_is_not_excused_for_other_errors(self):
+        for status in (404, 500, 502, 503):
+            state = vaa_watch_v21.classify(
+                self.row(),
+                self.observed(http_status=status, text_sha256=None),
+                self.attestation(),
+                now=datetime(2026, 10, 28, 18, tzinfo=timezone.utc),
+            )
+            self.assertEqual(state, vaa_watch_v21.BAD_STATUS, status)
+
+    def test_ci_block_is_not_excused_after_the_check_expires(self):
+        state = vaa_watch_v21.classify(
+            self.row(),
+            self.observed(http_status=403, text_sha256=None),
+            self.attestation(),
+            max_age_days=45,
+            now=datetime(2027, 1, 1, tzinfo=timezone.utc),
+        )
+        self.assertEqual(state, vaa_watch_v21.BAD_STATUS)
+
+    def test_ci_block_is_not_excused_when_the_local_check_saw_other_text(self):
+        state = vaa_watch_v21.classify(
+            self.row(),
+            self.observed(http_status=403, text_sha256=None),
+            self.attestation(verified_text_sha256="t0"),
+            now=datetime(2026, 10, 28, 18, tzinfo=timezone.utc),
+        )
+        self.assertEqual(state, vaa_watch_v21.BAD_STATUS)
+
+    def test_ci_block_is_not_excused_when_the_local_check_failed(self):
+        state = vaa_watch_v21.classify(
+            self.row(),
+            self.observed(http_status=403, text_sha256=None),
+            self.attestation(verified_http_status=403),
+            now=datetime(2026, 10, 28, 18, tzinfo=timezone.utc),
+        )
+        self.assertEqual(state, vaa_watch_v21.BAD_STATUS)
+
+    def test_blocked_source_is_reported_without_failing_the_run(self):
+        manifest = {
+            "format": "vaa-source-manifest-v21",
+            "generated_at": "2026-10-28",
+            "sources": [self.row()],
+        }
+        reachability = {
+            "max_age_days": 45,
+            "sources": {"s1": self.attestation()},
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            report_path = Path(tmp) / "report.json"
+            with mock.patch.object(
+                vaa_watch_v21, "fetch", return_value=self.observed(http_status=403)
+            ):
+                report = vaa_watch_v21.watch(
+                    manifest,
+                    cache_dir=Path(tmp),
+                    reachability=reachability,
+                    now=datetime(2026, 10, 28, 18, tzinfo=timezone.utc),
+                )
+            vaa_watch_v21.write_report(report, report_path)
+            saved = json.loads(report_path.read_text("utf-8"))
+        self.assertEqual(saved["counts"]["blocked_from_ci"], 1)
+        self.assertEqual(saved["counts"]["changed"], 0)
+        self.assertEqual(saved["changed"], [])
+        self.assertEqual(saved["blocked_from_ci"], ["s1"])
+        row = saved["sources"][0]
+        self.assertFalse(row["ok"])
+        self.assertEqual(
+            row["ci_attestation"]["verified_locally_at"],
+            "2026-10-28T12:00:00+00:00",
+        )
+
+    def test_attest_blocked_stamps_a_matching_local_read(self):
+        reachability = {"max_age_days": 45, "sources": {"s1": self.attestation()}}
+        manifest = {
+            "format": "vaa-source-manifest-v21",
+            "sources": [self.row()],
+        }
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(
+            vaa_watch_v21,
+            "fetch",
+            return_value={"http_status": 200, "text_sha256": "t1"},
+        ):
+            result = vaa_watch_v21.attest_blocked(
+                reachability,
+                manifest,
+                cache_dir=Path(tmp),
+                now=datetime(2026, 11, 3, 9, tzinfo=timezone.utc),
+            )
+        self.assertEqual(result["stamped"], ["s1"])
+        self.assertEqual(
+            reachability["sources"]["s1"]["verified_locally_at"],
+            "2026-11-03T09:00:00+00:00",
+        )
+
+    def test_attest_blocked_refuses_when_the_local_text_differs(self):
+        reachability = {"max_age_days": 45, "sources": {"s1": self.attestation()}}
+        manifest = {"format": "vaa-source-manifest-v21", "sources": [self.row()]}
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(
+            vaa_watch_v21,
+            "fetch",
+            return_value={"http_status": 200, "text_sha256": "t2"},
+        ):
+            with self.assertRaises(ValueError):
+                vaa_watch_v21.attest_blocked(
+                    reachability, manifest, cache_dir=Path(tmp)
+                )
+        self.assertEqual(
+            reachability["sources"]["s1"]["verified_locally_at"],
+            "2026-10-28T12:00:00+00:00",
+        )
+
+    def test_attest_blocked_refuses_a_non_200(self):
+        reachability = {"max_age_days": 45, "sources": {"s1": self.attestation()}}
+        manifest = {"format": "vaa-source-manifest-v21", "sources": [self.row()]}
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(
+            vaa_watch_v21,
+            "fetch",
+            return_value={"http_status": 403, "text_sha256": None},
+        ):
+            with self.assertRaises(ValueError):
+                vaa_watch_v21.attest_blocked(
+                    reachability, manifest, cache_dir=Path(tmp)
+                )
 
 
 class LinkAuditTest(unittest.TestCase):
