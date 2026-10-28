@@ -172,6 +172,7 @@ The ballot page says the council choice and the mayoral choice are **two separat
 - `vaa_audit_v21.py` checks one `h1`, heading order, duplicate ids, landmarks, labels, alt text, table headers, captions and inline handlers.
 - `lighthouserc.json` and `.github/workflows/lighthouse.yml` run Lighthouse CI after the build, link audit and HTML audit.
 - `tests/test_vaa_release_v21.py` covers watch classification, link resolution, HTML audit rules, importer fuzzing and the built-site audit.
+- First live watch run (2026-10-28): 7 sources unchanged, 3 Liberalų sąjūdis pages byte-only changed with identical text, and **1 text change** — the LRT Šiaurinė article. The exact quoted sentence is still present in the new text, and the affected row is non-scoreable. No refresh was performed: refreshing would change the snapshot and needs a human re-read. The weekly workflow exists to prompt exactly that re-read.
 
 ### Test counts
 
