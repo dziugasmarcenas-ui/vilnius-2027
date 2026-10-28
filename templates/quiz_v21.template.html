@@ -87,7 +87,7 @@ main.wrap{padding-top:34px;padding-bottom:70px;min-height:65vh}
 .feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:8px}
 .feature{border:1px solid var(--line);background:rgba(255,253,247,.72);border-radius:14px;padding:16px}
 .feature .n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:9px;background:var(--green-3);color:var(--green);font-size:12px;font-weight:900;margin-bottom:10px}
-.feature h3{font-size:15px;letter-spacing:-.02em;margin-bottom:5px}
+.feature h2{font-size:15px;letter-spacing:-.02em;margin-bottom:5px}
 .feature p{font-size:12.5px;margin:0;color:var(--muted);line-height:1.5}
 .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin:0 0 18px}
 .section-head p{max-width:600px;margin:6px 0 0;color:var(--muted);font-size:14px}
@@ -280,7 +280,7 @@ details[open]>summary::after{content:"–"}
 <main id="app" class="wrap" tabindex="-1"></main>
 <footer class="footer">
   <div class="footer-inner">
-    <div><strong>ManoMiestas · Vilnius 2027</strong><br>Duomenys atnaujinti 2026-10-26. Tai ne rinkimų prognozė ir ne teisinė konsultacija.</div>
+    <div><strong>ManoMiestas · Vilnius 2027</strong><br>Duomenys atnaujinti <span id="footer-date">2026-10-27</span>. Tai ne rinkimų prognozė ir ne teisinė konsultacija.</div>
     <div class="footer-links">
       <a href="register_2027.html">VRK registras</a>
       <a href="sources_2027.html">Šaltiniai</a>
@@ -302,6 +302,8 @@ details[open]>summary::after{content:"–"}
 const DATA = JSON.parse(document.getElementById('app-data').textContent);
 const REGISTER = JSON.parse(document.getElementById('register-data').textContent);
 const META = JSON.parse(document.getElementById('meta-data').textContent);
+const footerDate = document.getElementById('footer-date');
+if (footerDate) footerDate.textContent = META.snapshot_date || META.generated_at || '—';
 const TOPIC = new Map(DATA.topics.map(t => [t.id, t]));
 const PARTY = new Map(DATA.parties.map(p => [p.id, p]));
 const STATEMENT = new Map(DATA.statements.map(s => [s.id, s]));
@@ -380,12 +382,12 @@ function statusLabel(status, closeReason){
   return 'Keli sąrašai arti';
 }
 function statusHelp(status, closeReason){
-  if (status === 'clear') return 'Pagal turimas cituojamas pozicijas vienas sąrašas išsiskiria. Tai nėra įpareigojimas balsuoti už jį.';
+  if (status === 'clear') return 'Pagal turimas cituojamas programų pozicijas vienas sąrašas išsiskiria. Tai nėra įpareigojimas balsuoti už jį.';
   if (status === 'insufficient') return 'Trūksta patikimų, cituojamų pozicijų, kad būtų galima pagrįstai išskirti sąrašą.';
-  if (status === 'no_match') return 'Geriausias turimas atitikimas nesiekia 50/100. Nerekomenduojame sąrašo; skaityk programas ir kandidatų sąrašus.';
-  if (closeReason === 'coverage') return 'Vienas sąrašas turi daugiausia atitikimų, bet jo aprėptis plona. Rinkis atsargiai ir žiūrėk į temas.';
-  if (closeReason === 'margin_and_coverage') return 'Keli sąrašai arti pagal atitikimą, o viršutinio sąrašo aprėptis plona. Rinkis pagal temą ir konkrečius kandidatus.';
-  return 'Keli sąrašai arti pagal atitikimą. Geriau rinktis pagal tau svarbiausią temą, o ne pagal vieną skaičių.';
+  if (status === 'no_match') return 'Geriausias turimas programų atitikimas nesiekia 50/100. Nepakanka pagrindo išskirti sąrašą; skaityk programas ir kandidatų sąrašus.';
+  if (closeReason === 'coverage') return 'Vienas sąrašas turi daugiausia programų atitikimų, bet jo aprėptis plona. Rinkis atsargiai ir žiūrėk į temas.';
+  if (closeReason === 'margin_and_coverage') return 'Keli sąrašai arti pagal programų atitikimą, o viršutinio sąrašo aprėptis plona. Rinkis pagal temą ir konkrečius kandidatus.';
+  return 'Keli sąrašai arti pagal programų atitikimą. Geriau rinktis pagal tau svarbiausią temą, o ne pagal vieną skaičių.';
 }
 function selectedQuestions(){
   return DATA.statements.filter(function(s){ return STATE.selected.includes(s.topic_id); });
@@ -424,13 +426,16 @@ function screenIntro(app){
   pageTitle('Klausimynas');
   const status = REGISTER.official_status;
   const lists = REGISTER.vilnius.lists;
+  const liveLists = lists.filter(function(row){ return row.registration_outcome !== 'rejected'; });
   const mayors = lists.filter(function(row){ return row.mayor_candidate; });
+  const snapshot = (REGISTER.special && REGISTER.special.snapshot_date) || META.snapshot_date || META.generated_at || '—';
+  const finalDate = META.final_lists_date || (status.candidate_lists_published_by && status.candidate_lists_published_by.date) || '2027-02-05';
   append(app, h('section', {class:'hero'},
     h('span', {class:'eyebrow'}, h('span', {class:'dot'}), 'Vilnius 2027 · taryba ir meras'),
     h('div', {class:'hero-grid'},
       h('div', {},
         h('h1', {text:'Ne spėlionė. Tavo prioritetai ir cituojami pažadai.'}),
-        h('p', {class:'lead', text:'Atsakyk į kelis klausimus apie Vilniaus kryptį. Parodysime, kurie oficialiai užregistruoti sąrašai labiausiai sutampa su tavo atsakymais – ir kur trūksta patikimų duomenų.'}),
+        h('p', {class:'lead', text:'Atsakyk į kelis klausimus apie Vilniaus kryptį. Parodysime, kurie rinkinyje esantys sąrašų kampanijos įrašai labiausiai sutampa su tavo atsakymais – ir kur trūksta patikimų duomenų.'}),
         h('div', {class:'hero-actions'},
           h('button', {class:'btn btn-primary', type:'button', onclick:function(){ STATE.screen='topics'; render(); }}, 'Pradėti nuo temų →'),
           link('register_2027.html', 'Pažiūrėti oficialų registrą', 'btn btn-ghost')
@@ -440,17 +445,17 @@ function screenIntro(app){
         h('div', {class:'status-top'}, h('span', {class:'status-dot'}), h('div', {}, h('strong', {text:'Oficialus biuletenis dar nepaskelbtas'}), h('p', {text: status.status_note}))),
         h('ul', {class:'status-list'},
           h('li', {}, h('span', {text:'Rinkimai'}), h('b', {text:'2027-03-07'})),
-          h('li', {}, h('span', {text:'Registruoti Vilniaus sąrašai'}), h('b', {text: String(lists.length)})),
-          h('li', {}, h('span', {text:'Registruoti mero kandidatai'}), h('b', {text: String(mayors.length)})),
-          h('li', {}, h('span', {text:'Galutiniai sąrašai ir numeriai'}), h('b', {text:'iki 2027-02-05'}))
+          h('li', {}, h('span', {text:'Kampanijos dalyvių sąrašai'}), h('b', {text: String(liveLists.length)})),
+          h('li', {}, h('span', {text:'Mero kampanijos dalyviai'}), h('b', {text: String(mayors.length)})),
+          h('li', {}, h('span', {text:'Galutiniai sąrašai ir numeriai'}), h('b', {text:'iki ' + finalDate}))
         ),
         h('p', {class:'tiny mt1', text:'Šiame etape lyginame tik turimus 2027 m. programinius dokumentus. Kandidatų pavardžių ir sąrašų numerių dar neinventorizuojame.'})
       )
     ),
     h('div', {class:'feature-grid'},
-      h('div', {class:'feature'}, h('span', {class:'n', text:'1'}), h('h3', {text:'Tik registruoti sąrašai'}), h('p', {text:'Keturi Vilniaus miesto sąrašai, kuriuos VRK registravo 2026 m. spalį. Jokių išgalvotų kandidatų.'})),
-      h('div', {class:'feature'}, h('span', {class:'n', text:'2'}), h('h3', {text:'Tik citata su nuoroda'}), h('p', {text:'Kiekviena įskaitoma pozicija turi tikslią citatą, datą ir šaltinį. Nežinoma pozicija nėra priešingybė.'})),
-      h('div', {class:'feature'}, h('span', {class:'n', text:'3'}), h('h3', {text:'Rodome spragas'}), h('p', {text:'Jei partija neturi 2027 m. pozicijos, tai parodome. Nekompiuojame istorinių ar nacionalinių pažadų.'}))
+      h('div', {class:'feature'}, h('span', {class:'n', text:'1'}), h('h2', {text:'Kampanijos registro kopija'}), h('p', {text: liveLists.length + ' sąrašų kampanijos dalyvių įrašai iš ' + snapshot + ' kopijos. Tai nėra kandidatų registracijos rinkimams patvirtinimas.'})),
+      h('div', {class:'feature'}, h('span', {class:'n', text:'2'}), h('h2', {text:'Tik citata su nuoroda'}), h('p', {text:'Kiekviena įskaitoma pozicija turi tikslią citatą, datą ir šaltinį. Nežinoma pozicija nėra priešingybė.'})),
+      h('div', {class:'feature'}, h('span', {class:'n', text:'3'}), h('h2', {text:'Rodome spragas'}), h('p', {text:'Jei partija neturi 2027 m. pozicijos, tai parodome. Nekompiuojame istorinių ar nacionalinių pažadų.'}))
     ),
     h('div', {class:'card flat mt2'},
       h('div', {class:'kicker', text:'Kaip tai veikia'}),
@@ -705,20 +710,20 @@ function renderPlan(result){
     }));
   } else {
     heading = result.status === 'no_match' ? 'Nėra pakankamo atitikimo' : 'Nėra pagrįsto sąrašo';
-    body = h('p', {class:'mb0', text: result.status === 'no_match' ? 'Geriausias turimas atitikimas nesiekia 50/100. Tai per silpna, kad siūlytume sąrašą. Žiūrėk temų lentelę ir partijų programas.' : 'Iš turimų citatų negalime išskirti sąrašo. Tai nereiškia, kad partijos neturi pozicijų – jos gali būti nepaskelbtos arba nepakankamai konkrečios.'});
+    body = h('p', {class:'mb0', text: result.status === 'no_match' ? 'Geriausias turimas programų atitikimas nesiekia 50/100. Tai per silpna, kad būtų pagrindas išskirti sąrašą. Žiūrėk temų lentelę ir partijų programas.' : 'Iš turimų citatų negalime išskirti sąrašo. Tai nereiškia, kad partijos neturi pozicijų – jos gali būti nepaskelbtos arba nepakankamai konkrečios.'});
   }
 
   const mayor = plan.mayor;
   const mayorCandidates = plan.mayor_candidates || [];
   let mayorBlock;
   if (mayor) {
-    mayorBlock = h('div', {class:'plan-party'}, h('span', {class:'party-dot', style:{background:(PARTY.get(mayor.party_id) || {}).color || '#888'}}), h('div', {}, h('div', {class:'name', text:mayor.name}), h('div', {class:'full', text:'Mero kandidatas · ' + mayor.short_name})));
+    mayorBlock = h('div', {class:'plan-party'}, h('span', {class:'party-dot', style:{background:(PARTY.get(mayor.party_id) || {}).color || '#888'}}), h('div', {}, h('div', {class:'name', text:mayor.name}), h('div', {class:'full', text:'Mero kampanijos dalyvis · ' + mayor.short_name})));
   } else if (mayorCandidates.length) {
-    mayorBlock = h('div', {}, h('p', {class:'small mt1', text:'Mero biuletenyje gali būti šie kandidatai:'}), h('div', {class:'tag-row'}, mayorCandidates.map(function(c){
+    mayorBlock = h('div', {}, h('p', {class:'small mt1', text:'VRK registre šiuo metu yra šie mero kampanijos dalyviai (ne galutiniai kandidatai):'}), h('div', {class:'tag-row'}, mayorCandidates.map(function(c){
       return h('span', {class:'chip green', text:c.name + ' · ' + c.short_name});
     })));
   } else {
-    mayorBlock = h('p', {class:'small mt1', text:'Mero kandidatas pagal turimus duomenis neišskiriamas. Mero biuletenyje rinkis atskirai.'});
+    mayorBlock = h('p', {class:'small mt1', text:'Mero kampanijos dalyvis pagal turimus duomenis neišskiriamas. Mero biuletenyje rinkis atskirai.'});
   }
 
   return h('section', {class:'card plan-card'},
@@ -729,12 +734,12 @@ function renderPlan(result){
     h('div', {class:'mt2'}, h('div', {class:'kicker', text:'Kaip pažymėti biuletenyje'}),
       h('ol', {class:'steps'},
         h('li', {}, h('b', {text:'Tarybos biuletenyje'}), ' pažymėk sąrašą, kuris labiausiai atitinka tavo prioritetus. Sąrašo numeris bus oficialiame biuletenyje.'),
-        h('li', {}, h('b', {text:'Pirmumo balsai'}), ' – toje pačioje biuletenio dalyje gali skirti pirmumo balsus kandidatams. 2023 m. buvo iki 5; 2027 m. oficialų skaičių ir žymėjimą patikrink biuletenyje.'),
+        h('li', {}, h('b', {text:'Pirmumo balsai'}), ' – įrašyk kandidatų rinkimų numerius specialiai pirmumo balsams skirtuose laukeliuose. Pagal Rinkimų kodekso 143 straipsnį galima iki ' + (META.preference_votes || 5) + ' pirmumo balsų; mažesniame sąraše – mažiau. 2027 m. biuletenio išdėstymą patikrink VRK pavyzdyje.'),
         h('li', {}, h('b', {text:'Mero biuletenyje'}), ' pažymėk vieną kandidatą. Meras renkamas atskirai nuo tarybos.'),
         h('li', {}, h('b', {text:'2027 m. kovo 7 d.'}), ' balsuok savo apylinkėje. Patikrink, kur balsuoti, VRK rinkėjo puslapyje.')
       )
     ),
-    h('div', {class:'note-box'}, h('strong', {text:'Svarbu:'}), ' galutiniai sąrašai, kandidatų vardai ir numeriai VRK dar nepaskelbti (numatoma iki 2027-02-05). Šis planas – ne biuletenio kopija ir ne teisinė konsultacija.',
+    h('div', {class:'note-box'}, h('strong', {text:'Svarbu:'}), ' galutiniai sąrašai, kandidatų pavardės ir numeriai VRK dar nepaskelbti (numatoma iki ' + (META.final_lists_date || '2027-02-05') + '). Šis planas – ne biuletenio kopija ir ne teisinė konsultacija.',
       h('ul', {}, plan.notes.map(function(note){ return h('li', {text:note}); }))
     ),
     h('div', {class:'inline-links'}, link('register_2027.html', 'Oficialus VRK registras', 'btn btn-soft btn-sm'), link('ballot_2027.html', 'Balsavimo taisyklės', 'btn btn-ghost btn-sm'))
@@ -751,7 +756,7 @@ function renderTopSummary(result){
       h('div', {class:'plan-party'},
         h('span', {class:'party-dot', style:{background:top.color}}),
         h('div', {}, h('div', {class:'name', text:top.short_name}), h('div', {class:'full', text:top.name})),
-        h('div', {class:'plan-score'}, h('b', {text:scoreText(own.score) + '/100'}), h('small', {text:'atitikimas'}))
+        h('div', {class:'plan-score'}, h('b', {text:scoreText(own.score) + '/100'}), h('small', {text:'programų atitikimas'}))
       ),
       h('div', {class:'stats'},
         stat('Aprėptis', own.coverage_pct + '%'),
@@ -759,9 +764,9 @@ function renderTopSummary(result){
         stat('Patikimumas', confidenceLabel(own.confidence)),
         stat('Temų', own.topics_covered.length + '/' + result.selected_topics.length)
       ),
-      result.status === 'no_match' ? h('p', {class:'small mt2', text:'Tai geriausias turimas skaičius, bet jis per žemas rekomendacijai. Tai nėra raginimas balsuoti už šį sąrašą.'}) : null,
-      h('p', {class:'small mt2', text:'Skaičius rodo, kiek tavo atsakymai sutampa su šio sąrašo cituojamomis pozicijomis. Kuo mažesnė aprėptis, tuo mažiau juo galima pasikliauti.'}),
-      stanceSummary.allAgree ? h('p', {class:'small mt1', text:'Visi ' + stanceSummary.total + ' įskaitomi 2026-10-26 pozicijų įrašai yra „sutinku“. Todėl rezultatas labiau rodo, kurias temas sąrašas įsipareigoja spręsti, o ne priešingas stovyklas.'}) : null,
+      result.status === 'no_match' ? h('p', {class:'small mt2', text:'Tai geriausias turimas skaičius, bet jis per žemas, kad būtų pagrindas išskirti sąrašą. Tai nėra raginimas balsuoti už šį sąrašą.'}) : null,
+      h('p', {class:'small mt2', text:'Skaičius rodo, kiek tavo atsakymai sutampa su šio sąrašo cituojamomis programų pozicijomis. Kuo mažesnė aprėptis, tuo mažiau juo galima pasikliauti.'}),
+      stanceSummary.allAgree ? h('p', {class:'small mt1', text:'Visi ' + stanceSummary.total + ' įskaitomi 2027 m. programų pozicijų įrašai yra „sutinku“. Todėl rezultatas labiau rodo, kurias temas sąrašas įsipareigoja spręsti, o ne priešingas stovyklas.'}) : null,
       h('div', {class:'tag-row'}, h('span', {class:'chip ' + (result.status === 'clear' ? 'green' : 'amber'), text:statusLabel(result.status, result.close_reason)}), h('span', {class:'chip gray', text:'Ne prognozė'}))
     ) : h('div', {},
       h('p', {text:'Nė vienas sąrašas neturi pakankamai cituojamų pozicijų pagal tavo pasirinktas temas.'}),
@@ -775,7 +780,7 @@ function renderTopSummary(result){
 
 function renderRanking(result){
   const nodes = [];
-  nodes.push(h('div', {class:'section-head'}, h('div', {}, h('h2', {text:'Sąrašų atitikimas'}), h('p', {text:'Visi keturi registruoti sąrašai. Neįskaitomos pozicijos nemažina balo – jos tiesiog nepatenka į skaičiavimą.'}))));
+  nodes.push(h('div', {class:'section-head'}, h('div', {}, h('h2', {text:'Sąrašų programų atitikimas'}), h('p', {text:'Visi ' + result.parties.length + ' šiame rinkinyje esantys sąrašų kampanijos įrašai. Neįskaitomos pozicijos nemažina balo – jos tiesiog nepatenka į skaičiavimą.'}))));
   nodes.push(h('div', {class:'ranking'}, result.parties.map(function(row){
     const party = PARTY.get(row.party_id);
     const isTop = row.rank === 1;
@@ -890,13 +895,15 @@ function renderMethodNote(result){
   return h('div', {},
     h('div', {class:'section-head'}, h('div', {}, h('h2', {text:'Ką ši suvestinė reiškia – ir ko ne'}), h('p', {text:'Skaidrumas svarbiau už įspūdį. Žemiau – ribos, kurias turi žinoti prieš naudodamas rezultatą.'}))),
     h('div', {class:'caveat-grid'},
-      h('div', {class:'caveat'}, h('h3', {text:'Tai ne rekomendacija'}), h('p', {text:'Rezultatas rodo tavo atsakymų ir cituojamų pozicijų sutapimą. Jis neįpareigoja balsuoti ir nenuspėja, kas laimės.'})),
+      h('div', {class:'caveat'}, h('h3', {text:'Tai ne rekomendacija'}), h('p', {text:'Rezultatas rodo tavo atsakymų ir cituojamų programų pozicijų sutapimą. Jis neįpareigoja balsuoti, nenuspėja, kas laimės, ir nevertina galimų mandatų ar koalicijų.'})),
       h('div', {class:'caveat'}, h('h3', {text:'Nežinoma ≠ priešinga'}), h('p', {text:'Jei partija neturi pozicijos, ji negauna neigiamo balo. Tiesiog nepatenka į tą klausimą. Todėl aprėptis rodoma atskirai.'})),
-      h('div', {class:'caveat'}, h('h3', {text:'Dar nėra galutinio biuletenio'}), h('p', {text:'VRK galutinius sąrašus ir numerius turi paskelbti iki 2027-02-05. Kandidatų vardų ir numerių čia neinventorizuojame.'})),
+      h('div', {class:'caveat'}, h('h3', {text:'Dar nėra galutinio biuletenio'}), h('p', {text:'VRK galutinius sąrašus ir numerius turi paskelbti iki ' + (META.final_lists_date || '2027-02-05') + '. Kandidatų pavardžių ir numerių čia neinventorizuojame.'})),
       h('div', {class:'caveat'}, h('h3', {text:'Laukia žmogaus peržiūros'}), h('p', {text:'Visos eilutės pažymėtos kaip AI patikrintos, bet nepriklausoma žmogaus peržiūra dar neatlikta. Tai svarbu prieš viešą naudojimą.'})),
-      stanceSummary.allAgree ? h('div', {class:'caveat'}, h('h3', {text:'Viena pozicijų kryptis'}), h('p', {text:'Visi ' + stanceSummary.total + ' įskaitomi 2026-10-26 pozicijų įrašai yra „sutinku“. Tai reiškia, kad skirtumai labiau matomi pagal temų aprėptį, o ne pagal aiškią „už“ ir „prieš“ priešpriešą.'})) : null
+      h('div', {class:'caveat'}, h('h3', {text:'Ne strateginio balsavimo patarimas'}), h('p', {text:'Įrankis nevertina, kuris balsas labiau paveiktų mandatų pasiskirstymą ar koaliciją. Jis lygina tik programų tekstus.'})),
+      h('div', {class:'caveat'}, h('h3', {text:'Programa ≠ įgyvendinimas'}), h('p', {text:'Citata įrodo, ką partija parašė, ne tai, kad pažadas bus įgyvendintas, per kokį laiką ar už kokią kainą.'})),
+      stanceSummary.allAgree ? h('div', {class:'caveat'}, h('h3', {text:'Viena pozicijų kryptis'}), h('p', {text:'Visi ' + stanceSummary.total + ' įskaitomi 2027 m. programų pozicijų įrašai yra „sutinku“. Tai reiškia, kad skirtumai labiau matomi pagal temų aprėptį, o ne pagal aiškią „už“ ir „prieš“ priešpriešą.'})) : null
     ),
-    h('div', {class:'note-box'}, h('strong', {text:'Mano Balsas kontekstas: '}), '2024 m. nacionalinė metodika ir klausimynas naudoti kaip idėjų šaltinis. Jie nėra 2027 m. Vilniaus partijų pozicijos ir neįtraukti į šį balą.', h('div', {class:'inline-links'}, link('methodology_2027.html', 'Metodika', 'btn btn-soft btn-sm'), link('sources_2027.html', 'Šaltiniai', 'btn btn-ghost btn-sm'), link('ballot_2027.html', 'Balsavimo taisyklės', 'btn btn-ghost btn-sm')))
+    h('div', {class:'note-box'}, h('strong', {text:'Mano Balsas kontekstas: '}), '2024 m. nacionalinė metodika ir klausimynas naudoti kaip idėjų šaltinis. Jie nėra 2027 m. Vilniaus partijų pozicijos ir neįtraukti į šį balą.', h('div', {class:'inline-links'}, link('methodology_2027.html', 'Metodika', 'btn btn-soft btn-sm'), link('methodology_2027.html#balsavimo-galia', 'Balsavimo galia', 'btn btn-ghost btn-sm'), link('sources_2027.html', 'Šaltiniai', 'btn btn-ghost btn-sm'), link('ballot_2027.html', 'Balsavimo taisyklės', 'btn btn-ghost btn-sm')))
   );
 }
 

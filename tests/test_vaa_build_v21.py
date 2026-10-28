@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))
 
-from vaa_build_v21 import DIST, PAGES, build, check  # noqa: E402
+from vaa_build_v21 import DIST, PAGES, build, check, sync_party_mayors  # noqa: E402
 
 
 class LinkParser(HTMLParser):
@@ -164,27 +164,82 @@ class BuildTest(unittest.TestCase):
             for marker in ("/Users/", ".cache", "/tmp/", "palace.yaml", ".claude", ".freebuff", "docs/superpowers"):
                 self.assertNotIn(marker, text, f"{name}: {marker}")
 
-    def test_embedded_data_matches_curated_dataset(self):
+    def test_embedded_data_matches_curated_dataset_with_current_register_mayors(self):
         text = (DIST / "quiz_v21.html").read_text("utf-8")
         match = re.search(r'<script id="app-data" type="application/json">(.*?)</script>', text, re.S)
         self.assertIsNotNone(match)
-        self.assertEqual(
-            json.loads(match.group(1)),
-            json.loads((ROOT / "vaa" / "vilnius_2027_v21.json").read_text("utf-8")),
-        )
+        data = json.loads((ROOT / "vaa" / "vilnius_2027_v21.json").read_text("utf-8"))
+        register = json.loads((ROOT / "vaa" / "vilnius_2027_register.json").read_text("utf-8"))
+        self.assertEqual(json.loads(match.group(1)), sync_party_mayors(data, register))
 
     def test_all_agree_evidence_limitation_is_disclosed(self):
         quiz = (DIST / "quiz_v21.html").read_text("utf-8")
         methodology = (DIST / "methodology_2027.html").read_text("utf-8")
-        self.assertIn("įskaitomi 2026-10-26 pozicijų įrašai yra „sutinku“", quiz)
+        self.assertIn("įskaitomi 2027 m. programų pozicijų įrašai yra „sutinku“", quiz)
         self.assertIn("Viena pozicijų kryptis", methodology)
         self.assertIn("nėra įskaitomos priešingos pozicijos", methodology)
 
-    def test_ballot_page_labels_preference_votes_as_preliminary(self):
+    def test_ballot_page_uses_current_law_not_2023_practice(self):
         text = (DIST / "ballot_2027.html").read_text("utf-8")
-        self.assertIn("2023 m. savivaldybių rinkimuose buvo galima skirti iki 5 pirmumo balsų", text)
-        self.assertIn("2027 m. tvarka turi būti patvirtinta oficialiame biuletenyje", text)
+        self.assertIn("Rinkimų kodekso 143 straipsnį", text)
+        self.assertIn("iki 5 pasirinktų kandidatų", text)
+        self.assertIn("2–5 kandidatai", text)
         self.assertIn("Oficialūs biuletenių pavyzdžiai dar nepaskelbti", text)
+        self.assertNotIn("2023 m. savivaldybių rinkimuose buvo galima skirti iki 5", text)
+
+    def test_pages_use_snapshot_date_and_variable_counts(self):
+        register = json.loads((ROOT / "vaa" / "vilnius_2027_register.json").read_text("utf-8"))
+        snapshot = register["snapshot"]["date"]
+        for name in ("index.html", "register_2027.html"):
+            text = (DIST / name).read_text("utf-8")
+            self.assertIn(snapshot, text, name)
+            self.assertNotIn("2026-10-26", text, name)
+        index = (DIST / "index.html").read_text("utf-8")
+        self.assertNotIn("Keturi sąrašai", index)
+        self.assertNotIn("keturi sąrašų", index)
+        self.assertNotIn("mero kandidatas", index)
+        self.assertIn(f"{register['vilnius']['list_participants_count']} sąrašai", index)
+
+    def test_sources_page_displays_structured_interpretation(self):
+        text = (DIST / "sources_2027.html").read_text("utf-8")
+        for label in (
+            "Ar citata pagrindžia visą teiginį",
+            "Lygmuo",
+            "Dokumento statusas",
+            "Kalbėtojo autoritetas",
+            "Sąlygos",
+            "Kaina ir kompromisai",
+            "Ribos",
+            "Žmogaus patvirtinta",
+        ):
+            self.assertIn(label, text)
+        doc = json.loads((ROOT / "vaa" / "vilnius_2027_v21.json").read_text("utf-8"))
+        limitations = {
+            answer["interpretation"]["limitations"]
+            for rows in doc["answers"].values()
+            for answer in rows.values()
+        }
+        for limitation in list(limitations)[:10]:
+            self.assertIn(limitation, text)
+
+    def test_law_citations_are_present(self):
+        methodology = (DIST / "methodology_2027.html").read_text("utf-8")
+        ballot = (DIST / "ballot_2027.html").read_text("utf-8")
+        for text in (methodology, ballot):
+            self.assertIn("Rinkimų kodekso 143", text)
+            self.assertIn("e-tar.lt", text)
+        self.assertIn("158 straipsnį", ballot)
+        self.assertIn("171 straipsnį", ballot)
+        self.assertIn("168 straipsnio 4 dalį", ballot)
+
+    def test_programme_similarity_limitations_are_disclosed(self):
+        quiz = (DIST / "quiz_v21.html").read_text("utf-8")
+        methodology = (DIST / "methodology_2027.html").read_text("utf-8")
+        for text in (quiz, methodology):
+            self.assertIn("strateginio balsavimo", text)
+            self.assertIn("mandatų", text)
+            self.assertIn("koalicij", text)
+        self.assertIn("programų tekstų atitikimas", quiz)
 
 
 if __name__ == "__main__":

@@ -147,19 +147,20 @@ class EngineParityTest(unittest.TestCase):
                 self.assertEqual(run_python(self.doc, selection), {"error": True})
 
     def test_embedded_page_data_and_engine_match_source_files(self):
+        from vaa_build_v21 import sync_party_mayors
+
         html = QUIZ.read_text("utf-8")
         embedded = re.search(r'<script id="app-data" type="application/json">(.*?)</script>', html, re.S)
         self.assertIsNotNone(embedded)
-        self.assertEqual(
-            json.loads(embedded.group(1)),
-            json.loads((ROOT / "vaa" / "vilnius_2027_v21.json").read_text("utf-8")),
-        )
+        raw = json.loads((ROOT / "vaa" / "vilnius_2027_v21.json").read_text("utf-8"))
+        register = json.loads((ROOT / "vaa" / "vilnius_2027_register.json").read_text("utf-8"))
+        self.assertEqual(json.loads(embedded.group(1)), sync_party_mayors(raw, register))
         self.assertIn(ENGINE.read_text("utf-8"), html)
 
     def test_fresh_quiz_build_matches_checked_in_page(self):
         from vaa_build_v21 import build_quiz, load_all
 
-        data, register, _sources, manifest, checks, mb = load_all()
+        data, register, _sources, manifest, checks, mb, _law = load_all()
         self.assertEqual(build_quiz(data, register, manifest, checks, mb), QUIZ.read_text("utf-8"))
 
 

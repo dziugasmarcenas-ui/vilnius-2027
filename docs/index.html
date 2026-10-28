@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:">
-<meta name="description" content="Vilniaus 2027 m. tarybos ir mero rinkimų įrankis: registruoti sąrašai, cituojamos pozicijos ir balsavimo planas.">
+<meta name="description" content="Vilniaus 2027 m. tarybos ir mero rinkimų įrankis: kampanijos registro įrašai, cituojamos pozicijos ir balsavimo planas.">
 <title>Rinkimų įrankis · Vilnius 2027 · ManoMiestas</title>
 <style>
 :root{
@@ -56,6 +56,7 @@ main.wrap{padding-top:36px;padding-bottom:68px;min-height:65vh}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px;margin:16px 0;min-width:0}
 .card.flat{box-shadow:none;background:rgba(255,253,247,.68)}
+.card.flat .feature-title{font-size:20px;margin-bottom:6px}
 .grid{display:grid;gap:14px}
 .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -174,7 +175,7 @@ td a{font-weight:700}
     <section class="hero">
       <span class="eyebrow"><span class="dot"></span>Vilnius 2027 · taryba ir meras</span>
       <h1>Ką apie Vilnių žada partijos – ir ką tai reiškia tau?</h1>
-      <p class="lead">Atsakyk į 13 teiginių apie transportą, švietimą, būstą, skaidrumą, saugumą ir verslą. Parodysime, kurie oficialiai registruoti sąrašai turi cituojamas 2027 m. pozicijas ir kiek jos sutampa su tavo prioritetais.</p>
+      <p class="lead">Atsakyk į 13 teiginių apie transportą, švietimą, būstą, skaidrumą, saugumą ir verslą. Parodysime, kurie kampanijos dalyvių registre esantys sąrašų įrašai turi cituojamas 2027 m. pozicijas ir kiek jų programos tekstas sutampa su tavo prioritetais.</p>
       <div class="actions">
         <a href="quiz_v21.html" class="btn btn-primary">Pradėti klausimyną →</a>
         <a href="register_2027.html" class="btn btn-ghost">Oficialus VRK registras</a>
@@ -184,24 +185,24 @@ td a{font-weight:700}
     <div class="banner">
       <strong>Oficialus 2027 m. biuletenis dar nepaskelbtas.</strong>
       VRK galutinius kandidatų sąrašus ir sąrašų numerius numato paskelbti iki 2027-02-05.
-      Šiandien lyginame 4 oficialiai užregistruotus Vilniaus miesto sąrašus ir tik turimus 2027 m. programinius dokumentus.
+      Šiandien lyginame 4 Vilniaus miesto sąrašų kampanijos dalyvių įrašus ir tik turimus 2027 m. programinius dokumentus.
       <a href="register_2027.html">Žiūrėti registrą →</a>
     </div>
     
     </section>
 
     <section class="grid grid-2 mt2" aria-label="Ką darome">
-      <div class="card flat"><div class="kicker">01</div><h3>Keturi registruoti sąrašai</h3><p>Lyginame tik tuos Vilniaus miesto sąrašus, kuriuos VRK buvo užregistravęs 2026-10-26. Jokių spėjamų kandidatų.</p></div><div class="card flat"><div class="kicker">02</div><h3>Citata, data, nuoroda</h3><p>Kiekviena įskaitoma pozicija turi verbatim citatą ir šaltinį. Nežinoma pozicija nėra priešingybė ir negauna neigiamo balo.</p></div><div class="card flat"><div class="kicker">03</div><h3>Sprendimas pagal temą</h3><p>Rodome ne vieną paslaptingą reitingą, o atitikimą tema po temos, aprėptį ir trūkstamus duomenis.</p></div><div class="card flat"><div class="kicker">04</div><h3>Balsavimo planas</h3><p>Paaiškiname, kaip atrodo tarybos ir mero biuleteniai, bet aiškiai pasakome, kad oficialūs pavyzdžiai dar nepaskelbti.</p></div>
+      <div class="card flat"><div class="kicker">01</div><h2 class="feature-title">4 sąrašų kampanijos įrašai</h2><p>Rinkinyje yra 4 sąrašų kampanijos dalyvių įrašai iš 2026-10-28 VRK momentinės kopijos. Tai nėra kandidatų registracijos patvirtinimas.</p></div><div class="card flat"><div class="kicker">02</div><h2 class="feature-title">Citata, data, nuoroda</h2><p>Kiekviena įskaitoma pozicija turi verbatim citatą ir šaltinį. Nežinoma pozicija nėra priešingybė ir negauna neigiamo balo.</p></div><div class="card flat"><div class="kicker">03</div><h2 class="feature-title">Sprendimas pagal temą</h2><p>Rodome ne vieną paslaptingą reitingą, o programų atitikimą tema po temos, aprėptį ir trūkstamus duomenis.</p></div><div class="card flat"><div class="kicker">04</div><h2 class="feature-title">Balsavimo planas</h2><p>Paaiškiname tarybos ir mero biuletenių struktūrą pagal galiojančią Rinkimų kodekso redakciją, bet aiškiai pasakome, kad oficialūs pavyzdžiai dar nepaskelbti.</p></div>
     </section>
 
     <section class="card mt3">
       <div class="kicker">Dabartinė eiga</div>
       <h2>Kodėl tai dar ne galutinis biuletenis</h2>
-      <p>VRK 2027 m. savivaldybių rinkimų ciklas dar nepasiekė galutinių kandidatų sąrašų. Šiame etape galime sąžiningai lyginti tik registruotus sąrašus ir jų paskelbtus programinius dokumentus.</p>
+      <p>VRK 2027 m. savivaldybių rinkimų ciklas dar nepasiekė galutinių kandidatų sąrašų. Šiame etape galime sąžiningai lyginti tik į šį rinkinį įtrauktų organizacijų paskelbtus programinius dokumentus.</p>
       <ol class="timeline">
-        <li class="done"><b>2026-10-07</b><span>Prasidėjo politinė kampanija. LP ir LS jau turi registruotus sąrašus.</span></li>
-        <li class="next"><b>2026-10-28</b><span>Baigiamas savarankiškų kampanijos dalyvių registravimas. Sąrašų skaičius dar gali keistis.</span></li>
-        <li class="future"><b>2026-12-17 17:00</b><span>Baigiamas kandidatų pareiškinių dokumentų pateikimas.</span></li>
+        <li class="done"><b>2026-10-07</b><span>Prasidėjo politinė kampanija. VRK registre yra pirmieji sąrašų kampanijos dalyvių įrašai.</span></li>
+        <li class="next"><b>2026-10-28</b><span>Baigiamas savarankiškų kampanijos dalyvių registravimas. Šis registras fiksuoja tą būseną.</span></li>
+        <li class="future"><b>2026-12-17</b><span>Baigiamas kandidatų pareiškinių dokumentų pateikimas.</span></li>
         <li class="future"><b>2027-02-04</b><span>VRK priima sprendimus registruoti kandidatų sąrašus arba jų neregistruoti.</span></li>
         <li class="future"><b>2027-02-05</b><span>VRK paskelbia kandidatų sąrašus, kandidatus ir sąrašų rinkimų numerius.</span></li>
         <li class="future"><b>2027-03-07</b><span>Savivaldybių tarybų ir merų rinkimai.</span></li>
@@ -210,36 +211,36 @@ td a{font-weight:700}
     </section>
 
     <section class="card mt2">
-      <div class="kicker">Registruoti Vilniaus sąrašai</div>
-      <h2>Keturi sąrašai, du mero kandidatai</h2>
-      <p>Tai VRK 2026-10-26 registracijų būsena, o ne galutinis biuletenis. Kandidatų pavardžių ir sąrašų numerių dar nėra.</p>
+      <div class="kicker">Sąrašų kampanijos įrašai</div>
+      <h2>4 sąrašai, 2 mero kampanijos dalyviai</h2>
+      <p>Tai VRK 2026-10-28 registracijų būsena, o ne galutinis biuletenis. Kandidatų pavardžių ir sąrašų numerių dar nėra.</p>
       <div class="party-list">
             <div class="party-row">
               <span class="party-dot" style="background:#b8860b"></span>
               <div><div class="name">LP</div>
               <div class="full">Laisvės partija</div></div>
-              <div class="mayor"><b>Vytautas Mitalas</b><span>mero kandidatas</span></div>
+              <div class="mayor"><b>Vytautas Mitalas</b><span>mero kampanijos dalyvis</span></div>
             </div>
             
             <div class="party-row">
               <span class="party-dot" style="background:#b23a48"></span>
               <div><div class="name">LS</div>
               <div class="full">Liberalų sąjūdis</div></div>
-              <div class="mayor"><b>Simonas Gentvilas</b><span>mero kandidatas</span></div>
+              <div class="mayor"><b>Simonas Gentvilas</b><span>mero kampanijos dalyvis</span></div>
             </div>
             
             <div class="party-row">
               <span class="party-dot" style="background:#c0392b"></span>
               <div><div class="name">LSDP</div>
               <div class="full">Lietuvos socialdemokratų partija</div></div>
-              <div class="mayor"><b>—</b><span>mero kandidatas dar neužregistruotas</span></div>
+              <div class="mayor"><b>—</b><span>mero kampanijos dalyvio įrašo šiame rinkinyje nėra</span></div>
             </div>
             
             <div class="party-row">
               <span class="party-dot" style="background:#2f5d8a"></span>
               <div><div class="name">TS-LKD</div>
-              <div class="full">Tėvynės sąjunga - Lietuvos krikščionys demokratai</div></div>
-              <div class="mayor"><b>—</b><span>mero kandidatas dar neužregistruotas</span></div>
+              <div class="full">Tėvynės sąjunga – Lietuvos krikščionys demokratai</div></div>
+              <div class="mayor"><b>—</b><span>mero kampanijos dalyvio įrašo šiame rinkinyje nėra</span></div>
             </div>
             </div>
       <div class="actions">
@@ -254,8 +255,8 @@ td a{font-weight:700}
         <h2>Ką galima, o ko negalima teigti</h2>
         <ul class="list-clean">
           <li><strong>Galima:</strong> cituoti šiandien paskelbtas 2027 m. partijų pozicijas ir lyginti jas su tavo atsakymais.</li>
-          <li><strong>Galima:</strong> pasakyti, kad vienas sąrašas pagal turimus duomenis labiau atitinka tavo prioritetus.</li>
-          <li><strong>Negalima:</strong> teigti, kad tai galutinis biuletenis, rinkimų prognozė ar oficiali rekomendacija.</li>
+          <li><strong>Galima:</strong> pasakyti, kad vieno sąrašo programos tekstas pagal turimus duomenis labiau atitinka tavo prioritetus.</li>
+          <li><strong>Negalima:</strong> teigti, kad tai galutinis biuletenis, rinkimų prognozė, mandatų prognozė ar oficiali rekomendacija.</li>
           <li><strong>Negalima:</strong> nežinomos pozicijos versti neigiamu balu arba priskirti partijai pažado, kurio ji nepaskelbė.</li>
         </ul>
         <div class="inline-links">
@@ -267,9 +268,9 @@ td a{font-weight:700}
         <div class="kicker">Skaičiai</div>
         <h2>Kas šiandien patikrinta</h2>
         <ul class="status-list">
-          <li><span>Registruoti Vilniaus sąrašai</span><b>4</b></li>
-          <li><span>Registruoti mero kandidatai</span><b>2</b></li>
-          <li><span>Dabartiniai šaltiniai</span><b>9</b></li>
+          <li><span>Sąrašų kampanijos įrašai</span><b>4</b></li>
+          <li><span>Asmenų mero kampanijos įrašai</span><b>2</b></li>
+          <li><span>Dabartiniai šaltiniai</span><b>10</b></li>
           <li><span>Patikrintos citatos</span><b>37</b></li>
           <li><span>Nepriklausoma žmogaus peržiūra</span><b>dar neatlikta</b></li>
         </ul>
@@ -280,7 +281,7 @@ td a{font-weight:700}
 </main>
 <footer class="footer">
   <div class="footer-inner">
-    <div><strong>ManoMiestas · Vilnius 2027</strong><br>Duomenys atnaujinti 2026-10-26. Tai ne rinkimų prognozė ir ne teisinė konsultacija.</div>
+    <div><strong>ManoMiestas · Vilnius 2027</strong><br>Duomenys atnaujinti 2026-10-28. Tai ne rinkimų prognozė ir ne teisinė konsultacija.</div>
     <div class="footer-links">
       <a href="register_2027.html">VRK registras</a>
       <a href="sources_2027.html">Šaltiniai</a>

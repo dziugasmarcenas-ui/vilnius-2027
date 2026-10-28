@@ -1,13 +1,16 @@
 {
   "format": "lt-civic-vaa-2027-v1",
-  "generated_at": "2026-10-26",
+  "generated_at": "2026-10-28",
   "election": {
     "id": "2027-municipal",
     "date": "2027-03-07",
     "municipality": "Vilnius",
     "apygarda": 57,
     "council_seats": 51,
-    "official_register": "vaa/vilnius_2027_register.json"
+    "official_register": "vaa/vilnius_2027_register.json",
+    "final_lists_date": "2027-02-05",
+    "preference_votes": 5,
+    "candidate_lists_rule": "Rinkimų kodekso 84 straipsnio 1 dalis: VRK paskelbia kandidatų sąrašus, kandidatus ir numerius ne vėliau kaip prieš 30 dienų iki rinkimų."
   },
   "scope_note": "Šis įrankis lygina tik oficialiai užregistruotus Vilniaus miesto sąrašus ir tik tuos 2027 m. kampanijos dokumentus, kuriuose yra aiški, cituojama nuostata. Tai nėra nuomonių apklausa, reitingas ar teisinė konsultacija.",
   "topics": [
@@ -142,7 +145,7 @@
       "color": "#2f5d8a",
       "registered_on": "2026-10-21",
       "mayor_candidate": null,
-      "mayor_note": "VRK registre 2026-10-26 dar nebuvo užregistruoto TS-LKD kandidato į Vilniaus merus.",
+      "mayor_note": "VRK registre 2026-10-27 nebuvo šios organizacijos mero kampanijos dalyvio įrašo. Tai nereiškia, kad kandidatas nebus registruotas vėliau.",
       "list_2023": 9,
       "share_2023_pct": 29.42,
       "result_2023_note": "2023 m. tarybos rinkimų rezultatas; tik kontekstas, ne 2027 m. prognozė."
@@ -154,7 +157,7 @@
       "color": "#b8860b",
       "registered_on": "2026-10-07",
       "mayor_candidate": "Vytautas Mitalas",
-      "mayor_note": "Užregistruotas VRK kandidatu Vilniaus miesto apygardoje Nr. 57.",
+      "mayor_note": "VRK registre 2026-10-27 buvo mero kampanijos dalyvis; tai nepatvirtina registracijos mero rinkimų kandidatu.",
       "list_2023": 13,
       "share_2023_pct": 13.13,
       "result_2023_note": "2023 m. tarybos rinkimų rezultatas; tik kontekstas, ne 2027 m. prognozė."
@@ -166,7 +169,7 @@
       "color": "#b23a48",
       "registered_on": "2026-10-07",
       "mayor_candidate": "Simonas Gentvilas",
-      "mayor_note": "Užregistruotas VRK kandidatu Vilniaus miesto apygardoje Nr. 57.",
+      "mayor_note": "VRK registre 2026-10-27 buvo mero kampanijos dalyvis; tai nepatvirtina registracijos mero rinkimų kandidatu.",
       "list_2023": 11,
       "share_2023_pct": 3.75,
       "result_2023_note": "2023 m. tarybos rinkimų rezultatas; tik kontekstas, ne 2027 m. prognozė."
@@ -178,7 +181,7 @@
       "color": "#c0392b",
       "registered_on": "2026-10-21",
       "mayor_candidate": null,
-      "mayor_note": "VRK registre 2026-10-26 dar nebuvo užregistruoto LSDP kandidato į Vilniaus merus.",
+      "mayor_note": "VRK registre 2026-10-27 nebuvo šios organizacijos mero kampanijos dalyvio įrašo. Tai nereiškia, kad kandidatas nebus registruotas vėliau.",
       "list_2023": 5,
       "share_2023_pct": 6.18,
       "result_2023_note": "2023 m. tarybos rinkimų rezultatas; tik kontekstas, ne 2027 m. prognozė."
@@ -188,7 +191,18 @@
     "tslkd": {
       "rail_transit": {
         "stance": "unknown",
-        "note": "2027 m. TS-LKD savivaldos programos projekte nėra bėginio transporto projektavimo įsipareigojimo."
+        "note": "2027 m. TS-LKD savivaldos programos projekte nėra bėginio transporto projektavimo įsipareigojimo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "2027 m. TS-LKD savivaldos programos projekte nėra bėginio transporto projektavimo įsipareigojimo."
+        }
       },
       "a_lanes": {
         "stance": "lean_agree",
@@ -211,15 +225,48 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Remia konkretų Šiaurinės gatvės sprendimą, bet neįsipareigoja apskritai plėsti A juostų tinklą. Neįskaitoma į balą."
+        "review_note": "Remia konkretų Šiaurinės gatvės sprendimą, bet neįsipareigoja apskritai plėsti A juostų tinklą. Neįskaitoma į balą.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Konkretus Šiaurinės gatvės sprendimas, ne viso tinklo įsipareigojimas.",
+          "costs_tradeoffs": "Nenurodyta.",
+          "government_level": "local",
+          "document_status": "campaign_statement",
+          "speaker_authority": "officeholder",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Citata remia vieną gatvę; ne visa A juostų tinklo plėtra."
+        }
       },
       "bike_network": {
         "stance": "unknown",
-        "note": "2027 m. TS-LKD programos projekte nėra dviračių takų tinklo įsipareigojimo."
+        "note": "2027 m. TS-LKD programos projekte nėra dviračių takų tinklo įsipareigojimo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "2027 m. TS-LKD programos projekte nėra dviračių takų tinklo įsipareigojimo."
+        }
       },
       "transit_affordability": {
         "stance": "unknown",
-        "note": "2027 m. TS-LKD programos projekte nėra viešojo transporto kainos įsipareigojimo."
+        "note": "2027 m. TS-LKD programos projekte nėra viešojo transporto kainos įsipareigojimo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "2027 m. TS-LKD programos projekte nėra viešojo transporto kainos įsipareigojimo."
+        }
       },
       "kindergarten_places": {
         "stance": "agree",
@@ -242,7 +289,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Programa žada vietą kiekvienam vaikui iki mokyklos; tai stipresnis įsipareigojimas nei „didinti, kur trūksta“."
+        "review_note": "Programa žada vietą kiekvienam vaikui iki mokyklos; tai stipresnis įsipareigojimas nei „didinti, kur trūksta“.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodytas terminas.",
+          "costs_tradeoffs": "Nenurodyta, kaip finansuojama.",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Pažadas stipresnis už klausimą: vieta kiekvienam vaikui iki mokyklos."
+        }
       },
       "all_day_school": {
         "stance": "agree",
@@ -265,7 +323,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tiesioginis įsipareigojimas plėsti visos dienos mokyklą."
+        "review_note": "Tiesioginis įsipareigojimas plėsti visos dienos mokyklą.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Tiesioginis įsipareigojimas plėsti visos dienos mokyklą."
+        }
       },
       "pedestrian_safety": {
         "stance": "agree",
@@ -288,7 +357,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Citata yra platesnio sakinio apie viešosios aplinkos planavimą pagal šeimų maršrutus dalis."
+        "review_note": "Citata yra platesnio sakinio apie viešosios aplinkos planavimą pagal šeimų maršrutus dalis.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta.",
+          "costs_tradeoffs": "Nenurodyta.",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Citata yra platesnio įsipareigojimo planuoti aplinką pagal šeimų maršrutus dalis."
+        }
       },
       "housing_land_supply": {
         "stance": "agree",
@@ -311,7 +391,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "TS-LKD akcentuoja rinkos pasiūlą, ne socialinį būstą. Klausimas yra apie savivaldybės žemės naudojimą, todėl atitiktis tiesioginė."
+        "review_note": "TS-LKD akcentuoja rinkos pasiūlą, ne socialinį būstą. Klausimas yra apie savivaldybės žemės naudojimą, todėl atitiktis tiesioginė.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta, kokia dalis sklypų skirta būstui.",
+          "costs_tradeoffs": "Nenurodyta.",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Akcentuojama rinkos pasiūla, ne socialinis būstas."
+        }
       },
       "transparent_procurement": {
         "stance": "agree",
@@ -334,11 +425,33 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tiesiogiai apima viešuosius pirkimus ir plėtros sprendimus."
+        "review_note": "Tiesiogiai apima viešuosius pirkimus ir plėtros sprendimus.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Tiesiogiai apima viešuosius pirkimus ir plėtros sprendimus."
+        }
       },
       "participatory_budget": {
         "stance": "unknown",
-        "note": "2027 m. TS-LKD programos projekte nėra dalyvaujamojo biudžeto įsipareigojimo."
+        "note": "2027 m. TS-LKD programos projekte nėra dalyvaujamojo biudžeto įsipareigojimo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "2027 m. TS-LKD programos projekte nėra dalyvaujamojo biudžeto įsipareigojimo."
+        }
       },
       "civil_shelters": {
         "stance": "agree",
@@ -361,7 +474,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Programoje įsipareigojama didinti realiai parengtų priedangų skaičių; tai tiesioginis veiksmas, ne tik vizija."
+        "review_note": "Programoje įsipareigojama didinti realiai parengtų priedangų skaičių; tai tiesioginis veiksmas, ne tik vizija.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta, kiek ir kokių priedangų.",
+          "costs_tradeoffs": "Nenurodyta.",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Įsipareigojama didinti parengtų priedangų skaičių."
+        }
       },
       "resilience_centers": {
         "stance": "agree",
@@ -378,13 +502,24 @@
         "election_year": 2027,
         "evidence_kind": "verbatim",
         "scope": "2027 m. savivaldybių rinkimų programa (projektas)",
-        "full_proposition": true,
+        "full_proposition": false,
         "party_attribution": true,
-        "scoreable": true,
+        "scoreable": false,
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Programa įsipareigoja parengti viešuosius pastatus ir kolektyvinės apsaugos statinius, veikiančius kaip vietos atsparumo centrai."
+        "review_note": "Programos santraukoje įvardyti „vietos atsparumo centrai“, bet citata ir jos kontekstas neįsipareigoja, kad centras bus kiekvienoje seniūnijoje. Todėl teiginys apie kiekvieną seniūniją nepagrįstas; eilutė neįskaitoma.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta, kiek centrų ir kuriose seniūnijose.",
+          "costs_tradeoffs": "Nenurodyta.",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Citata neįrodo, kad centras bus kiekvienoje seniūnijoje."
+        }
       },
       "business_bureaucracy": {
         "stance": "agree",
@@ -407,7 +542,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Programos santraukoje įvardyta mažiau biurokratijos ir vienodos taisyklės naujoms darbo vietoms; detalesnėje dalyje – vienas atsakingas kontaktas ir terminai."
+        "review_note": "Programos santraukoje įvardyta mažiau biurokratijos ir vienodos taisyklės naujoms darbo vietoms; detalesnėje dalyje – vienas atsakingas kontaktas ir terminai.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta.",
+          "costs_tradeoffs": "Nenurodyta.",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Santraukos lygio įsipareigojimas; detalės programoje."
+        }
       }
     },
     "lp": {
@@ -432,7 +578,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tiesioginis įsipareigojimas pradėti dviejų tramvajaus linijų projektavimą."
+        "review_note": "Tiesioginis įsipareigojimas pradėti dviejų tramvajaus linijų projektavimą.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "adopted",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Tiesioginis įsipareigojimas pradėti dviejų tramvajaus linijų projektavimą."
+        }
       },
       "a_lanes": {
         "stance": "agree",
@@ -455,7 +612,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tiesioginis įsipareigojimas plėsti A juostas."
+        "review_note": "Tiesioginis įsipareigojimas plėsti A juostas.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "adopted",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Tiesioginis įsipareigojimas plėsti A juostas."
+        }
       },
       "bike_network": {
         "stance": "agree",
@@ -478,11 +646,33 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tiesioginis įsipareigojimas sujungti ir plėsti dviračių takus."
+        "review_note": "Tiesioginis įsipareigojimas sujungti ir plėsti dviračių takus.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "adopted",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Tiesioginis įsipareigojimas sujungti ir plėsti dviračių takus."
+        }
       },
       "transit_affordability": {
         "stance": "unknown",
-        "note": "Transporto programoje akcentuojamas patogumas ir prieinamumas fizine prasme, ne bilieto kaina. Nėra įsipareigojimo dėl nemokamo ar pigesnio viešojo transporto."
+        "note": "Transporto programoje akcentuojamas patogumas ir prieinamumas fizine prasme, ne bilieto kaina. Nėra įsipareigojimo dėl nemokamo ar pigesnio viešojo transporto.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Transporto programoje akcentuojamas patogumas ir prieinamumas fizine prasme, ne bilieto kaina. Nėra įsipareigojimo dėl nemokamo ar pigesnio viešojo transporto."
+        }
       },
       "kindergarten_places": {
         "stance": "agree",
@@ -505,11 +695,33 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tai 2026 m. veiklos rezultatas, o ne 2027 m. programinis pažadas. Neįskaitoma į balą; rodoma kaip kontekstas."
+        "review_note": "Tai 2026 m. veiklos rezultatas, o ne 2027 m. programinis pažadas. Neįskaitoma į balą; rodoma kaip kontekstas.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "2026 m. jau padarytų darbų aprašymas.",
+          "costs_tradeoffs": "Nenurodyta.",
+          "government_level": "local",
+          "document_status": "campaign_statement",
+          "speaker_authority": "officeholder",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Tai veiklos rezultatas, ne 2027 m. programinis pažadas."
+        }
       },
       "all_day_school": {
         "stance": "unknown",
-        "note": "Nėra 2027 m. programinės nuostatos dėl visos dienos mokyklų tinklo."
+        "note": "Nėra 2027 m. programinės nuostatos dėl visos dienos mokyklų tinklo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Nėra 2027 m. programinės nuostatos dėl visos dienos mokyklų tinklo."
+        }
       },
       "pedestrian_safety": {
         "stance": "agree",
@@ -532,19 +744,63 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tiesiogiai įvardyti saugūs maršrutai į mokyklas ir darželius."
+        "review_note": "Tiesiogiai įvardyti saugūs maršrutai į mokyklas ir darželius.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "adopted",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Tiesiogiai įvardyti saugūs maršrutai į mokyklas ir darželius."
+        }
       },
       "housing_land_supply": {
         "stance": "unknown",
-        "note": "Nėra 2027 m. programinės nuostatos dėl savivaldybės žemės būstui."
+        "note": "Nėra 2027 m. programinės nuostatos dėl savivaldybės žemės būstui.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Nėra 2027 m. programinės nuostatos dėl savivaldybės žemės būstui."
+        }
       },
       "transparent_procurement": {
         "stance": "unknown",
-        "note": "Nėra 2027 m. programinės nuostatos dėl viešųjų pirkimų ir teritorijų planavimo skaidrumo."
+        "note": "Nėra 2027 m. programinės nuostatos dėl viešųjų pirkimų ir teritorijų planavimo skaidrumo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Nėra 2027 m. programinės nuostatos dėl viešųjų pirkimų ir teritorijų planavimo skaidrumo."
+        }
       },
       "participatory_budget": {
         "stance": "unknown",
-        "note": "Nėra 2027 m. programinės nuostatos dėl dalyvaujamojo biudžeto."
+        "note": "Nėra 2027 m. programinės nuostatos dėl dalyvaujamojo biudžeto.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Nėra 2027 m. programinės nuostatos dėl dalyvaujamojo biudžeto."
+        }
       },
       "civil_shelters": {
         "stance": "lean_agree",
@@ -567,7 +823,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tekstas kelią klausimą dėl priedangų žinomumo, bet neįsipareigoja įrengti konkrečių patalpų. Neįskaitoma."
+        "review_note": "Tekstas kelią klausimą dėl priedangų žinomumo, bet neįsipareigoja įrengti konkrečių patalpų. Neįskaitoma.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Keliamas klausimas dėl žinomumo, ne įsipareigojimas įrengti patalpas.",
+          "costs_tradeoffs": "Nenurodyta.",
+          "government_level": "local",
+          "document_status": "campaign_statement",
+          "speaker_authority": "council_group",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Klausimas, o ne įsipareigojimas."
+        }
       },
       "resilience_centers": {
         "stance": "agree",
@@ -590,24 +857,68 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Pažodinis įsipareigojimas, kad kiekviena seniūnija taptų atsparumo centru."
+        "review_note": "Pažodinis įsipareigojimas, kad kiekviena seniūnija taptų atsparumo centru.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta, per kokį laiką.",
+          "costs_tradeoffs": "Nenurodyta.",
+          "government_level": "local",
+          "document_status": "campaign_statement",
+          "speaker_authority": "council_group",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Frakcijos pasiūlymas, ne patvirtinta programa."
+        }
       },
       "business_bureaucracy": {
         "stance": "unknown",
-        "note": "Nėra 2027 m. programinės nuostatos dėl administracinės naštos verslui mažinimo."
+        "note": "Nėra 2027 m. programinės nuostatos dėl administracinės naštos verslui mažinimo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Nėra 2027 m. programinės nuostatos dėl administracinės naštos verslui mažinimo."
+        }
       }
     },
     "ls": {
       "rail_transit": {
         "stance": "unknown",
-        "note": "2027 m. programos pristatyme nėra bėginio transporto projektavimo įsipareigojimo."
+        "note": "2027 m. programos pristatyme nėra bėginio transporto projektavimo įsipareigojimo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "2027 m. programos pristatyme nėra bėginio transporto projektavimo įsipareigojimo."
+        }
       },
       "a_lanes": {
         "stance": "unknown",
-        "note": "2027 m. programos pristatyme nėra A juostų įsipareigojimo."
+        "note": "2027 m. programos pristatyme nėra A juostų įsipareigojimo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "2027 m. programos pristatyme nėra A juostų įsipareigojimo."
+        }
       },
       "bike_network": {
-        "stance": "agree",
+        "stance": "lean_agree",
         "quote": "dviračių takų plėtra",
         "source_id": "ls_programme_summary",
         "source_url": "https://liberalai.lt/naujienos/pristateme-savivaldos-rinkimu-programa-ir-kandidatus-i-merus-atsakingai-del-jusu/",
@@ -621,13 +932,24 @@
         "election_year": 2027,
         "evidence_kind": "verbatim",
         "scope": "2027 m. savivaldos rinkimų programos pristatymas",
-        "full_proposition": true,
+        "full_proposition": false,
         "party_attribution": true,
-        "scoreable": true,
+        "scoreable": false,
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Programos pristatyme dviračių takų plėtra įvardyta kaip kryptis."
+        "review_note": "Pristatyme minima „dviračių takų plėtra“, bet nėra įsipareigojimo sujungti takus į ištisinį tinklą. Teiginys apima ir sujungimą, todėl citata nepagrindžia viso teiginio; eilutė neįskaitoma.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta.",
+          "costs_tradeoffs": "Nenurodyta.",
+          "government_level": "local",
+          "document_status": "adopted",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Citata mini plėtrą, bet ne tinklų sujungimą."
+        }
       },
       "transit_affordability": {
         "stance": "agree",
@@ -650,23 +972,78 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Pozicija sąlyginė: nemokamas tik pagal savivaldybės galimybes."
+        "review_note": "Pozicija sąlyginė: nemokamas tik pagal savivaldybės galimybes.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nemokamas transportas – tik pagal savivaldybės galimybes.",
+          "costs_tradeoffs": "Nenurodyta, kas finansuoja nemokamą transportą.",
+          "government_level": "local",
+          "document_status": "adopted",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Pozicija sąlyginė, ne besąlyginis įsipareigojimas."
+        }
       },
       "kindergarten_places": {
         "stance": "unknown",
-        "note": "2027 m. programos pristatyme nėra darželių vietų įsipareigojimo."
+        "note": "2027 m. programos pristatyme nėra darželių vietų įsipareigojimo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "2027 m. programos pristatyme nėra darželių vietų įsipareigojimo."
+        }
       },
       "all_day_school": {
         "stance": "unknown",
-        "note": "2027 m. programos pristatyme nėra visos dienos mokyklos įsipareigojimo."
+        "note": "2027 m. programos pristatyme nėra visos dienos mokyklos įsipareigojimo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "2027 m. programos pristatyme nėra visos dienos mokyklos įsipareigojimo."
+        }
       },
       "pedestrian_safety": {
         "stance": "unknown",
-        "note": "2027 m. programos pristatyme nėra pėsčiųjų saugumo įsipareigojimo."
+        "note": "2027 m. programos pristatyme nėra pėsčiųjų saugumo įsipareigojimo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "2027 m. programos pristatyme nėra pėsčiųjų saugumo įsipareigojimo."
+        }
       },
       "housing_land_supply": {
         "stance": "unknown",
-        "note": "2027 m. programos pristatyme nėra būsto žemės įsipareigojimo."
+        "note": "2027 m. programos pristatyme nėra būsto žemės įsipareigojimo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "2027 m. programos pristatyme nėra būsto žemės įsipareigojimo."
+        }
       },
       "transparent_procurement": {
         "stance": "agree",
@@ -689,7 +1066,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tiesioginis įsipareigojimas užtikrinti skaidrius viešuosius pirkimus ir teritorijų planavimą."
+        "review_note": "Tiesioginis įsipareigojimas užtikrinti skaidrius viešuosius pirkimus ir teritorijų planavimą.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "adopted",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Tiesioginis įsipareigojimas užtikrinti skaidrius viešuosius pirkimus ir teritorijų planavimą."
+        }
       },
       "participatory_budget": {
         "stance": "agree",
@@ -712,7 +1100,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tiesioginis įsipareigojimas plėsti dalyvaujamąjį biudžetą."
+        "review_note": "Tiesioginis įsipareigojimas plėsti dalyvaujamąjį biudžetą.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "adopted",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Tiesioginis įsipareigojimas plėsti dalyvaujamąjį biudžetą."
+        }
       },
       "civil_shelters": {
         "stance": "agree",
@@ -735,11 +1134,33 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tiesiogiai įvardytas priedangų ir slėptuvių įrengimas."
+        "review_note": "Tiesiogiai įvardytas priedangų ir slėptuvių įrengimas.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta, kiek ir kur.",
+          "costs_tradeoffs": "Nenurodyta.",
+          "government_level": "local",
+          "document_status": "adopted",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Programos pristatymo sąrašas, ne detalus įgyvendinimo planas."
+        }
       },
       "resilience_centers": {
         "stance": "unknown",
-        "note": "2027 m. programos pristatyme nėra seniūnijų atsparumo centrų įsipareigojimo."
+        "note": "2027 m. programos pristatyme nėra seniūnijų atsparumo centrų įsipareigojimo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "2027 m. programos pristatyme nėra seniūnijų atsparumo centrų įsipareigojimo."
+        }
       },
       "business_bureaucracy": {
         "stance": "agree",
@@ -762,7 +1183,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tiesioginis įsipareigojimas mažinti biurokratiją verslo projektams."
+        "review_note": "Tiesioginis įsipareigojimas mažinti biurokratiją verslo projektams.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "adopted",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Tiesioginis įsipareigojimas mažinti biurokratiją verslo projektams."
+        }
       }
     },
     "lsdp": {
@@ -787,7 +1219,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Metro studija ir projektavimo darbai atitinka bėginio transporto projektavimo klausimą."
+        "review_note": "Metro studija ir projektavimo darbai atitinka bėginio transporto projektavimo klausimą.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Pirmiausia galimybių studija, tada projektavimo darbai.",
+          "costs_tradeoffs": "Metro projektavimo kaina ir terminai nenurodyti.",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Įsipareigojama pradėti projektavimą, ne pastatyti metro."
+        }
       },
       "a_lanes": {
         "stance": "agree",
@@ -810,7 +1253,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tiesioginis įsipareigojimas plėsti A juostų tinklą."
+        "review_note": "Tiesioginis įsipareigojimas plėsti A juostų tinklą.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Tiesioginis įsipareigojimas plėsti A juostų tinklą."
+        }
       },
       "bike_network": {
         "stance": "agree",
@@ -833,7 +1287,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tiesioginis įsipareigojimas plėsti dviračių takų tinklą."
+        "review_note": "Tiesioginis įsipareigojimas plėsti dviračių takų tinklą.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Tiesioginis įsipareigojimas plėsti dviračių takų tinklą."
+        }
       },
       "transit_affordability": {
         "stance": "agree",
@@ -856,7 +1321,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Stipriausia pozicija šiuo klausimu: nemokamas viešasis transportas kiekvienam vilniečiui."
+        "review_note": "Stipriausia pozicija šiuo klausimu: nemokamas viešasis transportas kiekvienam vilniečiui.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Stipriausia pozicija šiuo klausimu: nemokamas viešasis transportas kiekvienam vilniečiui."
+        }
       },
       "kindergarten_places": {
         "stance": "agree",
@@ -879,7 +1355,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tiesiogiai atitinka klausimą apie vietų didinimą ten, kur trūksta."
+        "review_note": "Tiesiogiai atitinka klausimą apie vietų didinimą ten, kur trūksta.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Tiesiogiai atitinka klausimą apie vietų didinimą ten, kur trūksta."
+        }
       },
       "all_day_school": {
         "stance": "agree",
@@ -902,10 +1389,21 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Tiesioginis įsipareigojimas plėsti visos dienos mokyklų tinklą."
+        "review_note": "Tiesioginis įsipareigojimas plėsti visos dienos mokyklų tinklą.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Tiesioginis įsipareigojimas plėsti visos dienos mokyklų tinklą."
+        }
       },
       "pedestrian_safety": {
-        "stance": "agree",
+        "stance": "lean_agree",
         "quote": "Pėsčiųjų patogumą ir saugumą laikysime prioritetu.",
         "source_id": "lsdp_programme",
         "source_url": "https://lsdpvilnius.lt/wp-content/uploads/2026/10/4-lsdp-vilniaus-skyriaus-2027-rinkimu-programa.pdf",
@@ -919,13 +1417,24 @@
         "election_year": 2027,
         "evidence_kind": "verbatim",
         "scope": "2027 m. Vilniaus skyriaus rinkimų programa (projektas)",
-        "full_proposition": true,
+        "full_proposition": false,
         "party_attribution": true,
-        "scoreable": true,
+        "scoreable": false,
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Bendras pėsčiųjų saugumo prioritetas; konkrečių maršrutų į mokyklas sąrašo nėra."
+        "review_note": "Citata įsipareigoja pėsčiųjų saugumą laikyti prioritetu, bet neįvardija ypatingo dėmesio kelyje į mokyklą. Teiginys platesnis už citatą; eilutė neįskaitoma.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta.",
+          "costs_tradeoffs": "Nenurodyta.",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Bendras pėsčiųjų saugumo prioritetas; mokyklos kryptis citation neįvardyta."
+        }
       },
       "housing_land_supply": {
         "stance": "agree",
@@ -948,11 +1457,33 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Naudoja savivaldybės sklypus ir įsipareigoja 1 500 prieinamų būstų iki 2030 m."
+        "review_note": "Naudoja savivaldybės sklypus ir įsipareigoja 1 500 prieinamų būstų iki 2030 m.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Naudoja savivaldybės sklypus ir įsipareigoja 1 500 prieinamų būstų iki 2030 m."
+        }
       },
       "transparent_procurement": {
         "stance": "unknown",
-        "note": "Programoje yra daugiabučių administratorių skaidrumo nuostata, bet nėra viešųjų pirkimų ir teritorijų planavimo skaidrumo įsipareigojimo."
+        "note": "Programoje yra daugiabučių administratorių skaidrumo nuostata, bet nėra viešųjų pirkimų ir teritorijų planavimo skaidrumo įsipareigojimo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Programoje yra daugiabučių administratorių skaidrumo nuostata, bet nėra viešųjų pirkimų ir teritorijų planavimo skaidrumo įsipareigojimo."
+        }
       },
       "participatory_budget": {
         "stance": "agree",
@@ -975,7 +1506,18 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Stiprina dalyvaujamąjį biudžetą; LS programa kalba apie plėtimą. Klausimas apima abu."
+        "review_note": "Stiprina dalyvaujamąjį biudžetą; LS programa kalba apie plėtimą. Klausimas apima abu.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Stiprina dalyvaujamąjį biudžetą; LS programa kalba apie plėtimą. Klausimas apima abu."
+        }
       },
       "civil_shelters": {
         "stance": "agree",
@@ -998,15 +1540,48 @@
         "source_status": "accessible",
         "quote_verified": true,
         "review_status": "assistant_checked",
-        "review_note": "Numato naujų požeminių erdvių panaudojimą gyventojų apsaugai; neapima esamų pastatų inventorizacijos."
+        "review_note": "Numato naujų požeminių erdvių panaudojimą gyventojų apsaugai; neapima esamų pastatų inventorizacijos.",
+        "interpretation": {
+          "supports_full_proposition": true,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "local",
+          "document_status": "draft",
+          "speaker_authority": "party",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Numato naujų požeminių erdvių panaudojimą gyventojų apsaugai; neapima esamų pastatų inventorizacijos."
+        }
       },
       "resilience_centers": {
         "stance": "unknown",
-        "note": "Programoje yra seniūnijų veiksmų planai, bet nėra atskirų atsparumo centrų įsipareigojimo."
+        "note": "Programoje yra seniūnijų veiksmų planai, bet nėra atskirų atsparumo centrų įsipareigojimo.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Programoje yra seniūnijų veiksmų planai, bet nėra atskirų atsparumo centrų įsipareigojimo."
+        }
       },
       "business_bureaucracy": {
         "stance": "unknown",
-        "note": "Programoje yra biurokratinės naštos mažinimas pedagogams, bet ne verslui."
+        "note": "Programoje yra biurokratinės naštos mažinimas pedagogams, bet ne verslui.",
+        "interpretation": {
+          "supports_full_proposition": false,
+          "conditions": "Nenurodyta",
+          "costs_tradeoffs": "Nenurodyta",
+          "government_level": "not_applicable",
+          "document_status": "not_found",
+          "speaker_authority": "not_applicable",
+          "human_approved": false,
+          "reviewed_by": "assistant",
+          "limitations": "Programoje yra biurokratinės naštos mažinimas pedagogams, bet ne verslui."
+        }
       }
     }
   },
@@ -1014,7 +1589,7 @@
     "manobalsas": {
       "title": "Mano Balsas 2024 m. Seimo rinkimų metodika",
       "status": "context_only",
-      "why": "Mano Balsas naudoja partijų klausimynus ir ekspertinį kodavimą nacionalinėms pozicijoms. 2026-10-26 svetainėje nėra 2027 m. Vilniaus savivaldybės testo. Jo 2024 m. koordinatės nėra 2027 m. savivaldybės pažadai.",
+      "why": "Mano Balsas naudoja partijų klausimynus ir ekspertinį kodavimą nacionalinėms pozicijoms. Paskutinės patikros metu jo svetainėje nebuvo 2027 m. Vilniaus savivaldybės testo. Jo 2024 m. koordinatės nėra 2027 m. savivaldybės pažadai.",
       "methodology_url": "https://www.manobalsas.lt/metodika/metodika.php",
       "test_url": "https://www.manobalsas.lt/testas/testas.php?tst=43",
       "use": "Klausimyno idėja ir dimensijų logika naudojamos kaip įkvėpimas, ne kaip partijų 2027 m. pozicijų šaltinis.",
@@ -1025,14 +1600,38 @@
     "status": "pending",
     "approved_rows": 0,
     "reviewed_rows": 0,
-    "note": "Visos eilutės pažymėtos assistant_checked. Nepriklausoma žmogaus peržiūra dar neatlikta. Rezultatas rodomas su šia išlyga ir neturi būti laikomas oficialia rinkimų rekomendacija."
+    "note": "Visos eilutės pažymėtos assistant_checked. Nepriklausoma žmogaus peržiūra dar neatlikta. Rezultatas rodomas su šia išlyga ir neturi būti laikomas oficialia rinkimų rekomendacija.",
+    "reviewers": []
   },
   "limits": [
     "2027 m. galutiniai kandidatų sąrašai ir numeriai VRK dar nepaskelbti; numatoma iki 2027-02-05.",
-    "Lyginami tik keturi oficialiai užregistruoti Vilniaus miesto sąrašai. Kiti komitetai ar partijos gali registruotis vėliau.",
+    "Lyginami keturi Vilniaus miesto sąrašų kampanijos dalyviai, užregistruoti iki 2026-10-28. Tai nėra galutinis kandidatų sąrašas: kandidatų registracija vyksta iki 2026-12-17, o sąrašai ir numeriai skelbiami iki 2027-02-05.",
     "Ne kiekviena partija turi 2027 m. savivaldybės programą. Trūkstama pozicija nėra neutrali ar priešiška.",
     "Skirtingų partijų procentai gali remtis skirtingu klausimų skaičiumi; aprėptis rodoma kiekvienai partijai.",
-    "Tai ne visuomenės nuomonės apklausa, ne rinkimų prognozė ir ne teisinė konsultacija.",
+    "Tai ne visuomenės nuomonės apklausa, ne rinkimų prognozė, ne mandatų prognozė ir ne teisinė konsultacija.",
     "Nepriklausoma žmogaus peržiūra laukiama; rezultatai turi būti patikrinti prieš viešą naudojimą."
-  ]
+  ],
+  "snapshot": {
+    "register_snapshot_date": "2026-10-28",
+    "evidence_reviewed_at": "2026-10-27",
+    "label": "2027 m. kampanijos dokumentų ir VRK registro momentinė kopija",
+    "immutable": true
+  },
+  "evidence_review": {
+    "status": "assistant_checked",
+    "human_approved_rows": 0,
+    "method": "Kiekviena eilutė turi atskirą interpretacijos įrašą: ar citata pagrindžia visą teiginį, sąlygos, kaina ir kompromisai, savivaldybės ar nacionalinis lygmuo, dokumento statusas, kalbėtojo autoritetas ir žmogaus patvirtinimas.",
+    "fields": [
+      "supports_full_proposition",
+      "conditions",
+      "costs_tradeoffs",
+      "government_level",
+      "document_status",
+      "speaker_authority",
+      "human_approved",
+      "reviewed_by",
+      "limitations"
+    ],
+    "limitations": "Struktūrizuota peržiūra atlikta automatiniu būdu. Ji nepakeičia nepriklausomos žmogaus peržiūros; human_approved vis dar false."
+  }
 }

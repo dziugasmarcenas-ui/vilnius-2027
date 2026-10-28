@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Vilnius 2027 civic guide: static, no tracking, no personalisation.

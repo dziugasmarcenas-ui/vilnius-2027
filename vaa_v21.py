@@ -32,6 +32,20 @@ PARTY_IDS = {"tslkd", "lp", "ls", "lsdp"}
 TOPIC_IDS = {"transport", "education", "housing", "governance", "safety", "economy"}
 UTILITY_STANCES = {"unknown"}
 VALID_USER_VALUES = {-2, -1, 0, 1, 2}
+GOVERNMENT_LEVELS = {"local", "national", "mixed", "unclear", "not_applicable"}
+DOCUMENT_STATUSES = {"draft", "adopted", "campaign_statement", "not_found"}
+SPEAKER_AUTHORITIES = {"party", "candidate", "officeholder", "council_group", "coalition", "not_applicable"}
+INTERPRETATION_KEYS = (
+    "supports_full_proposition",
+    "conditions",
+    "costs_tradeoffs",
+    "government_level",
+    "document_status",
+    "speaker_authority",
+    "human_approved",
+    "reviewed_by",
+    "limitations",
+)
 
 
 class VaaError(ValueError):
@@ -108,7 +122,13 @@ def score_v21(data: dict[str, Any], selection: dict[str, Any]) -> dict[str, Any]
             stats["answered"] += 1
             answer = data["answers"].get(party["id"], {}).get(statement["id"], {})
             stance = answer.get("stance")
-            if not (answer.get("scoreable") is True and answer.get("quote_verified") is True and stance in STANCE_VALUE):
+            interpretation = answer.get("interpretation") or {}
+            if not (
+                answer.get("scoreable") is True
+                and answer.get("quote_verified") is True
+                and interpretation.get("supports_full_proposition") is True
+                and stance in STANCE_VALUE
+            ):
                 gap_answered.add(statement["topic_id"])
                 continue
             points = 100 - 25 * abs(int(user) - STANCE_VALUE[stance])
@@ -224,28 +244,33 @@ def score_v21(data: dict[str, Any], selection: dict[str, Any]) -> dict[str, Any]
     mayor = None
     if status == "clear" and top and top["mayor_candidate"]:
         mayor = {"party_id": top["party_id"], "short_name": top["short_name"], "name": top["mayor_candidate"]}
+    final_lists_date = data.get("election", {}).get("final_lists_date", "2027-02-05")
+    preference_votes = data.get("election", {}).get("preference_votes", 5)
     notes = [
-        "2027 m. galutiniai sąrašai ir numeriai VRK dar nepaskelbti (numatoma iki 2027-02-05).",
-        "Tai atitikties suvestinė, ne partijos ar kandidato rekomendacija.",
+        f"2027 m. galutiniai sąrašai ir numeriai VRK dar nepaskelbti (numatoma iki {final_lists_date}).",
+        "Tai programų tekstų atitikimas, ne partijos, kandidato ar koalicijos rekomendacija.",
+        "Rezultatas nevertina rinkimų kampanijos poveikio, galimų mandatų, koalicijų, kandidatų kompetencijos ar to, ar pažadas bus įgyvendintas.",
+        "Nenaudok rezultato kaip strateginio balsavimo patarimo.",
     ]
     if status == "insufficient":
-        notes.append("Nepakanka patikimų, cituojamų pozicijų, kad būtų galima pagrįstai rekomenduoti sąrašą.")
+        notes.append("Nepakanka patikimų, cituojamų pozicijų, kad būtų pagrindas išskirti sąrašą.")
     elif status == "no_match":
         notes.append(
-            "Geriausias turimas atitikimas nesiekia 50/100. Nerekomenduojame sąrašo; skaityk programas ir kandidatų sąrašus."
+            "Geriausias turimas programų atitikimas nesiekia 50/100. Nepakanka pagrindo išskirti sąrašą; skaityk programas ir kandidatų sąrašus."
         )
     elif status == "close":
         if close_reason in ("margin", "margin_and_coverage"):
             notes.append(
-                "Keli sąrašai skiriasi mažiau nei 5 balais. Rinkis pagal tau svarbiausią temą, o ne pagal vieną bendrą skaičių."
+                "Keli sąrašai skiriasi mažiau nei 5 balais. Žiūrėk į tau svarbiausią temą, o ne į vieną bendrą skaičių."
             )
         if close_reason in ("coverage", "margin_and_coverage"):
-            notes.append("Aukščiausiai esančio sąrašo aprėptis žema – trūksta pozicijų kai kuriais klausimais.")
-        notes.append("Tarybos sąrašo vienareikšmiškai neskelbiame; žemiau pateikti artimiausi sąrašai.")
+            notes.append("Viršutinio sąrašo aprėptis žema – trūksta pozicijų kai kuriais klausimais.")
+        notes.append("Vieno sąrašo neišskiriame; žemiau pateikti artimiausi programų atitikimai.")
     if status == "clear" and top and not top["mayor_candidate"]:
-        notes.append("Šis sąrašas neturėjo užregistruoto mero kandidato; mero biuletenyje rinkis atskirai.")
+        notes.append("Šis sąrašas neturėjo registruoto mero kampanijos dalyvio; mero biuletenyje rinkis atskirai.")
     if mayor_candidates:
-        notes.append("Mero biuletenyje kol kas rodomi tik VRK registruoti kandidatai; galutinis mero biuletenis dar nepaskelbtas.")
+        notes.append("Mero biuletenyje kol kas rodomi tik VRK registruoti mero kampanijos dalyviai; galutinis mero biuletenis dar nepaskelbtas.")
+    notes.append(f"Pirmumo balsų taisyklę nustato Rinkimų kodekso 143 straipsnis (iki {preference_votes} pirmumo balsų; mažesniame sąraše – mažiau). Oficialų biuletenio išdėstymą patikrink VRK pavyzdyje.")
     notes.append("Prieš balsuodami patikrinkite oficialų VRK biuletenį.")
 
     party_by_id = {p["party_id"]: p for p in party_rows}
@@ -274,14 +299,50 @@ def score_v21(data: dict[str, Any], selection: dict[str, Any]) -> dict[str, Any]
             "shortlist": shortlist_ids if status in ("close", "clear") else [],
             "mayor": mayor,
             "mayor_candidates": mayor_candidates,
-            "preference_votes": 5,
-            "final_lists_date": "2027-02-05",
+            "preference_votes": preference_votes,
+            "final_lists_date": final_lists_date,
             "ballot_number": None,
             "notes": notes,
             "topic_plan": topic_plan,
             "top_mayor": (party_by_id[top["party_id"]].get("mayor_candidate") if top else None),
         },
     }
+
+
+def _validate_interpretation(party_id: str, statement_id: str, row: dict[str, Any], scoreable: bool) -> None:
+    label = f"{party_id}/{statement_id}"
+    value = row.get("interpretation")
+    if not isinstance(value, dict):
+        raise VaaError(f"{label}: interpretation object required")
+    missing = [key for key in INTERPRETATION_KEYS if key not in value]
+    if missing:
+        raise VaaError(f"{label}: interpretation missing {', '.join(missing)}")
+    supports = value.get("supports_full_proposition")
+    if not isinstance(supports, bool):
+        raise VaaError(f"{label}: supports_full_proposition must be boolean")
+    if supports is not scoreable:
+        raise VaaError(f"{label}: supports_full_proposition must match scoreable")
+    if value.get("government_level") not in GOVERNMENT_LEVELS:
+        raise VaaError(f"{label}: invalid government_level")
+    if value.get("document_status") not in DOCUMENT_STATUSES:
+        raise VaaError(f"{label}: invalid document_status")
+    if value.get("speaker_authority") not in SPEAKER_AUTHORITIES:
+        raise VaaError(f"{label}: invalid speaker_authority")
+    if not isinstance(value.get("human_approved"), bool):
+        raise VaaError(f"{label}: human_approved must be boolean")
+    if value.get("human_approved") is True and row.get("review_status") != "human_approved":
+        raise VaaError(f"{label}: human approval needs human_approved review_status")
+    for key in ("conditions", "costs_tradeoffs", "reviewed_by", "limitations"):
+        if not isinstance(value.get(key), str) or not value[key].strip():
+            raise VaaError(f"{label}: interpretation {key} required")
+    if scoreable:
+        if value.get("document_status") == "not_found":
+            raise VaaError(f"{label}: scoreable row cannot have not_found document status")
+        if value.get("speaker_authority") == "not_applicable":
+            raise VaaError(f"{label}: scoreable row needs a speaker authority")
+    else:
+        if supports is not False:
+            raise VaaError(f"{label}: non-scoreable row must not claim full support")
 
 
 def validate_data(data: dict[str, Any]) -> None:
@@ -334,6 +395,9 @@ def validate_data(data: dict[str, Any]) -> None:
             if stance in UTILITY_STANCES:
                 if not row.get("note"):
                     raise VaaError(f"{party_id}/{statement_id}: unknown rows need a note")
+                _validate_interpretation(party_id, statement_id, row, False)
+                if row.get("interpretation", {}).get("document_status") != "not_found":
+                    raise VaaError(f"{party_id}/{statement_id}: unknown row must use not_found document status")
                 continue
             required = (
                 "quote", "source_id", "source_url", "source_date", "source_type", "speaker",
@@ -370,6 +434,12 @@ def validate_data(data: dict[str, Any]) -> None:
                         f"{party_id}/{statement_id}: non-scoreable row must identify a failed gate "
                         "(full_proposition or party_attribution)"
                     )
+            _validate_interpretation(party_id, statement_id, row, row.get("scoreable") is True)
+    evidence_review = data.get("evidence_review")
+    if not isinstance(evidence_review, dict) or evidence_review.get("status") not in ("assistant_checked", "human_approved"):
+        raise VaaError("evidence_review status required")
+    if len(evidence_review.get("fields") or []) != len(INTERPRETATION_KEYS):
+        raise VaaError("evidence_review fields must document every interpretation field")
     hv = data.get("human_validation")
     if not isinstance(hv, dict) or hv.get("status") not in ("pending", "approved"):
         raise VaaError("human_validation status required")

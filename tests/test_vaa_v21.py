@@ -49,8 +49,8 @@ class DatasetTest(unittest.TestCase):
         known = [a for rows in doc["answers"].values() for a in rows.values() if a["stance"] != "unknown"]
         scoreable = [a for rows in doc["answers"].values() for a in rows.values() if a.get("scoreable")]
         self.assertEqual(len(known), 32)
-        self.assertEqual(len(scoreable), 29)
-        self.assertEqual(len(known) - len(scoreable), 3)
+        self.assertEqual(len(scoreable), 26)
+        self.assertEqual(len(known) - len(scoreable), 6)
 
     def test_every_coded_position_is_current_and_attributed(self):
         doc = data()
@@ -121,12 +121,13 @@ class DatasetTest(unittest.TestCase):
         self.assertEqual(doc["format"], "vaa-source-registry-v21")
         ids = [row["id"] for row in doc["sources"]]
         self.assertEqual(len(ids), len(set(ids)))
-        self.assertEqual(len(ids), 9)
+        self.assertEqual(len(ids), 10)
         for row in doc["sources"]:
             self.assertTrue(row["url"].startswith("https://"))
-            self.assertIn(row["kind"], ("pdf", "html"))
+            self.assertIn(row["kind"], ("pdf", "html", "legal"))
         self.assertIn("manobalsas_methodology", ids)
         self.assertIn("manobalsas_test", ids)
+        self.assertIn("rinkimu_kodeksas_2027", ids)
 
     def test_manobalsas_context_never_contains_party_positions(self):
         doc = json.loads(MB.read_text("utf-8"))
@@ -233,7 +234,7 @@ class ScoreTest(unittest.TestCase):
         self.assertEqual(result["top"], "lsdp")
         self.assertEqual(result["plan"]["council_list"], "lsdp")
         self.assertIsNone(result["plan"]["mayor"])
-        self.assertTrue(any("mero kandidato" in note for note in result["plan"]["notes"]))
+        self.assertTrue(any("mero kampanijos dalyvio" in note for note in result["plan"]["notes"]))
         self.assertEqual(
             {row["name"] for row in result["plan"]["mayor_candidates"]},
             {"Vytautas Mitalas", "Simonas Gentvilas"},
@@ -273,7 +274,7 @@ class ScoreTest(unittest.TestCase):
         self.assertEqual(plan["final_lists_date"], "2027-02-05")
         self.assertIsNone(plan["ballot_number"])
         self.assertTrue(any("nepaskelbti" in note for note in plan["notes"]))
-        self.assertTrue(any("ne partijos ar kandidato rekomendacija" in note for note in plan["notes"]))
+        self.assertTrue(any("ne partijos, kandidato ar koalicijos rekomendacija" in note for note in plan["notes"]))
 
     def test_invalid_answers_are_rejected(self):
         for value in (3, -3, 1.5, True, "2"):

@@ -1,9 +1,22 @@
 {
   "format": "vaa-human-validation-v21",
-  "generated_at": "2026-10-26",
+  "generated_at": "2026-10-28",
   "status": "pending",
   "public_use_allowed": false,
-  "scope": "Vilnius 2027 v21: 4 registered lists, 13 statements, 32 quoted evidence rows, 29 scoreable rows.",
+  "scope": "Vilnius 2027 v21: 4 registered list campaign participants, 13 statements, 32 quoted evidence rows, 26 scoreable rows, 6 non-scoreable rows, 20 unknown rows. Register snapshot 2026-10-28.",
+  "counts": {
+    "parties": 4,
+    "topics": 6,
+    "statements": 13,
+    "organisation_statement_combinations": 52,
+    "evidence_rows": 32,
+    "scoreable_rows": 26,
+    "non_scoreable_rows": 6,
+    "unknown_rows": 20,
+    "combinations_without_usable_evidence": 26,
+    "assistant_checked_rows": 32,
+    "human_approved_rows": 0
+  },
   "reviewers": {
     "content": {
       "name": null,
@@ -30,44 +43,112 @@
       "status": "pending"
     }
   },
-  "counts": {
-    "parties": 4,
-    "topics": 6,
-    "statements": 13,
-    "evidence_rows": 32,
-    "scoreable_rows": 29,
-    "non_scoreable_rows": 3,
-    "assistant_checked_rows": 32,
-    "human_approved_rows": 0
+  "protocol": {
+    "purpose": "Record an independent human decision for every quoted row and for the legal, accessibility and user-testing claims. Automated checks prove only that a quotation occurs in stored source text and that the software behaves as tested.",
+    "independence": [
+      "The reviewer must not be the person who built or coded the row.",
+      "An AI agent cannot sign off a row, a legal interpretation, an accessibility review or user testing.",
+      "Every completed item needs a reviewer name, role, date and a short written reason.",
+      "A row may be approved only when the reviewer has opened the cited source and read the surrounding passage."
+    ],
+    "row_fields": {
+      "supports_full_proposition": "true only if the quotation supports the whole statement, not one fragment or a neighbouring promise.",
+      "conditions": "state every condition, exception, pilot, or 'where possible' qualifier in the source.",
+      "costs_tradeoffs": "state whether the source names a cost, funding source, trade-off or implementation constraint; write 'not stated' when absent.",
+      "government_level": "local, national, mixed, unclear or not_applicable. A national promise cannot be scored as a municipal commitment.",
+      "document_status": "draft, adopted, campaign_statement or not_found. A draft or campaign statement is not an adopted programme.",
+      "speaker_authority": "party, candidate, officeholder, council_group, coalition or not_applicable. A person's statement is not automatically the organisation's position.",
+      "human_approved": "true only after the named reviewer signs this row.",
+      "reviewed_by": "reviewer name and date; never 'assistant' for an approval.",
+      "limitations": "the narrowest honest description of what the quotation does not establish."
+    },
+    "steps": [
+      {
+        "id": "source-open",
+        "action": "Open the stored source URL and read the quotation in context.",
+        "pass_condition": "The URL resolves, the quotation is present, and the surrounding passage does not reverse or narrow it.",
+        "record": "source_url, retrieved_at, surrounding-passage note"
+      },
+      {
+        "id": "proposition",
+        "action": "Compare the quotation with the full questionnaire statement.",
+        "pass_condition": "The quotation supports the whole proposition, including its scope and strength.",
+        "record": "supports_full_proposition and a one-sentence reason"
+      },
+      {
+        "id": "scope",
+        "action": "Classify who is speaking and at which level of government.",
+        "pass_condition": "The speaker has authority for the claim and the level matches a Vilnius municipal commitment.",
+        "record": "speaker_authority, government_level"
+      },
+      {
+        "id": "status",
+        "action": "Classify the document and its conditions.",
+        "pass_condition": "Draft, campaign statement and adopted programme are not conflated; conditions and costs are stated.",
+        "record": "document_status, conditions, costs_tradeoffs"
+      },
+      {
+        "id": "score-gate",
+        "action": "Decide whether the row may enter the score.",
+        "pass_condition": "Only rows with supports_full_proposition=true, a verified quotation and a human approval may be scoreable.",
+        "record": "scoreable, human_approved, reviewed_by"
+      },
+      {
+        "id": "unknown-gate",
+        "action": "Review every unknown row.",
+        "pass_condition": "No unknown row is presented as disagreement, and no position is invented to fill coverage.",
+        "record": "unknown reason and searched sources"
+      }
+    ],
+    "decision_rules": [
+      "A quotation that supports only one part of a compound statement is non-scoreable.",
+      "A national or 2024 position is context only and cannot be scored as a 2027 municipal promise.",
+      "A person's campaign statement is not the organisation's programme unless the source attributes it to the organisation.",
+      "A draft, a summary page and an adopted programme are different document statuses.",
+      "Missing evidence stays unknown; it is never converted into a negative score.",
+      "Programme-text similarity is not a prediction of seats, coalition influence or future delivery."
+    ],
+    "out_of_scope": [
+      "Recruiting reviewers or user-test participants.",
+      "Signing off on behalf of a human reviewer.",
+      "Inventing candidate names, ballot numbers, publication dates or official ballot layouts."
+    ]
   },
   "checklist": [
     {
       "id": "register-snapshot",
       "category": "source_truth",
-      "requirement": "Confirm that the four Vilnius lists and two mayor candidates match the VRK register snapshot used by the build, and that no final list or ballot number is claimed.",
+      "requirement": "Confirm that the four Vilnius list campaign-participant records and two mayor campaign-participant records match the 2026-10-28 VRK snapshot, and that no candidate registration, final list or ballot number is claimed.",
       "status": "pending",
-      "evidence": null
+      "evidence": "Register v2 snapshot 2026-10-28: 4 list participants, 2 mayor campaign participants, 57 national participant blocks. Candidate lists published: false."
     },
     {
       "id": "final-ballot",
       "category": "source_truth",
-      "requirement": "After VRK publishes final candidate lists and list numbers (expected 2027-02-05), replace the provisional register page and rerun every source check.",
+      "requirement": "After VRK publishes final candidate lists and list numbers (expected 2027-02-05), import them through the candidate-list overlay and rerun every source check.",
       "status": "blocked",
-      "evidence": "VRK final lists and ballot numbers are not published as of 2026-10-26."
+      "evidence": "VRK final lists and ballot numbers are not published as of 2026-10-28."
     },
     {
       "id": "quote-attribution",
       "category": "evidence",
       "requirement": "Read every quoted row in sources_2027.html and confirm that the speaker, date, scope and full proposition support the coded stance. Do not accept a quote merely because the automated substring check passed.",
       "status": "pending",
-      "evidence": "32 quoted rows; 29 are scoreable; 3 are retained as non-scoreable with a stated reason."
+      "evidence": "32 quoted rows; 26 are scoreable; 6 are retained as non-scoreable with a stated reason; 0 rows have human approval."
     },
     {
       "id": "partial-evidence",
       "category": "evidence",
-      "requirement": "Confirm that the three non-scoreable rows stay excluded and that unknown rows are not presented as disagreement.",
+      "requirement": "Confirm that the six non-scoreable rows stay excluded and that the twenty unknown rows are not presented as disagreement.",
       "status": "pending",
-      "evidence": null
+      "evidence": "26 scoreable, 6 non-scoreable, 20 unknown out of 52 organisation/statement combinations."
+    },
+    {
+      "id": "coverage-gaps",
+      "category": "evidence",
+      "requirement": "Check the documented coverage gaps against the available 2027 sources and confirm that no missing position has been filled without a quotation.",
+      "status": "pending",
+      "evidence": "23 combinations had no usable evidence in the previous audit; the current dataset records 26 combinations without usable evidence after three rows were downgraded. See vaa/review/coverage_gaps_v21.json."
     },
     {
       "id": "manobalsas-boundary",
@@ -79,16 +160,16 @@
     {
       "id": "neutrality",
       "category": "content",
-      "requirement": "Check that no page calls the result a recommendation, prediction, official ballot or final ranking, and that close/insufficient states are visible.",
+      "requirement": "Check that no page calls the result a recommendation, prediction, official ballot, final ranking or measure of voting power, and that close/insufficient states are visible.",
       "status": "pending",
-      "evidence": null
+      "evidence": "Pages call the result 'programų tekstų atitikimas' and disclose that all scoreable positions are 'agree'."
     },
     {
       "id": "ballot-guidance",
       "category": "legal",
-      "requirement": "Verify the ballot explanation against the official 2027 VRK ballot examples and the Rinkimų kodeksas. In particular, verify the number and marking of preference votes and the separate mayoral ballot.",
+      "requirement": "Verify the ballot explanation against the current Rinkimų kodeksas and, when published, the official 2027 VRK ballot examples. In particular, verify the number and marking of preference votes and the separate mayoral choice.",
       "status": "blocked",
-      "evidence": "Official 2027 ballot examples are not published; the page labels five preference votes as preliminary 2023 practice."
+      "evidence": "Law checked against Rinkimų kodekso 143, 158, 167, 168, 169, 170 and 171 straipsniai. Official 2027 ballot examples are still 'Informacija ruošiama'."
     },
     {
       "id": "privacy",
@@ -112,11 +193,18 @@
       "evidence": "Automated browser flows at 390 px and 320 px only; no real-user testing has been performed."
     },
     {
+      "id": "update-process",
+      "category": "deployment",
+      "requirement": "Confirm that a register refresh can add an organisation, move publication states to published, and accept a final candidate-list overlay without code changes.",
+      "status": "pending",
+      "evidence": "Transition tests cover new organisations, variable list counts, published programme/ballot documents, and candidate names/numbers. Human verification of the live refresh remains pending."
+    },
+    {
       "id": "public-deployment",
       "category": "deployment",
-      "requirement": "Publish only the clean static output, verify every page and download link over HTTPS, and record the public URL and deployment date.",
+      "requirement": "Publish only the clean static output, verify every page and download link over HTTPS, and record the public URL and deployed revision.",
       "status": "pending",
-      "evidence": "Agent-deployed at https://dziugasmarcenas-ui.github.io/vilnius-2027/ and verified HTTP 200 for six pages and data files on 2026-10-27. Independent human verification still pending."
+      "evidence": "Deployment is performed after the local corrections; the deployed commit is recorded in technical_verification and V21_REPORT.md."
     }
   ],
   "signoff": {
@@ -130,14 +218,16 @@
     "This file records a pending review; it is not evidence that review happened.",
     "A reviewer must change the relevant status, add a name and date, and update the matching signoff field.",
     "Do not set public_use_allowed to true while any blocked item remains unresolved.",
-    "The automated source check proves quotation presence and hash consistency, not correct interpretation or political neutrality."
+    "The automated source check proves quotation presence and hash consistency, not correct interpretation or political neutrality.",
+    "All 26 scoreable positions are 'agree'; the result is a programme-text similarity, not a measure of electoral influence or future delivery."
   ],
   "technical_verification": {
-    "performed_at": "2026-10-27",
+    "performed_at": "2026-10-28",
     "performed_by": "AI agent; not a substitute for the pending human reviews",
     "public_url": "https://dziugasmarcenas-ui.github.io/vilnius-2027/",
-    "public_https_checks": "HTTP 200 verified for six pages and public data files",
-    "tests": "Local v21 suite: 397 tests passed. Public source: 68 passed, 3 fixture-dependent tests skipped because the raw VRK HTML fixture is intentionally not published.",
+    "public_https_checks": "To be recorded after publishing the corrected build.",
+    "deployment_commit": "To be recorded after publishing the corrected build.",
+    "tests": "Local v21 suite: 424 tests passed, including register transition tests.",
     "accessibility": "axe-core WCAG 2.1 AA: 0 violations on six static pages and a rendered result state.",
     "responsive": "No horizontal page overflow at 390 px and 320 px on all six pages; quiz result states also checked.",
     "console": "No browser console errors or page errors in tested flows."

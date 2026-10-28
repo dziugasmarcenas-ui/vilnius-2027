@@ -84,7 +84,9 @@
         ts.answered += 1;
         var answer = (data.answers[party.id] || {})[statement.id] || {};
         var st = answer.stance;
-        if (answer.scoreable !== true || answer.quote_verified !== true || STANCE[st] === undefined) {
+        var interpretation = answer.interpretation || {};
+        if (answer.scoreable !== true || answer.quote_verified !== true ||
+            interpretation.supports_full_proposition !== true || STANCE[st] === undefined) {
           gapAnswered[statement.topic_id] = true;
           return;
         }
@@ -203,28 +205,33 @@
     if (status === 'clear' && top && top.mayor_candidate) {
       mayor = { party_id: top.party_id, short_name: top.short_name, name: top.mayor_candidate };
     }
+    var finalListsDate = (data.election && data.election.final_lists_date) || '2027-02-05';
+    var preferenceVotes = (data.election && data.election.preference_votes) || 5;
     var notes = [];
-    notes.push('2027 m. galutiniai sąrašai ir numeriai VRK dar nepaskelbti (numatoma iki 2027-02-05).');
-    notes.push('Tai atitikties suvestinė, ne partijos ar kandidato rekomendacija.');
+    notes.push('2027 m. galutiniai sąrašai ir numeriai VRK dar nepaskelbti (numatoma iki ' + finalListsDate + ').');
+    notes.push('Tai programų tekstų atitikimas, ne partijos, kandidato ar koalicijos rekomendacija.');
+    notes.push('Rezultatas nevertina rinkimų kampanijos poveikio, galimų mandatų, koalicijų, kandidatų kompetencijos ar to, ar pažadas bus įgyvendintas.');
+    notes.push('Nenaudok rezultato kaip strateginio balsavimo patarimo.');
     if (status === 'insufficient') {
-      notes.push('Nepakanka patikimų, cituojamų pozicijų, kad būtų galima pagrįstai rekomenduoti sąrašą.');
+      notes.push('Nepakanka patikimų, cituojamų pozicijų, kad būtų pagrindas išskirti sąrašą.');
     } else if (status === 'no_match') {
-      notes.push('Geriausias turimas atitikimas nesiekia 50/100. Nerekomenduojame sąrašo; skaityk programas ir kandidatų sąrašus.');
+      notes.push('Geriausias turimas programų atitikimas nesiekia 50/100. Nepakanka pagrindo išskirti sąrašą; skaityk programas ir kandidatų sąrašus.');
     } else if (status === 'close') {
       if (closeReason === 'margin' || closeReason === 'margin_and_coverage') {
-        notes.push('Keli sąrašai skiriasi mažiau nei 5 balais. Rinkis pagal tau svarbiausią temą, o ne pagal vieną bendrą skaičių.');
+        notes.push('Keli sąrašai skiriasi mažiau nei 5 balais. Žiūrėk į tau svarbiausią temą, o ne į vieną bendrą skaičių.');
       }
       if (closeReason === 'coverage' || closeReason === 'margin_and_coverage') {
-        notes.push('Aukščiausiai esančio sąrašo aprėptis žema – trūksta pozicijų kai kuriais klausimais.');
+        notes.push('Viršutinio sąrašo aprėptis žema – trūksta pozicijų kai kuriais klausimais.');
       }
-      notes.push('Tarybos sąrašo vienareikšmiškai neskelbiame; žemiau pateikti artimiausi sąrašai.');
+      notes.push('Vieno sąrašo neišskiriame; žemiau pateikti artimiausi programų atitikimai.');
     }
     if (status === 'clear' && top && !top.mayor_candidate) {
-      notes.push('Šis sąrašas neturėjo užregistruoto mero kandidato; mero biuletenyje rinkis atskirai.');
+      notes.push('Šis sąrašas neturėjo registruoto mero kampanijos dalyvio; mero biuletenyje rinkis atskirai.');
     }
     if (mayorCandidates.length) {
-      notes.push('Mero biuletenyje kol kas rodomi tik VRK registruoti kandidatai; galutinis mero biuletenis dar nepaskelbtas.');
+      notes.push('Mero biuletenyje kol kas rodomi tik VRK registruoti mero kampanijos dalyviai; galutinis mero biuletenis dar nepaskelbtas.');
     }
+    notes.push('Pirmumo balsų taisyklę nustato Rinkimų kodekso 143 straipsnis (iki ' + preferenceVotes + ' pirmumo balsų; mažesniame sąraše – mažiau). Oficialų biuletenio išdėstymą patikrink VRK pavyzdyje.');
     notes.push('Prieš balsuodami patikrinkite oficialų VRK biuletenį.');
 
     function partyMayor(pid) {
@@ -255,8 +262,8 @@
         shortlist: status === 'close' || status === 'clear' ? shortlistIds : [],
         mayor: mayor,
         mayor_candidates: mayorCandidates,
-        preference_votes: 5,
-        final_lists_date: '2027-02-05',
+        preference_votes: preferenceVotes,
+        final_lists_date: finalListsDate,
         ballot_number: null,
         notes: notes,
         topic_plan: topicPlan,

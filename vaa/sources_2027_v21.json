@@ -1,7 +1,7 @@
 {
   "format": "vaa-source-registry-v21",
-  "generated_at": "2026-10-26",
-  "note": "Current 2027 campaign sources only. National Mano Balsas 2024 material is context, never a 2027 municipal position.",
+  "generated_at": "2026-10-27",
+  "note": "Current 2027 campaign sources and the in-force Election Code. National Mano Balsas 2024 material is context, never a 2027 municipal position.",
   "sources": [
     {
       "id": "tslkd_programme",
@@ -50,6 +50,14 @@
       "published": "2026-06-10",
       "label": "Laisvės partijos frakcijos pasiūlymai dėl Vilniaus saugumo",
       "kind": "html"
+    },
+    {
+      "id": "rinkimu_kodeksas_2027",
+      "url": "https://www.e-tar.lt/rs/legalact/418f26f0082b11edb4cae1b158f98ea5/",
+      "publisher": "Lietuvos Respublikos Seimas / Teisės aktų registras",
+      "published": "2026-09-02",
+      "label": "Rinkimų kodeksas (aktuali redakcija, galioja 2026-09-02 – 2027-08-31)",
+      "kind": "legal"
     },
     {
       "id": "lrt_siaurine",

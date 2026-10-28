@@ -1,0 +1,94 @@
+{
+  "format": "vaa-law-registry-v1",
+  "generated_at": "2026-10-27",
+  "note": "Ištraukos iš šiuo metu galiojančios Rinkimų kodekso redakcijos. Tai nėra teisinė konsultacija; prieš balsuodami patikrinkite oficialų biuletenį ir VRK informaciją.",
+  "source": {
+    "id": "rinkimu_kodeksas_2027",
+    "title": "Lietuvos Respublikos rinkimų kodekso patvirtinimo, įsigaliojimo ir įgyvendinimo konstitucinis įstatymas",
+    "publisher": "Lietuvos Respublikos Seimas / Teisės aktų registras",
+    "act_number": "XIV-1381",
+    "url": "https://www.e-tar.lt/rs/legalact/418f26f0082b11edb4cae1b158f98ea5/",
+    "portal_url": "https://www.e-tar.lt/portal/lt/legalAct/418f26f0082b11edb4cae1b158f98ea5",
+    "in_force_from": "2026-09-02",
+    "in_force_to": "2027-08-31",
+    "retrieved_at": "2026-10-27T06:34:41.673822+00:00",
+    "text_sha256": "ef57dfe29e2628e2e6a3df740aa980507a9f0765a55d24fcedd7f257935bd452"
+  },
+  "articles": [
+    {
+      "article": 16,
+      "title": "Rinkimų apygardų sudarymas",
+      "excerpt": "4. Savivaldybės tarybos narių rinkimai rengiami daugiamandatėje rinkimų apygardoje, sutampančioje su savivaldybės teritorija. Mero rinkimai rengiami vienmandatėje rinkimų apygardoje, sutampančioje su savivaldybės teritorija.",
+      "applies_to": [
+        "council_ballot",
+        "mayor_ballot"
+      ]
+    },
+    {
+      "article": 84,
+      "title": "Kandidatų, kandidatų sąrašų ir pareiškinių dokumentų paskelbimas",
+      "excerpt": "1. Likus ne mažiau kaip 30 dienų iki rinkimų dienos Vyriausioji rinkimų komisija savo interneto svetainėje paskelbia kandidatų sąrašus, kandidatus, jų pareiškinius dokumentus, kandidatų sąrašų rinkimų numerius, šiuose sąrašuose įrašytų kandidatų rinkimų numerius.",
+      "applies_to": [
+        "candidate_lists",
+        "ballot_numbers"
+      ]
+    },
+    {
+      "article": 143,
+      "title": "Rinkimų biuletenių pildymas",
+      "excerpt": "1. Pildydamas rinkimų biuletenį (-ius) rinkėjas:\n1) pažymi kandidatą arba kandidatų sąrašą, už kuriuos balsuoja;\n2) turi teisę pareikšti valią dėl kandidatų, įrašytų į kandidatų sąrašą, specialiai pirmumo balsams nurodyti skirtuose rinkimų biuletenio laukeliuose įrašydamas penkių pasirinktų į šį sąrašą įrašytų kandidatų rinkimų numerius.\n2. Jeigu kandidatų sąraše, už kurį balsuoja rinkėjas, yra daugiau kaip penki kandidatai, rinkėjas gali užpildyti visus penkis laukelius, jeigu kandidatų sąraše yra penki kandidatai, – rinkėjas pildo ne daugiau kaip keturis laukelius, jeigu kandidatų sąraše yra keturi kandidatai, – rinkėjas pildo ne daugiau kaip tris laukelius, jeigu kandidatų sąraše yra trys kandidatai, – rinkėjas pildo ne daugiau kaip du laukelius, jeigu kandidatų sąraše yra du kandidatai, – rinkėjas pildo ne daugiau kaip vieną laukelį.\n3. Pirmumo balsams nurodyti skirti laukeliai kandidatams turi vienodą pirmumo teisę, nepaisant laukelio numerio.",
+      "applies_to": [
+        "preference_votes"
+      ]
+    },
+    {
+      "article": 158,
+      "title": "Pirmumo balsų, paduotų už kandidatus, skaičiavimas",
+      "excerpt": "1. Suskaičiavus rinkimų apylinkės balsavimo patalpoje ir balsavimo vokuose paduotus rinkėjų balsus ir apie tai pranešus apygardos, savivaldybės rinkimų komisijai, pradedami skaičiuoti pirmumo balsai, paduoti už kandidatus (toliau – pirmumo balsai).\n2. Jeigu rinkėjas rinkimų biuletenyje nėra nurodęs kandidato rinkimų numerio, yra nurodęs nesamą kandidato rinkimų numerį arba pagal įrašą ar įrašus dėl pirmumo balsų neįmanoma nustatyti rinkėjo valios, pirmumo balsas ar balsai pagal šio biuletenio antrosios dalies specialųjį\n(-iuosius) laukelį (-ius) neskaičiuojami. Jeigu rinkimų biuletenyje to paties kandidato rinkimų numeris įrašytas daugiau kaip vieną kartą, šiam kandidatui pagal šį biuletenį įskaitomas tik vienas pirmumo balsas.\n3. Pirmumo balsų skaičiavimo tvarką nustato Vyriausioji rinkimų komisija.",
+      "applies_to": [
+        "preference_votes"
+      ]
+    },
+    {
+      "article": 167,
+      "title": "Balsavimo rezultatų nustatymas vienmandatėse rinkimų apygardose",
+      "excerpt": "4. Mero rinkimų vienmandatėje rinkimų apygardoje:\n1) išrinktu laikomas kandidatas, kuris pirmą kartą balsuojant gavo daugiau kaip pusę rinkimuose dalyvavusių rinkėjų balsų, jeigu rinkimuose dalyvavo ne mažiau kaip 40 procentų į tos rinkimų apygardos rinkėjų sąrašus įrašytų rinkėjų;\n2) jeigu rinkimuose dalyvavo mažiau kaip 40 procentų į tos rinkimų apygardos rinkėjų sąrašus įrašytų rinkėjų, išrinktu laikomas kandidatas, kuris gavo daugiausia, bet ne mažiau kaip 1/5 visų į tos rinkimų apygardos rinkėjų sąrašus įrašytų rinkėjų balsų;\n3) jeigu pirmą kartą balsuojant mero rinkimuose nė vienas kandidatas nesurenka reikiamos balsų daugumos, ne vėliau kaip po dviejų savaičių nuo balsavimo dienos šio kodekso nustatyta tvarka rengiamas pakartotinis balsavimas dėl dviejų kandidatų, gavusių daugiausia balsų balsuojant pirmą kartą. Pakartotinio balsavimo datą Vyriausioji rinkimų komisija paskelbia kartu su pirmojo balsavimo rezultatais;\n4) per pakartotinį balsavimą išrinktu laikomas kandidatas, surinkęs daugiau balsų neatsižvelgiant į rinkimuose dalyvavusių rinkėjų skaičių. Jeigu abu kandidatai yra gavę vienodą balsų skaičių, išrinktu laikomas kandidatas, kuris pirmą kartą balsuojant buvo gavęs daugiau balsų;\n5) jeigu rinkimuose dalyvauja ne daugiau kaip du kandidatai ir nė vienas nesurenka reikiamo balsų skaičiaus, rengiami pakartotiniai mero rinkimai.",
+      "applies_to": [
+        "mayor_ballot"
+      ]
+    },
+    {
+      "article": 168,
+      "title": "Balsavimo rezultatų nustatymas daugiamandatėse rinkimų apygardose",
+      "excerpt": "4. Savivaldybių tarybų rinkimų daugiamandatėje rinkimų apygardoje:\n1) rinkimai laikomi įvykusiais, nepaisant juose dalyvavusių rinkėjų skaičiaus;\n2) kandidatų sąrašas gali gauti mandatų, jeigu už jį balsavo ne mažiau kaip 4 procentai rinkimuose dalyvavusių rinkėjų, o jungtinis (ar jam prilygintas) kandidatų sąrašas – jeigu už jį balsavo ne mažiau kaip 6 procentai rinkimuose dalyvavusių rinkėjų.",
+      "applies_to": [
+        "council_seats"
+      ]
+    },
+    {
+      "article": 169,
+      "title": "Mandatų paskirstymas daugiamandatėje rinkimų apygardoje",
+      "excerpt": "1. Mandatai paskirstomi kandidatų sąrašams, įveikusiems rinkimų barjerą, nustatytą šio kodekso 168 straipsnyje, ir bendrai gavusiems ne mažiau kaip 60 procentų rinkimuose dalyvavusių rinkėjų balsų.\n2. Jeigu už kandidatų sąrašus, dalyvaujančius skirstant mandatus, yra paduota mažiau kaip 60 procentų rinkėjų balsų, teisę dalyvauti skirstant mandatus įgyja tas iki šiol skirstant mandatus nedalyvavęs sąrašas (arba sąrašai, jeigu už juos paduotas vienodas rinkėjų balsų skaičius), už kurį yra paduota daugiausia rinkėjų balsų. Tokiu pat būdu kandidatų sąrašų, turinčių teisę dalyvauti skirstant mandatus, skaičius didinamas iki tokio skaičiaus, kad už kandidatų sąrašus, dalyvaujančius skirstant mandatus, būtų paduota ne mažiau kaip 60 procentų rinkėjų balsų.\n3. Mandatai kandidatų sąrašams paskirstomi pagal tai, kiek balsų yra gavęs kiekvienas iš jų taikant kvotų ir liekanų metodą.",
+      "applies_to": [
+        "council_seats"
+      ]
+    },
+    {
+      "article": 170,
+      "title": "Kvotų ir liekanų metodas",
+      "excerpt": "1. Rinkimų kvota yra rinkėjų balsų skaičius, reikalingas vienam mandatui daugiamandatėje rinkimų apygardoje gauti. Rinkimų kvota nustatoma taip: rinkėjų balsų, kuriuos gavo kandidatų sąrašai, dalyvaujantys skirstant mandatus, suma dalijama iš rinkimų apygardoje renkamo mandatų skaičiaus. Jeigu padalijus gaunama liekana, dalmuo (rinkimų kvota) didinamas iki artimiausio sveikojo skaičiaus.\n2. Kandidatų sąrašui tenkantis mandatų skaičius nustatomas to kandidatų sąrašo gautą rinkėjų balsų skaičių dalijant iš rinkimų kvotos.\n3. Jeigu dalijant gaunama liekana, ji naudojama likusiems mandatams paskirstyti pagal liekanas.\n4. Pagal rinkimų kvotas nepaskirstyti mandatai skirstomi po vieną kandidatų sąrašams, gavusiems mandatų, pradedant nuo didžiausios liekanos, iki paskirstomi visi likę mandatai.\n5. Jeigu keliems kandidatų sąrašams tenkančios liekanos yra lygios, pirmiausia įrašomas sąrašas, kurio rinkimų numeris mažesnis. Nepadalyti dalijant kvotų metodu mandatai po vieną dalijami kandidatų sąrašams pagal eilę, pradedant tuo kandidatų sąrašu, kuris įrašytas pirmasis.\n6. Jeigu kuriam nors kandidatų sąrašui tenka didesnis mandatų skaičius, negu sąraše yra kandidatų, šie mandatai toliau dalijami liekanų metodu kitiems sąrašams.\n7. Mandatai kandidatams skirstomi pagal Vyriausiosios rinkimų komisijos nustatytą galutinę kandidatų eilę sąraše.",
+      "applies_to": [
+        "council_seats"
+      ]
+    },
+    {
+      "article": 171,
+      "title": "Kandidatų rinkimų reitingo skaičiavimas ir galutinės kandidatų eilės sąrašuose nustatymas",
+      "excerpt": "1. Kandidatų rinkimų reitingą skaičiuoja ir galutinę kandidatų eilę sąrašuose pagal paduotus pirmumo balsus nustato Vyriausioji rinkimų komisija (Seimo rinkimuose ir rinkimuose į Europos Parlamentą) ir savivaldybės rinkimų komisijos (savivaldybių tarybų rinkimuose).\n2. Pirmiausia skaičiuojama, kiek kiekvienas kandidatas gavo pirmumo balsų. Kai kandidato pirmumo balsų suma yra didesnė už daugiamandatėje rinkimų apygardoje renkamų mandatų skaičių ar jam lygi, kandidato rinkimų reitingas yra lygus šiai sumai. Kai kandidato pirmumo balsų suma yra mažesnė, laikoma, kad kandidato rinkimų reitingas lygus nuliui.\n3. Galutinė kandidatų eilė kiekviename sąraše nustatoma pagal kiekvieno kandidato rinkimų reitingą. Pirmesnis eilėje įrašomas kandidatas, kurio didesnis rinkimų reitingas. Jeigu kandidatų rinkimų reitingai lygūs, pirmesnis įrašomas tas kandidatas, kurio rinkimų numeris mažesnis. Daugiamandatėje rinkimų apygardoje nustatant galutinę kandidatų eilę kandidatų sąraše praleidžiami tie kandidatai, kurie buvo išrinkti vienmandatėse rinkimų apygardose.\n4. Vyriausiosios rinkimų komisijos sprendimas dėl galutinės kandidatų eilės sąraše nustatymo oficialiai skelbiamas Teisės aktų registre.\nXVI SKYRIUS\nNESUDERINAMOS PAREIGOS. ĮGALIOJIMŲ NUTRŪKIMAS. LAISVOS VIETOS UŽĖMIMAS",
+      "applies_to": [
+        "preference_votes",
+        "council_seats"
+      ]
+    }
+  ]
+}

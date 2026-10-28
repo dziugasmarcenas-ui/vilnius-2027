@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:">
-<meta name="description" content="Kaip v21 klausimynas skaičiuoja atitikimą, aprėptį ir balsavimo planą.">
+<meta name="description" content="Kaip v21 klausimynas skaičiuoja programų atitikimą, aprėptį ir balsavimo planą.">
 <title>Metodika · Vilnius 2027 · ManoMiestas</title>
 <style>
 :root{
@@ -56,6 +56,7 @@ main.wrap{padding-top:36px;padding-bottom:68px;min-height:65vh}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px;margin:16px 0;min-width:0}
 .card.flat{box-shadow:none;background:rgba(255,253,247,.68)}
+.card.flat .feature-title{font-size:20px;margin-bottom:6px}
 .grid{display:grid;gap:14px}
 .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -173,9 +174,9 @@ td a{font-weight:700}
 
     <section class="hero">
       <span class="eyebrow"><span class="dot"></span>Metodika · v21</span>
-      <h1>Kaip iš atsakymų gaunamas sąrašas – ir kodėl jis nėra galutinis.</h1>
-      <p class="lead">Metodika sukurta taip, kad nežinoma pozicija neliktų paslėpta, o skirtingas partijų duomenų kiekis nebūtų maskuojamas vienu skaičiumi. Rezultatas yra dalinė, cituojama suvestinė – ne rinkimų prognozė ir ne teisinė konsultacija.</p>
-      <div class="banner"><strong>Oficialus 2027 m. biuletenis dar nepaskelbtas.</strong> Numatoma, kad galutiniai sąrašai ir numeriai bus paskelbti iki 2027-02-05. Iki tol klausimynas lygina 4 registruotus Vilniaus miesto sąrašus, o ne galutinį biuletenį.</div>
+      <h1>Kaip iš atsakymų gaunamas programų atitikimas – ir kodėl jis nėra galutinis.</h1>
+      <p class="lead">Metodika sukurta taip, kad nežinoma pozicija neliktų paslėpta, o skirtingas partijų duomenų kiekis nebūtų maskuojamas vienu skaičiumi. Rezultatas yra dalinė, cituojama programų tekstų suvestinė – ne rinkimų prognozė, ne mandatų prognozė ir ne teisinė konsultacija.</p>
+      <div class="banner"><strong>Oficialus 2027 m. biuletenis dar nepaskelbtas.</strong> Numatoma, kad galutiniai sąrašai ir numeriai bus paskelbti iki 2027-02-05. Iki tol klausimynas lygina 4 sąrašų kampanijos įrašus iš 2026-10-28 kopijos, o ne galutinį biuletenį.</div>
     </section>
 
     <section class="grid grid-2">
@@ -187,6 +188,7 @@ td a{font-weight:700}
           <li>Citata, kurioje partija pati įsipareigoja veiksmui, o ne žurnalistas, oponentas ar 2023 m. programa.</li>
           <li>Pilnas teiginys, atitinkantis klausimą, ne atskiras fragmentas.</li>
           <li>HTTPS šaltinis, sėkmingas 200 atsakymas ir citatos sutapimas su išsaugotu tekstu.</li>
+          <li>Struktūrizuota interpretacija: ar citata pagrindžia visą teiginį, sąlygos, kaina, lygmuo, dokumento statusas ir kalbėtojo autoritetas.</li>
         </ul>
       </div>
       <div class="card">
@@ -238,7 +240,7 @@ td a{font-weight:700}
         <div class="kicker">Artumas</div>
         <h2>Kada neskelbiame vieno sąrašo</h2>
         <p>Jei du ar trys sąrašai skiriasi mažiau nei 5 balais arba viršutinio sąrašo aprėptis mažesnė nei 50 %, rezultatas žymimas „keli sąrašai arti“. Tada siūlome rinktis pagal temą, o ne pagal vieną bendrą skaičių.</p>
-        <p>Jei geriausias atitikimas nesiekia 50/100, sąrašo nerekomenduojame net tada, kai jis techniškai surenka daugiausia taškų. Tai reiškia, kad turimos pozicijos labiau prieštarauja tavo atsakymams arba jų per mažai prasmingam palyginimui.</p>
+        <p>Jei geriausias programų atitikimas nesiekia 50/100, sąrašo neišskiriame net tada, kai jis techniškai surenka daugiausia taškų. Tai reiškia, kad turimos pozicijos labiau prieštarauja tavo atsakymams arba jų per mažai prasmingam palyginimui.</p>
         <p>Tai sąmoningas sprendimas: skirtingas duomenų kiekis gali sukurti dirbtinį pranašumą. Geriau parodyti artumą ir spragas nei apsimesti, kad skirtumas tikslus.</p>
       </div>
     </section>
@@ -247,18 +249,50 @@ td a{font-weight:700}
       <div class="kicker">Balso planas</div>
       <h2>Ką reiškia rezultatas biuletenyje</h2>
       <ol class="steps">
-        <li><b>Tarybos sąrašas.</b> Jei rezultatas „ryškus“, rodome labiausiai tinkantį sąrašą. Jei „arti“ – 2–3 sąrašus ir temų palyginimą.</li>
-        <li><b>Pirmumo balsai.</b> Jie skiriami kandidatams tame pačiame sąraše. 2023 m. buvo iki 5; 2027 m. oficialų skaičių ir žymėjimą reikia patikrinti biuletenyje.</li>
-        <li><b>Mero biuletenis.</b> Meras renkamas atskirai. Jei sąrašas neturi registruoto mero kandidato, mero biuletenyje reikia rinktis atskirai.</li>
+        <li><b>Tarybos sąrašas.</b> Jei rezultatas „ryškus“, rodome labiausiai pagal programą atitinkantį sąrašą. Jei „arti“ – 2–3 sąrašus ir temų palyginimą.</li>
+        <li><b>Pirmumo balsai.</b> <a href="https://www.e-tar.lt/rs/legalact/418f26f0082b11edb4cae1b158f98ea5/" target="_blank" rel="noopener noreferrer">Rinkimų kodekso 143 straipsnis „Rinkimų biuletenių pildymas“</a> numato iki 5 pirmumo balsų; sąraše su 2–5 kandidatais – mažiau. 2027 m. biuletenio išdėstymas ir žymėjimo pavyzdys dar nepaskelbti, todėl juos patikrink VRK biuletenyje.</li>
+        <li><b>Mero biuletenis.</b> Meras renkamas atskirai. Šiame kampanijos registre esantis asmens vardas nepatvirtina jo įtraukimo į mero biuletenį.</li>
         <li><b>Oficialus biuletenis.</b> Galutinis sprendimas visada priklauso nuo VRK biuletenio balsavimo vietoje.</li>
       </ol>
-      <div class="banner mt2"><strong>Teisinė išlyga:</strong> balsavimo žymėjimo taisyklės dar nėra oficialiai paskelbtos 2027 m. biuleteniui. Šis puslapis nekeičia Rinkimų kodekso ir nėra teisinė konsultacija.</div>
+      <div class="banner mt2"><strong>Teisinė išlyga:</strong> šiame puslapyje cituojama šiuo metu galiojanti Rinkimų kodekso redakcija (XIV-1381, galioja 2026-09-02 – 2027-08-31). Tai ne teisinė konsultacija; oficialų 2027 m. biuletenį ir jo žymėjimą tvirtina VRK.</div>
+      <details class="mt2"><summary><b>Rinkimų kodekso ištrauka: 143 straipsnis</b></summary><div class="quote mt1">1. Pildydamas rinkimų biuletenį (-ius) rinkėjas:
+1) pažymi kandidatą arba kandidatų sąrašą, už kuriuos balsuoja;
+2) turi teisę pareikšti valią dėl kandidatų, įrašytų į kandidatų sąrašą, specialiai pirmumo balsams nurodyti skirtuose rinkimų biuletenio laukeliuose įrašydamas penkių pasirinktų į šį sąrašą įrašytų kandidatų rinkimų numerius.
+2. Jeigu kandidatų sąraše, už kurį balsuoja rinkėjas, yra daugiau kaip penki kandidatai, rinkėjas gali užpildyti visus penkis laukelius, jeigu kandidatų sąraše yra penki kandidatai, – rinkėjas pildo ne daugiau kaip keturis laukelius, jeigu kandidatų sąraše yra keturi kandidatai, – rinkėjas pildo ne daugiau kaip tris laukelius, jeigu kandidatų sąraše yra trys kandidatai, – rinkėjas pildo ne daugiau kaip du laukelius, jeigu kandidatų sąraše yra du kandidatai, – rinkėjas pildo ne daugiau kaip vieną laukelį.
+3. Pirmumo balsams nurodyti skirti laukeliai kandidatams turi vienodą pirmumo teisę, nepaisant laukelio numerio.</div><p class="small mt1"><a href="https://www.e-tar.lt/rs/legalact/418f26f0082b11edb4cae1b158f98ea5/" target="_blank" rel="noopener noreferrer">Aktuali Rinkimų kodekso redakcija</a></p></details>
+    </section>
+
+    <section class="card mt2" id="balsavimo-galia">
+      <div class="kicker">Balsavimo galia</div>
+      <h2>Kodėl programų atitikimas nėra „balsavimo galios“ maksimizavimas</h2>
+      <p>Programų tekstų sutapimas nematuoja, kiek tavo balsas paveiks mandatų pasiskirstymą, koaliciją ar būsimus sprendimus. Tam reikėtų apklausų, mandatų modelio ir koalicijų scenarijų, kurių šiame įrankyje nėra. Todėl įrankis sąmoningai neteikia strateginio balsavimo patarimo.</p>
+      <div class="grid grid-2">
+        <div>
+          <h3>Nuo balso iki mandato</h3>
+          <ul class="list-clean">
+            <li>Savivaldybės tarybos sąrašas gali gauti mandatų, jei peržengia 4 % barjerą; jungtinis sąrašas – 6 % (<a href="https://www.e-tar.lt/rs/legalact/418f26f0082b11edb4cae1b158f98ea5/" target="_blank" rel="noopener noreferrer">168 straipsnio 4 dalis</a>).</li>
+            <li>Mandatai paskirstomi kvotų ir liekanų metodu (<a href="https://www.e-tar.lt/rs/legalact/418f26f0082b11edb4cae1b158f98ea5/" target="_blank" rel="noopener noreferrer">170 straipsnis</a>).</li>
+            <li>Pirmumo balsai keičia kandidatų eilę sąraše (<a href="https://www.e-tar.lt/rs/legalact/418f26f0082b11edb4cae1b158f98ea5/" target="_blank" rel="noopener noreferrer">171 straipsnis</a>).</li>
+            <li>Meras renkamas atskirai; prireikus rengiamas pakartotinis balsavimas (<a href="https://www.e-tar.lt/rs/legalact/418f26f0082b11edb4cae1b158f98ea5/" target="_blank" rel="noopener noreferrer">167 straipsnio 4 dalis</a>).</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Ko tam reikėtų, bet neturime</h3>
+          <ul class="list-clean">
+            <li>Reprezentatyvių Vilniaus rinkėjų apklausų ir jų neapibrėžtumo.</li>
+            <li>Mandatų paskirstymo modelio su kandidatų sąrašais ir pirmumo balsais.</li>
+            <li>Koalicijų scenarijų ir derybų galios vertinimo.</li>
+            <li>Patikimų duomenų apie tai, kaip kandidatai balsuotų taryboje.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warn mt2"><strong>Išvada:</strong> šis įrankis padeda palyginti programas, o ne „maksimizuoti balsavimo galią“. Jei strateginis poveikis tau svarbus, reikia atskiro politinio ir rinkimų modelio, kurio čia nėra.</div>
     </section>
 
     <section class="card mt2">
       <div class="kicker">Mano Balsas</div>
       <h2>Kas paimta iš 2024 m. metodikos</h2>
-      <p>Mano Balsas naudoja partijų klausimyną ir ekspertinį kodavimą. 2026-10-26 jo svetainėje nebuvo 2027 m. Vilniaus savivaldybės testo. Todėl 2024 m. nacionalinė medžiaga čia naudojama tik kaip dizaino įkvėpimas:</p>
+      <p>Mano Balsas naudoja partijų klausimyną ir ekspertinį kodavimą. 2026-10-27 jo svetainėje nebuvo 2027 m. Vilniaus savivaldybės testo. Todėl 2024 m. nacionalinė medžiaga čia naudojama tik kaip dizaino įkvėpimas:</p>
       <div class="grid grid-2">
         <div>
           <h3>Paimta</h3>
@@ -288,11 +322,14 @@ td a{font-weight:700}
         <li><strong>Žmogaus peržiūra.</strong> Visos eilutės – assistant_checked, ne human_approved. Reikia nepriklausomo teisinio ir turinio patikrinimo; būsena: pending.</li>
         <li><strong>Programų pokyčiai.</strong> Partijos gali keisti dokumentus; kiekvieną atnaujinimą reikia iš naujo patikrinti.</li>
         <li><strong>Nepaskelbtos pozicijos.</strong> Kai kurios partijos neturi 2027 m. savivaldybės programos. Tai rodoma kaip spraga, ne kaip priešinga pozicija.</li>
-        <li><strong>Viena pozicijų kryptis.</strong> Visos 29 įskaitomos 2026-10-26 pozicijos yra „sutinku“; nėra įskaitomos priešingos pozicijos. Todėl rezultatas labiau rodo temų aprėptį negu priešingas stovyklas.</li>
+        <li><strong>Rinkimų poveikis ir mandatai.</strong> Rezultatas nevertina kampanijos poveikio, galimų mandatų, koalicijų ar realios daugumos.</li>
+        <li><strong>Įgyvendinimas.</strong> Programos tekstas neįrodo, kad pažadas bus įgyvendintas, per kokį laiką ar už kokią kainą.</li>
+        <li><strong>Strateginis balsavimas.</strong> Rezultatas nėra strateginio balsavimo patarimas ir nevertina, kuris balsas labiau paveiktų mandatų pasiskirstymą.</li>
+        <li><strong>Viena pozicijų kryptis.</strong> Visos 26 įskaitomos 2027 m. programų pozicijos yra „sutinku“; nėra įskaitomos priešingos pozicijos. Todėl rezultatas labiau rodo temų aprėptį negu priešingas stovyklas.</li>
         <li><strong>Reali vartotojų patirtis.</strong> Reikia testuoti su įvairiais rinkėjais, įskaitant mobiliuosius ir mažo skaitmeninio raštingumo naudotojus.</li>
       </ul>
       <div class="banner mt2"><strong>Statusas:</strong> viešai rodyti galima tik su aiškia „laukia žmogaus peržiūros“ žyma. Nenaudoti kaip oficialios partijos, kandidato ar VRK rekomendacijos.</div>
-      <p class="small">11 kontrolinių klausimų, 2 blokuoti oficialių biuletenio duomenų. <a href="data/human_validation_v21.json">Atidaryti peržiūros paketą →</a></p>
+      <p class="small">13 kontrolinių klausimų, 2 blokuoti oficialių biuletenio duomenų. <a href="data/human_validation_v21.json">Atidaryti peržiūros paketą →</a></p>
       <div class="inline-links">
         <a href="sources_2027.html" class="btn btn-soft btn-sm">Šaltiniai ir citatos</a>
         <a href="register_2027.html" class="btn btn-ghost btn-sm">VRK registras</a>
@@ -303,7 +340,7 @@ td a{font-weight:700}
 </main>
 <footer class="footer">
   <div class="footer-inner">
-    <div><strong>ManoMiestas · Vilnius 2027</strong><br>Duomenys atnaujinti 2026-10-26. Tai ne rinkimų prognozė ir ne teisinė konsultacija.</div>
+    <div><strong>ManoMiestas · Vilnius 2027</strong><br>Duomenys atnaujinti 2026-10-28. Tai ne rinkimų prognozė ir ne teisinė konsultacija.</div>
     <div class="footer-links">
       <a href="register_2027.html">VRK registras</a>
       <a href="sources_2027.html">Šaltiniai</a>

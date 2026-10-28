@@ -1,0 +1,376 @@
+{
+  "format": "vaa-coverage-gaps-v21",
+  "generated_at": "2026-10-28",
+  "snapshot": "2026-10-28",
+  "method": "Kiekviena 2027 m. šaltinio teksto eilutė buvo skaitoma ir tikrinta pagal klausimyno teiginį. Trūkstama pozicija lieka unknown arba non_scoreable; ji niekada neverčiama neigiamu balu. Šis failas dokumentuoja, ko šaltiniuose nerasta, o ne teigia, kad partija neturi pozicijos.",
+  "counts": {
+    "organisation_statement_combinations": 52,
+    "usable_scoreable": 26,
+    "unknown": 20,
+    "non_scoreable": 6,
+    "without_usable_evidence": 26
+  },
+  "parties_without_2027_programme_in_dataset": [],
+  "limits": [
+    "Trūkstama citata nėra įrodymas, kad partija neturi pozicijos.",
+    "Kai kurie PDF dviejų stulpelių tekstai išgaunami interleaved; tiksli citata gali būti neįmanoma net jei mintis tekste yra. Tokia eilutė lieka unknown, kol atsiras švarus oficialus tekstas.",
+    "Naujai registruotai organizacijai, kuri neturi 2027 m. programos šiame rinkinyje, pozicijos taip pat lieka nežinomos."
+  ],
+  "gaps": [
+    {
+      "party_id": "tslkd",
+      "statement_id": "rail_transit",
+      "statement": "Vilniuje reikia pradėti bėginio transporto (tramvajaus ar metro) projektavimą.",
+      "status": "unknown",
+      "reason": "2027 m. TS-LKD savivaldos programos projekte nėra bėginio transporto projektavimo įsipareigojimo.",
+      "sources_searched": [
+        "tslkd_programme"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "tslkd",
+      "statement_id": "a_lanes",
+      "statement": "A juostų tinklą reikia plėsti.",
+      "status": "non_scoreable",
+      "reason": "Citata remia vieną gatvę; ne visa A juostų tinklo plėtra.",
+      "sources_searched": [
+        "tslkd_programme"
+      ],
+      "supporting_quote": "Tai būtų pirmoji gatvė Vilniuje su viešojo transporto atskira zona per eismo juostų vidurį.",
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "tslkd",
+      "statement_id": "bike_network",
+      "statement": "Dviračių takų tinklą reikia plėsti ir sujungti.",
+      "status": "unknown",
+      "reason": "2027 m. TS-LKD programos projekte nėra dviračių takų tinklo įsipareigojimo.",
+      "sources_searched": [
+        "tslkd_programme"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false,
+      "partial_mention_or_reason": "Programoje yra „saugius ir tiesius pėsčiųjų bei dviračių maršrutus į mokyklas, stoteles, darbo vietas“, bet tai neįsipareigoja plėsti ir sujungti viso dviračių takų tinklo."
+    },
+    {
+      "party_id": "tslkd",
+      "statement_id": "transit_affordability",
+      "statement": "Viešasis transportas turi būti prieinamesnis, o esant galimybei – nemokamas.",
+      "status": "unknown",
+      "reason": "2027 m. TS-LKD programos projekte nėra viešojo transporto kainos įsipareigojimo.",
+      "sources_searched": [
+        "tslkd_programme"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false,
+      "partial_mention_or_reason": "Programoje minima „prieinama kaina“ kaip bendras judėjimo principas, bet nėra įsipareigojimo mažinti viešojo transporto kainą ar daryti jį nemokamą."
+    },
+    {
+      "party_id": "tslkd",
+      "statement_id": "participatory_budget",
+      "statement": "Gyventojai turi daugiau spręsti per dalyvaujamąjį biudžetą.",
+      "status": "unknown",
+      "reason": "2027 m. TS-LKD programos projekte nėra dalyvaujamojo biudžeto įsipareigojimo.",
+      "sources_searched": [
+        "tslkd_programme"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false,
+      "partial_mention_or_reason": "PDF tekste yra „plėsime dalyvaujamąjį biu-džetą“, bet dviejų stulpelių išgavimas sujungia eilutes ir vientisa citata netelpa į išsaugotą tekstą. Eilutė lieka unknown, kol atsiras švarus oficialus tekstas."
+    },
+    {
+      "party_id": "tslkd",
+      "statement_id": "resilience_centers",
+      "statement": "Kiekviena seniūnija turi turėti atsparumo centrą, kuriame žmonės gautų pagalbą krizės metu.",
+      "status": "non_scoreable",
+      "reason": "Citata neįrodo, kad centras bus kiekvienoje seniūnijoje.",
+      "sources_searched": [
+        "tslkd_programme"
+      ],
+      "supporting_quote": "kurie krizės metu veiktų kaip vietos atsparumo centrai",
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "lp",
+      "statement_id": "transit_affordability",
+      "statement": "Viešasis transportas turi būti prieinamesnis, o esant galimybei – nemokamas.",
+      "status": "unknown",
+      "reason": "Transporto programoje akcentuojamas patogumas ir prieinamumas fizine prasme, ne bilieto kaina. Nėra įsipareigojimo dėl nemokamo ar pigesnio viešojo transporto.",
+      "sources_searched": [
+        "lp_transport",
+        "lp_kindergarten",
+        "lp_civil_defence"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "lp",
+      "statement_id": "kindergarten_places",
+      "statement": "Savivaldybė turi didinti vietų skaičių darželiuose ten, kur jų trūksta.",
+      "status": "non_scoreable",
+      "reason": "Tai veiklos rezultatas, ne 2027 m. programinis pažadas.",
+      "sources_searched": [
+        "lp_transport",
+        "lp_kindergarten",
+        "lp_civil_defence"
+      ],
+      "supporting_quote": "Vilniuje per trejus metus grupių vaikams nuo vienerių iki dvejų metų skaičių padidinome nuo nulio iki 80!",
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "lp",
+      "statement_id": "all_day_school",
+      "statement": "Savivaldybė turi plėsti visos dienos mokyklų tinklą.",
+      "status": "unknown",
+      "reason": "Nėra 2027 m. programinės nuostatos dėl visos dienos mokyklų tinklo.",
+      "sources_searched": [
+        "lp_transport",
+        "lp_kindergarten",
+        "lp_civil_defence"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "lp",
+      "statement_id": "housing_land_supply",
+      "statement": "Savivaldybė turi naudoti savo valdomą žemę būsto pasiūlai didinti.",
+      "status": "unknown",
+      "reason": "Nėra 2027 m. programinės nuostatos dėl savivaldybės žemės būstui.",
+      "sources_searched": [
+        "lp_transport",
+        "lp_kindergarten",
+        "lp_civil_defence"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "lp",
+      "statement_id": "transparent_procurement",
+      "statement": "Savivaldybės viešieji pirkimai ir teritorijų planavimas turi būti skaidrūs.",
+      "status": "unknown",
+      "reason": "Nėra 2027 m. programinės nuostatos dėl viešųjų pirkimų ir teritorijų planavimo skaidrumo.",
+      "sources_searched": [
+        "lp_transport",
+        "lp_kindergarten",
+        "lp_civil_defence"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "lp",
+      "statement_id": "participatory_budget",
+      "statement": "Gyventojai turi daugiau spręsti per dalyvaujamąjį biudžetą.",
+      "status": "unknown",
+      "reason": "Nėra 2027 m. programinės nuostatos dėl dalyvaujamojo biudžeto.",
+      "sources_searched": [
+        "lp_transport",
+        "lp_kindergarten",
+        "lp_civil_defence"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "lp",
+      "statement_id": "civil_shelters",
+      "statement": "Savivaldybė turi numatyti patalpas, kuriose žmonės galėtų slėptis krizės metu.",
+      "status": "non_scoreable",
+      "reason": "Klausimas, o ne įsipareigojimas.",
+      "sources_searched": [
+        "lp_transport",
+        "lp_kindergarten",
+        "lp_civil_defence"
+      ],
+      "supporting_quote": "Atviras klausimas, kiek vilniečių šiandien žino, kur yra artimiausia priedanga, kur rinktis evakuacijos atveju",
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "lp",
+      "statement_id": "business_bureaucracy",
+      "statement": "Savivaldybė turi mažinti administracinę naštą verslui.",
+      "status": "unknown",
+      "reason": "Nėra 2027 m. programinės nuostatos dėl administracinės naštos verslui mažinimo.",
+      "sources_searched": [
+        "lp_transport",
+        "lp_kindergarten",
+        "lp_civil_defence"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "ls",
+      "statement_id": "rail_transit",
+      "statement": "Vilniuje reikia pradėti bėginio transporto (tramvajaus ar metro) projektavimą.",
+      "status": "unknown",
+      "reason": "2027 m. programos pristatyme nėra bėginio transporto projektavimo įsipareigojimo.",
+      "sources_searched": [
+        "ls_programme_summary"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "ls",
+      "statement_id": "a_lanes",
+      "statement": "A juostų tinklą reikia plėsti.",
+      "status": "unknown",
+      "reason": "2027 m. programos pristatyme nėra A juostų įsipareigojimo.",
+      "sources_searched": [
+        "ls_programme_summary"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "ls",
+      "statement_id": "bike_network",
+      "statement": "Dviračių takų tinklą reikia plėsti ir sujungti.",
+      "status": "non_scoreable",
+      "reason": "Citata mini plėtrą, bet ne tinklų sujungimą.",
+      "sources_searched": [
+        "ls_programme_summary"
+      ],
+      "supporting_quote": "dviračių takų plėtra",
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "ls",
+      "statement_id": "kindergarten_places",
+      "statement": "Savivaldybė turi didinti vietų skaičių darželiuose ten, kur jų trūksta.",
+      "status": "unknown",
+      "reason": "2027 m. programos pristatyme nėra darželių vietų įsipareigojimo.",
+      "sources_searched": [
+        "ls_programme_summary"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false,
+      "partial_mention_or_reason": "Programos pristatyme darželiai minimi tik sveikatos prevencijos kontekste, ne kaip vietų plėtros įsipareigojimas."
+    },
+    {
+      "party_id": "ls",
+      "statement_id": "all_day_school",
+      "statement": "Savivaldybė turi plėsti visos dienos mokyklų tinklą.",
+      "status": "unknown",
+      "reason": "2027 m. programos pristatyme nėra visos dienos mokyklos įsipareigojimo.",
+      "sources_searched": [
+        "ls_programme_summary"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false,
+      "partial_mention_or_reason": "Programos pristatyme nėra visos dienos mokyklos įsipareigojimo."
+    },
+    {
+      "party_id": "ls",
+      "statement_id": "pedestrian_safety",
+      "statement": "Pėsčiųjų saugumas, ypač kelyje į mokyklą, turi būti prioritetas.",
+      "status": "unknown",
+      "reason": "2027 m. programos pristatyme nėra pėsčiųjų saugumo įsipareigojimo.",
+      "sources_searched": [
+        "ls_programme_summary"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false,
+      "partial_mention_or_reason": "Programos pristatyme pėsčiųjų saugumas nepaminėtas; yra tik bendras dviračių takų plėtros punktas."
+    },
+    {
+      "party_id": "ls",
+      "statement_id": "housing_land_supply",
+      "statement": "Savivaldybė turi naudoti savo valdomą žemę būsto pasiūlai didinti.",
+      "status": "unknown",
+      "reason": "2027 m. programos pristatyme nėra būsto žemės įsipareigojimo.",
+      "sources_searched": [
+        "ls_programme_summary"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false,
+      "partial_mention_or_reason": "Programos pristatyme būstas minimas per renovaciją ir socialinę paramą, ne per savivaldybės žemės naudojimą pasiūlai."
+    },
+    {
+      "party_id": "ls",
+      "statement_id": "resilience_centers",
+      "statement": "Kiekviena seniūnija turi turėti atsparumo centrą, kuriame žmonės gautų pagalbą krizės metu.",
+      "status": "unknown",
+      "reason": "2027 m. programos pristatyme nėra seniūnijų atsparumo centrų įsipareigojimo.",
+      "sources_searched": [
+        "ls_programme_summary"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false,
+      "partial_mention_or_reason": "Programos pristatyme minimos priedangos ir slėptuvės, bet ne atsparumo centras kiekvienoje seniūnijoje."
+    },
+    {
+      "party_id": "lsdp",
+      "statement_id": "pedestrian_safety",
+      "statement": "Pėsčiųjų saugumas, ypač kelyje į mokyklą, turi būti prioritetas.",
+      "status": "non_scoreable",
+      "reason": "Bendras pėsčiųjų saugumo prioritetas; mokyklos kryptis citation neįvardyta.",
+      "sources_searched": [
+        "lsdp_programme"
+      ],
+      "supporting_quote": "Pėsčiųjų patogumą ir saugumą laikysime prioritetu.",
+      "supports_full_proposition": false
+    },
+    {
+      "party_id": "lsdp",
+      "statement_id": "transparent_procurement",
+      "statement": "Savivaldybės viešieji pirkimai ir teritorijų planavimas turi būti skaidrūs.",
+      "status": "unknown",
+      "reason": "Programoje yra daugiabučių administratorių skaidrumo nuostata, bet nėra viešųjų pirkimų ir teritorijų planavimo skaidrumo įsipareigojimo.",
+      "sources_searched": [
+        "lsdp_programme"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false,
+      "partial_mention_or_reason": "Programoje „skaidrumas“ siejamas su daugiabučių administravimu ir šilumos ūkiu, ne su viešaisiais pirkimais ar teritorijų planavimu."
+    },
+    {
+      "party_id": "lsdp",
+      "statement_id": "resilience_centers",
+      "statement": "Kiekviena seniūnija turi turėti atsparumo centrą, kuriame žmonės gautų pagalbą krizės metu.",
+      "status": "unknown",
+      "reason": "Programoje yra seniūnijų veiksmų planai, bet nėra atskirų atsparumo centrų įsipareigojimo.",
+      "sources_searched": [
+        "lsdp_programme"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false,
+      "partial_mention_or_reason": "Programoje numatomi veiksmų planai savivaldybei ir seniūnijoms krizėms, bet ne atsparumo centras kiekvienoje seniūnijoje."
+    },
+    {
+      "party_id": "lsdp",
+      "statement_id": "business_bureaucracy",
+      "statement": "Savivaldybė turi mažinti administracinę naštą verslui.",
+      "status": "unknown",
+      "reason": "Programoje yra biurokratinės naštos mažinimas pedagogams, bet ne verslui.",
+      "sources_searched": [
+        "lsdp_programme"
+      ],
+      "supporting_quote": null,
+      "supports_full_proposition": false,
+      "partial_mention_or_reason": "Programoje numatoma mažinti biurokratinę naštą pedagogams, ne verslui."
+    }
+  ],
+  "source_review_2026_10_28": {
+    "method": "Kiekvienas 2027 m. šaltinio tekstas buvo skenuotas pagal kiekvieno trūkstamo teiginio raktinius žodžius, o kiekvienas radinys perskaitytas kontekste.",
+    "evaluated": [
+      {
+        "url": "https://liberalai.lt/naujienos/pristateme-savivaldos-rinkimu-programa-ir-kandidatus-i-merus-atsakingai-del-jusu/",
+        "already_in_dataset_as": "ls_programme_summary",
+        "outcome": "Jau pilnai išnaudotas: 5 įskaitomos pozicijos ir 1 neįskaitoma (dviračių takų plėtra be tinklų sujungimo). Jokių naujų įskaitomų pozicijų."
+      },
+      {
+        "url": "https://tsajunga.lt/aktualijos/ts-lkd-savivaldos-rinkimu-programa-demesys-saugumui-seimai-ir-asmeninei-atsakomybei/",
+        "already_in_dataset_as": "tslkd_programme (tas pats PDF, kurį straipsnis susieja su programa „Savivalda kiekvienai dienai“)",
+        "outcome": "Partijos pranešimas teigia, kad programa suvažiavime patvirtinta 2026-09-05, bet pats paskelbtas PDF vis dar pavadintas „programos projektas“. Todėl dokumento būsena lieka draft, o citatos imamos tik iš PDF. Naujų citatų, kurių nebūtų PDF, straipsnyje nerasta; naujų įskaitomų pozicijų nėra."
+      }
+    ],
+    "result": "Po šios peržiūros įskaitomų pozicijų skaičius nepakito: 26. Trūkstamos pozicijos lieka unknown arba non_scoreable."
+  }
+}
