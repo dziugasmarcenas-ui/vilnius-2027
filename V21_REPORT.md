@@ -182,6 +182,7 @@ These checks confirm that the visual pass did not break layout, colour or keyboa
 - **Contrast:** every measured text sample passes WCAG AA in its own computed background. The lowest normal-text ratios are `.chip.gray` at **4.97**, `th` at **5.06**, `.note` at **5.06** and the kicker at **5.45**; headings and body text are far above the threshold. No text relies on colour alone.
 - **Keyboard focus:** after the fix, every link and button on the static pages shows the same 3 px `#8fc4a6` ring with a 2 px offset. Quiz and review controls use the same ring with a 3 px offset. Before the fix, the static template had no global focus rule and links fell back to the 1 px browser default.
 - **Print:** the footer disclaimer (“Tai ne rinkimų prognozė ir ne teisinė konsultacija”) now prints on both static and quiz pages. The header, action bars and buttons are hidden, and only footer navigation is suppressed.
+- **Reduced motion:** the static stylesheet now carries the same `prefers-reduced-motion: reduce` rule as the quiz. Under emulation all nine pages go from 2–8 elements with a 0.16 s colour transition to **zero** elements with a transition or animation longer than 0.01 s; the measured duration collapses to 1 µs.
 - **Quiz focus management:** `render()` moves focus to `#app` (`tabindex="-1"`), so the first Tab lands on the primary action rather than the skip link. This is deliberate single-page focus handling, not a missing skip link.
 
 ### Release hardening

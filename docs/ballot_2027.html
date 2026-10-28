@@ -186,6 +186,9 @@ fieldset.decision-row{border:0;padding:0;min-width:0}
   .compare-table td[data-head]{border-top:1px solid var(--line2);padding-top:8px}
   .compare-table td[data-head]::before{content:attr(data-head);display:block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 }
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.001ms!important;animation-duration:.001ms!important}
+}
 @media print{
   .site-header,.actions{display:none!important}
   body{background:#fff}
