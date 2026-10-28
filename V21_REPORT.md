@@ -186,13 +186,14 @@ The ballot page says the council choice and the mayoral choice are **two separat
 - GitHub Pages, source branch `main`, folder `/docs`.
 - `docs/` is a byte copy of the clean `dist/`.
 - Previous deployed revision: **`a5551848708ca054b8a0c7c53565114d17f8506c`** (GitHub Pages build status: `built`).
-- This nine-page release: deployment revision and live checks are recorded after publishing; see the final commit in the public repository.
+- This nine-page release: **`71d8b5f698ca259da86f23d2b3484185bfa966f8`** (GitHub Pages build status: `built`).
 - Public data: https://dziugasmarcenas-ui.github.io/vilnius-2027/data/
 
 Verification performed against the live site:
 
 - all nine pages return HTTP 200 over HTTPS;
 - the public JSON downloads return HTTP 200 and match the built files;
+- `/fixtures/vrk_2027_dalyviai.html` and `/.cache/vaa_v21/` return 404;
 - the live pages show the 2026-10-28 snapshot and the 26/6/20 evidence counts;
 - no raw fixture, cache, or personal file is reachable;
 - no third-party request is made.

@@ -226,13 +226,13 @@
     "performed_at": "2026-10-28",
     "performed_by": "AI agent; not a substitute for the pending human reviews",
     "public_url": "https://dziugasmarcenas-ui.github.io/vilnius-2027/",
-    "public_https_checks": "HTTPS 200 for all nine pages, robots.txt and the public data files. Raw research fixtures and caches are not part of the published site.",
-    "deployment_commit": "a5551848708ca054b8a0c7c53565114d17f8506c",
+    "public_https_checks": "GitHub Pages build for 71d8b5f completed. HTTPS 200 for all nine pages, robots.txt and the public data files. Raw research fixture and cache paths return 404.",
+    "deployment_commit": "71d8b5f698ca259da86f23d2b3484185bfa966f8",
     "tests": "Local v21 suite: 449 tests passed. Public source repo suite: 99 passed, 3 skipped (fixture-dependent register parser tests; the raw VRK HTML is intentionally not published).",
     "accessibility": "Lighthouse accessibility 1.0 and best practices 1.0 on the audited pages. SEO 0.8 only because the closed CSP blocks Lighthouse's own robots.txt fetch; robots.txt is served with HTTP 200. Automated HTML audit: 0 errors. Manual screen-reader and keyboard review remains pending.",
     "responsive": "No horizontal overflow at 320 px and 390 px on all nine pages; the compare table stacks into per-statement cards at 620 px and below. Rendered result state had no overflow at a 303 px viewport.",
     "console": "No console errors or page errors in tested local and live flows.",
-    "live_snapshot": "The live pages show the 2026-10-28 register snapshot and 26 scoreable / 6 non-scoreable / 20 unknown evidence counts.",
+    "live_snapshot": "The live pages show the 2026-10-28 register snapshot, 26 scoreable / 6 non-scoreable / 20 unknown evidence counts, and the 32-row review workbench.",
     "release_hardening": "Source watch compares content and text hashes weekly; link audit and HTML structure audit run in CI; Lighthouse CI config covers all nine pages."
   },
   "workbench": {
