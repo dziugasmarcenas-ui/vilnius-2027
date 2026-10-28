@@ -177,7 +177,7 @@ The ballot page says the council choice and the mayoral choice are **two separat
 ### Test counts
 
 - Local full suite: **449 tests, 0 failures, 0 errors**.
-- Public source repo suite: **99 tests passed, 3 skipped** before this release; the same three fixture-dependent skips remain because the raw VRK HTML is intentionally not published.
+- Public source repo suite: **124 tests passed, 3 skipped**. The skips are fixture-dependent register-parser tests; the raw VRK HTML is intentionally not published.
 - Build check: `python3 vaa_build_v21.py --check` → `OK: 9 pages, clean dist/, 20 checked files`.
 - Link audit: **9 pages, 329 links, 0 errors, 0 warnings**.
 - HTML audit: **9 pages, 0 errors, 3 warnings** (three secondary pages are not in the primary navigation, so they have no `aria-current`).
