@@ -165,6 +165,15 @@ The ballot page says the council choice and the mayoral choice are **two separat
 - **Console:** no console errors or page errors in the tested flows.
 - **Manual review:** keyboard-only, 200% zoom, reduced-motion and screen-reader review by a human remain pending. Automated checks are not a substitute.
 
+### Copy and visual pass (2026-10-28)
+
+- Removed slogan and marketing copy from the page headings, button labels and result states. Each page now has a factual `h1`, for example `Vilniaus 2027 m. rinkimų programų palyginimas`, `Šaltiniai ir citatų patikra`, `VRK registro būsena: {snapshot}` and `Rinkėjo vadovas: terminai ir balsavimo tvarka`.
+- Removed decorative styling: gradients, glows, backdrop blur, shadows, rounded pill eyebrows, status dots, emoji topic icons, numbered feature badges, decorative step dots and arrow glyphs.
+- Flattened the palette to a paper background, solid header and footer, 4–8 px radii, muted kickers and smaller headings.
+- Retained every factual warning about unpublished ballots, unknown positions, the pending human review and the limits of the score.
+- At 620 px and below the compare table stacks each party cell vertically with its own label, so 390 px widths do not squeeze quotations into half-width columns.
+- Index statistics now separate **32** quoted 2027 programme rows from **5** 2024 context quotations instead of showing one combined count.
+
 ### Release hardening
 
 - `vaa_watch_v21.py` re-fetches every manifest source and compares content and text hashes. Byte-only changes pass; a changed text hash fails and asks for a human re-read. `.github/workflows/source-watch.yml` runs weekly, uploads the report and opens or updates an issue.

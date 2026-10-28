@@ -77,7 +77,8 @@ class BuildTest(unittest.TestCase):
 
     def test_index_title_is_not_duplicated(self):
         text = (DIST / "index.html").read_text("utf-8")
-        self.assertIn("<title>Rinkimų įrankis · Vilnius 2027 · ManoMiestas</title>", text)
+        self.assertIn("<title>Programų palyginimas · Vilnius 2027 · ManoMiestas</title>", text)
+        self.assertNotIn("<title>Vilniaus 2027 m. rinkimų programų palyginimas", text)
 
     def test_register_page_uses_pending_semantics(self):
         text = (DIST / "register_2027.html").read_text("utf-8")

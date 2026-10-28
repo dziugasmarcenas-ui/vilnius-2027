@@ -343,7 +343,7 @@ def status_banner(data: dict[str, Any], register: dict[str, Any]) -> str:
       <strong>Oficialus 2027 m. biuletenis dar nepaskelbtas.</strong>
       VRK galutinius kandidatų sąrašus ir sąrašų numerius numato paskelbti iki {e(final_date)}.
       Šiandien lyginame {len(register['vilnius']['lists'])} Vilniaus miesto sąrašų kampanijos dalyvių įrašus ir tik turimus 2027 m. programinius dokumentus.
-      {internal('register_2027.html', 'Žiūrėti registrą →')}
+      {internal('register_2027.html', 'Žiūrėti registrą')}
     </div>
     """
 
@@ -355,7 +355,7 @@ def pending_banner(register: dict[str, Any]) -> str:
     <div class="banner">
       <strong>Oficialus 2027 m. biuletenis dar nepaskelbtas.</strong>
       VRK galutinius kandidatų sąrašus ir sąrašų numerius numato paskelbti iki {e(final_date)}.
-      {internal('register_2027.html', 'Žiūrėti registrą →')}
+      {internal('register_2027.html', 'Žiūrėti registrą')}
     </div>
     """
 
@@ -377,6 +377,10 @@ def index_content(
     list_count = register["vilnius"]["list_participants_count"]
     mayor_count = register["vilnius"]["mayor_participants_count"]
     final_date = st["candidate_lists_published_by"]["date"]
+    context_check_count = sum(
+        1 for row in checks["checks"] if str(row.get("source_id", "")).startswith("manobalsas_")
+    )
+    programme_check_count = len(checks["checks"]) - context_check_count
     list_rows = []
     for row in lists:
         party = parties.get(row.get("party_id")) if row.get("party_id") else None
@@ -402,39 +406,34 @@ def index_content(
         )
     feature_cards = [
         (
-            "01",
-            f"{list_count} sąrašų kampanijos įrašai",
+            "Kampanijos registras",
             f"Rinkinyje yra {list_count} sąrašų kampanijos dalyvių įrašai iš {snapshot} VRK momentinės kopijos. Tai nėra kandidatų registracijos patvirtinimas.",
         ),
         (
-            "02",
-            "Citata, data, nuoroda",
+            "Citata ir šaltinis",
             "Kiekviena įskaitoma pozicija turi verbatim citatą ir šaltinį. Nežinoma pozicija nėra priešingybė ir negauna neigiamo balo.",
         ),
         (
-            "03",
-            "Sprendimas pagal temą",
-            "Rodome ne vieną paslaptingą reitingą, o programų atitikimą tema po temos, aprėptį ir trūkstamus duomenis.",
+            "Atitikimas pagal temą",
+            "Rodomas programų atitikimas tema po temos, aprėptis ir trūkstami duomenys, o ne vienas bendras reitingas.",
         ),
         (
-            "04",
-            "Balsavimo planas",
-            "Paaiškiname tarybos ir mero biuletenių struktūrą pagal galiojančią Rinkimų kodekso redakciją, bet aiškiai pasakome, kad oficialūs pavyzdžiai dar nepaskelbti.",
+            "Balsavimo tvarka",
+            "Tarybos ir mero biuletenių struktūra paaiškinta pagal galiojančią Rinkimų kodekso redakciją. Oficialūs 2027 m. pavyzdžiai dar nepaskelbti.",
         ),
     ]
     feature_html = "".join(
-        f'<div class="card flat"><div class="kicker">{e(n)}</div><h2 class="feature-title">{e(t)}</h2><p>{e(d)}</p></div>'
-        for n, t, d in feature_cards
+        f'<div class="card flat"><h2 class="feature-title">{e(t)}</h2><p>{e(d)}</p></div>'
+        for t, d in feature_cards
     )
     return f"""
     <section class="hero">
-      <span class="eyebrow"><span class="dot"></span>Vilnius 2027 · taryba ir meras</span>
-      <h1>Ką apie Vilnių žada partijos – ir ką tai reiškia tau?</h1>
-      <p class="lead">Atsakyk į 13 teiginių apie transportą, švietimą, būstą, skaidrumą, saugumą ir verslą. Parodysime, kurie kampanijos dalyvių registre esantys sąrašų įrašai turi cituojamas 2027 m. pozicijas ir kiek jų programos tekstas sutampa su tavo prioritetais.</p>
+      <h1>Vilniaus 2027 m. rinkimų programų palyginimas</h1>
+      <p class="lead">Klausimyną sudaro 13 teiginių apie transportą, švietimą, būstą, skaidrumą, saugumą ir verslą. Rezultatas rodo, kiek turimos cituojamos 2027 m. programų pozicijos sutampa su tavo atsakymais ir kuriose temose trūksta duomenų.</p>
       <div class="actions">
-        {internal('quiz_v21.html', 'Pradėti klausimyną →', 'btn btn-primary')}
-        {internal('register_2027.html', 'Oficialus VRK registras', 'btn btn-ghost')}
-        {internal('methodology_2027.html', 'Kaip skaičiuojame', 'btn btn-ghost')}
+        {internal('quiz_v21.html', 'Pradėti klausimyną', 'btn btn-primary')}
+        {internal('register_2027.html', 'VRK registras', 'btn btn-ghost')}
+        {internal('methodology_2027.html', 'Metodika', 'btn btn-ghost')}
       </div>
       {status_banner(data, register)}
     </section>
@@ -486,12 +485,13 @@ def index_content(
       </div>
       <div class="card">
         <div class="kicker">Skaičiai</div>
-        <h2>Kas šiandien patikrinta</h2>
+        <h2>Patikrinti duomenys</h2>
         <ul class="status-list">
           <li><span>Sąrašų kampanijos įrašai</span><b>{list_count}</b></li>
           <li><span>Asmenų mero kampanijos įrašai</span><b>{mayor_count}</b></li>
           <li><span>Dabartiniai šaltiniai</span><b>{len(sources['sources'])}</b></li>
-          <li><span>Patikrintos citatos</span><b>{len(checks['checks'])}</b></li>
+          <li><span>Cituojamos 2027 m. eilutės</span><b>{programme_check_count}</b></li>
+          <li><span>2024 m. konteksto citatos</span><b>{context_check_count}</b></li>
           <li><span>Nepriklausoma žmogaus peržiūra</span><b>dar neatlikta</b></li>
         </ul>
         <p class="small mt2">Skaičiai kinta kartu su VRK registru ir partijų publikacijomis. Prieš naudodami rezultatą patikrinkite oficialų VRK biuletenį.</p>
@@ -593,8 +593,7 @@ def register_content(data: dict[str, Any], register: dict[str, Any], checks: dic
     )
     return f"""
     <section class="hero">
-      <span class="eyebrow"><span class="dot"></span>Oficialus registras · {e(snapshot)}</span>
-      <h1>Kas šiandien tikrai užregistruota?</h1>
+      <h1>VRK registro būsena: {e(snapshot)}</h1>
       <p class="lead">{e(snapshot)} kopijoje yra {list_count} Vilniaus miesto sąrašų kampanijos dalyvių įrašai. Registracija kampanijos dalyviu nepatvirtina kandidato ar kandidatų sąrašo registracijos rinkimams.</p>
       {status_banner(data, register)}
     </section>
@@ -806,9 +805,8 @@ def sources_content(
     context_sources = [s for s in sources["sources"] if s["id"].startswith("manobalsas_")]
     return f"""
     <section class="hero">
-      <span class="eyebrow"><span class="dot"></span>Šaltiniai ir citatų patikra</span>
-      <h1>Kiekvienas balas turi pėdsaką.</h1>
-      <p class="lead">Šis puslapis rodo, iš ko sudarytas klausimynas: oficialų VRK registrą, 2027 m. partijų dokumentus, galiojančio Rinkimų kodekso ištraukas, kiekvienos citatos šaltinį ir tai, kur pozicijos nėra. Tai techninė citatų ir interpretacijos patikra, ne nepriklausoma teisinė ar politinė peržiūra.</p>
+      <h1>Šaltiniai ir citatų patikra</h1>
+      <p class="lead">Klausimyno pagrindas: oficialus VRK registras, 2027 m. partijų dokumentai, galiojančio Rinkimų kodekso ištraukos ir kiekvienos citatos šaltinis. Puslapyje taip pat rodoma, kur pozicijos nėra. Tai techninė citatų ir interpretacijos patikra, ne nepriklausoma teisinė ar politinė peržiūra.</p>
       <div class="banner"><strong>Oficialus 2027 m. biuletenis dar nepaskelbtas.</strong> VRK galutinius kandidatų sąrašus ir numerius numato paskelbti iki {e(data.get('election', {}).get('final_lists_date', '2027-02-05'))}. Šiame puslapyje – tik turimi 2027 m. programiniai dokumentai ir sąrašų kampanijos įrašai.</div>
       <div class="banner green"><strong>{len(sources['sources'])} šaltiniai · {len(checks['checks'])} patikrintos citatos.</strong> {len(current_sources)} – 2027 m. dokumentai ir teisės aktas, {len(context_sources)} – Mano Balsas 2024 kontekstas. Visi citatų įrašai turi būti randami išsaugotame šaltinio tekste. Nepriklausoma žmogaus peržiūra dar neatlikta.</div>
     </section>
@@ -911,7 +909,7 @@ def sources_content(
         <li><b>Žmogaus peržiūra.</b> Kol kas neatlikta. Tai aiškiai rodoma rezultate ir turi būti atlikta prieš viešą naudojimą.</li>
       </ol>
       <div class="banner mt2"><strong>Ko tai neįrodo:</strong> kad citata teisingai interpretuota, kad partija laikysis pažado, ar kad programa bus įgyvendinta. Tai šaltinio ir citatos patikra, ne politinis vertinimas.</div>
-      <div class="callout warn mt2"><strong>Žmogaus peržiūra: {human['status']}.</strong> Paketas turi {len(human['checklist'])} kontrolinius klausimus; {sum(1 for item in human['checklist'] if item['status'] == 'blocked')} jų blokuoti oficialių 2027 m. biuletenio duomenų. {internal('data/human_validation_v21.json', 'Peržiūros paketas →', 'btn btn-soft btn-sm')}</div>
+      <div class="callout warn mt2"><strong>Žmogaus peržiūra: {human['status']}.</strong> Paketas turi {len(human['checklist'])} kontrolinius klausimus; {sum(1 for item in human['checklist'] if item['status'] == 'blocked')} jų blokuoti oficialių 2027 m. biuletenio duomenų. {internal('data/human_validation_v21.json', 'Peržiūros paketas', 'btn btn-soft btn-sm')}</div>
     </section>
 
     <section class="card mt2">
@@ -972,9 +970,8 @@ def methodology_content(
     art143 = law_article(law, 143)
     return f"""
     <section class="hero">
-      <span class="eyebrow"><span class="dot"></span>Metodika · v21</span>
-      <h1>Kaip iš atsakymų gaunamas programų atitikimas – ir kodėl jis nėra galutinis.</h1>
-      <p class="lead">Metodika sukurta taip, kad nežinoma pozicija neliktų paslėpta, o skirtingas partijų duomenų kiekis nebūtų maskuojamas vienu skaičiumi. Rezultatas yra dalinė, cituojama programų tekstų suvestinė – ne rinkimų prognozė, ne mandatų prognozė ir ne teisinė konsultacija.</p>
+      <h1>Programų atitikimo metodika</h1>
+      <p class="lead">Metodika rodo, kaip atsakymai verčiami į programų atitikimą, kokie duomenys įskaitomi ir kaip rodoma aprėptis. Rezultatas yra dalinė cituojamų programų tekstų suvestinė, ne rinkimų ar mandatų prognozė ir ne teisinė konsultacija.</p>
       <div class="banner"><strong>Oficialus 2027 m. biuletenis dar nepaskelbtas.</strong> Numatoma, kad galutiniai sąrašai ir numeriai bus paskelbti iki {e(final_date)}. Iki tol klausimynas lygina {len(register['vilnius']['lists'])} sąrašų kampanijos įrašus iš {e(snapshot)} kopijos, o ne galutinį biuletenį.</div>
     </section>
 
@@ -994,11 +991,11 @@ def methodology_content(
         <div class="kicker">2 žingsnis</div>
         <h2>Kas neįskaitoma</h2>
         <ul class="list-clean">
-          <li>Nėra pozicijos → lieka „nežinoma“, ne neigiamas balas.</li>
-          <li>Dalinė pozicija → rodoma, bet neįskaitoma, jei nepagrindžia viso teiginio.</li>
-          <li>Nacionalinė 2024 m. Mano Balsas pozicija → tik kontekstas, ne 2027 m. Vilniaus pažadas.</li>
-          <li>2023 m. programa ar rezultatas → tik istorinis kontekstas.</li>
-          <li>Partijai nepriskiriama citata → neįskaitoma net jei tekstas skamba palankiai.</li>
+          <li>Nėra pozicijos: lieka „nežinoma“, ne neigiamas balas.</li>
+          <li>Dalinė pozicija: rodoma, bet neįskaitoma, jei nepagrindžia viso teiginio.</li>
+          <li>Nacionalinė 2024 m. Mano Balsas pozicija: tik kontekstas, ne 2027 m. Vilniaus pažadas.</li>
+          <li>2023 m. programa ar rezultatas: tik istorinis kontekstas.</li>
+          <li>Partijai nepriskiriama citata: neįskaitoma net jei tekstas skamba palankiai.</li>
         </ul>
       </div>
     </section>
@@ -1125,7 +1122,7 @@ def methodology_content(
         <li><strong>Reali vartotojų patirtis.</strong> Reikia testuoti su įvairiais rinkėjais, įskaitant mobiliuosius ir mažo skaitmeninio raštingumo naudotojus.</li>
       </ul>
       <div class="banner mt2"><strong>Statusas:</strong> viešai rodyti galima tik su aiškia „laukia žmogaus peržiūros“ žyma. Nenaudoti kaip oficialios partijos, kandidato ar VRK rekomendacijos.</div>
-      <p class="small">{len(human['checklist'])} kontrolinių klausimų, {sum(1 for item in human['checklist'] if item['status'] == 'blocked')} blokuoti oficialių biuletenio duomenų. {internal('data/human_validation_v21.json', 'Atidaryti peržiūros paketą →')}</p>
+      <p class="small">{len(human['checklist'])} kontrolinių klausimų, {sum(1 for item in human['checklist'] if item['status'] == 'blocked')} blokuoti oficialių biuletenio duomenų. {internal('data/human_validation_v21.json', 'Atidaryti peržiūros paketą')}</p>
       <div class="inline-links">
         {internal('sources_2027.html', 'Šaltiniai ir citatos', 'btn btn-soft btn-sm')}
         {internal('register_2027.html', 'VRK registras', 'btn btn-ghost btn-sm')}
@@ -1151,9 +1148,8 @@ def ballot_content(data: dict[str, Any], register: dict[str, Any], law: dict[str
     examples_pending = st.get("ballot_examples_status") != "published"
     return f"""
     <section class="hero">
-      <span class="eyebrow"><span class="dot"></span>Balsavimas · 2027-03-07</span>
-      <h1>Kaip pažymėti biuletenį, kai jis dar nepaskelbtas?</h1>
-      <p class="lead">2027 m. kovo 7 d. balsuosi dėl Vilniaus miesto tarybos ir mero. Tai du atskiri sprendimai: tarybos sąrašas ir mero kandidatas. VRK gali pateikti juos atskiruose biuleteniuose arba skirtingose to paties biuletenio dalyse; oficialus 2027 m. pavyzdys dar {('pažymėtas „Informacija ruošiama“' if examples_pending else 'paskelbtas')}. Šis puslapis paaiškina galiojančios Rinkimų kodekso redakcijos struktūrą.</p>
+      <h1>Biuletenio pildymas pagal Rinkimų kodeksą</h1>
+      <p class="lead">2027 m. kovo 7 d. balsuosi dėl Vilniaus miesto tarybos ir mero. Tai du atskiri sprendimai: tarybos sąrašas ir mero kandidatas. VRK gali pateikti juos atskiruose biuleteniuose arba skirtingose to paties biuletenio dalyse; oficialus 2027 m. pavyzdys dar {('pažymėtas „Informacija ruošiama“' if examples_pending else 'paskelbtas')}. Puslapyje paaiškinta galiojančios Rinkimų kodekso redakcijos struktūra.</p>
       <div class="banner"><strong>Oficialūs biuletenių pavyzdžiai dar nepaskelbti.</strong> VRK puslapis {ext(st['ballot_examples_url'], '„Biuletenių pavyzdžiai ir kiti leidiniai“')} {e(snapshot)} rodė „Informacija ruošiama“ (arba dokumentų nerasta). Nenaudok šio puslapio kaip biuletenio kopijos.</div>
     </section>
 
@@ -1433,8 +1429,7 @@ def review_content(
     non_reviewable = len(payload["non_reviewable"])
     return f"""
     <section class="hero">
-      <span class="eyebrow"><span class="dot"></span>Žmogaus peržiūra · juodraštis</span>
-      <h1>Peržiūros darbo stalas</h1>
+      <h1>Cituojamų eilučių peržiūra</h1>
       <p class="lead">Čia gali peržiūrėti visas {reviewable} cituojamas 2027 m. eilutes: atidaryti šaltinį, perskaityti kontekstą, palyginti su teiginiu ir pažymėti savo sprendimą. Įrankis tik paruošia juodraštį. Jis niekada nepatvirtina eilutės už žmogų.</p>
       {pending_banner(register)}
       <div class="banner red"><strong>Tai ne patvirtinimas.</strong> Eksportuotas failas turi <code>draft: true</code>, <code>human_approved: false</code> ir <code>signoff: null</code>. Tik pavadintas peržiūrėtojas gali atnaujinti <code>vaa/review/human_validation_v21.json</code> ir pasirašyti.</div>
@@ -1498,9 +1493,9 @@ def review_content(
 
     <section class="card mt2">
       <div class="kicker">Kas lieka už darbo stalo</div>
-      <h2>{non_reviewable} kombinacijos be cituojamos pozicijos</h2>
+      <h2>{non_reviewable} kombinacijų be cituojamos pozicijos</h2>
       <p>Šios kombinacijos neturi cituojamos pozicijos, todėl jų negalima peržiūrėti kaip citatos. Jos lieka „nėra pozicijos“ ir niekada nevertinamos kaip priešingos. Žemiau – priežastys, kad spragos nebūtų paslėptos.</p>
-      <details><summary><b>Rodyti {non_reviewable} kombinacijas</b></summary>
+      <details><summary><b>Rodyti {non_reviewable} kombinacijų</b></summary>
         <div class="table-wrap mt1">
           <table>
             <caption class="sr-only">Kombinacijos be cituojamos pozicijos</caption>
@@ -1695,9 +1690,8 @@ def compare_content(
     )
     return f"""
     <section class="hero">
-      <span class="eyebrow"><span class="dot"></span>Palyginimas · du sąrašai</span>
-      <h1>Palygink du sąrašus pagal tuos pačius teiginius</h1>
-      <p class="lead">Pasirink du Vilniaus miesto sąrašus ir pamatyk, kur jie turi tą pačią cituojamą poziciją, kur pozicija neįskaitoma ir kur jos visai nėra. Tai programų tekstų palyginimas, ne rekomendacija ir ne prognozė.</p>
+      <h1>Dviejų sąrašų palyginimas</h1>
+      <p class="lead">Pasirink du Vilniaus miesto sąrašus. Lentelė rodo, kur jie turi tą pačią cituojamą poziciją, kur pozicija neįskaitoma ir kur jos nėra. Tai programų tekstų palyginimas, ne rekomendacija ir ne prognozė.</p>
       {pending_banner(register)}
       <div class="banner"><strong>Trūkstama pozicija nėra „prieš“.</strong> „Nėra pozicijos“ reiškia, kad 2027 m. dokumente neradome tinkamos citatos. Tokia eilutė negauna neigiamo balo ir nėra laikoma priešinga pozicija.</div>
     </section>
@@ -1853,9 +1847,8 @@ def voter_content(
     calendar = ext(CALENDAR_URL, "VRK 2027 m. rinkimų grafikas")
     return f"""
     <section class="hero">
-      <span class="eyebrow"><span class="dot"></span>Rinkėjui · {e(election_date)}</span>
-      <h1>Ką daryti prieš balsuojant ir balsavimo dieną</h1>
-      <p class="lead">Praktinis Vilniaus rinkėjo vadovas: kas gali balsuoti, kokie terminai, kaip balsuoti iš anksto, namuose ar savo apylinkėje, kokių dokumentų reikia ir kaip elgtis, jei reikia pagalbos. Datos remiasi oficialiu {calendar} ir galiojančiu Rinkimų kodeksu.</p>
+      <h1>Rinkėjo vadovas: terminai ir balsavimo tvarka</h1>
+      <p class="lead">Kas gali balsuoti, kokie terminai, kaip balsuoti iš anksto, namuose ar savo apylinkėje, kokių dokumentų reikia ir kaip elgtis, jei reikia pagalbos. Datos remiasi oficialiu {calendar} ir galiojančiu Rinkimų kodeksu.</p>
       {pending_banner(register)}
       <div class="banner"><strong>Rinkėjai iš anksto neregistruojami.</strong> Politinės kampanijos dalyvių registracija baigėsi {e(lt_date('2026-10-28'))}, bet tai ne rinkėjo registracija. Rinkėjas įrašomas į apylinkės rinkėjų sąrašą pagal deklaruotą gyvenamąją vietą. Atskirai prašyti reikia tik balsavimo namuose.</div>
     </section>
@@ -2363,7 +2356,7 @@ def build() -> dict[str, str]:
     snapshot = register.get("snapshot", {}).get("date") or register["generated_at"]
     pages = {
         "index.html": static_page(
-            "Rinkimų įrankis",
+            "Programų palyginimas",
             "Vilniaus 2027 m. tarybos ir mero rinkimų įrankis: kampanijos registro įrašai, cituojamos pozicijos ir balsavimo planas.",
             index_content(data, register, sources, checks),
             "index",
@@ -2415,7 +2408,7 @@ def build() -> dict[str, str]:
             csp=SCRIPT_CSP,
         ),
         "review_2027.html": static_page(
-            "Peržiūros darbo stalas",
+            "Cituojamų eilučių peržiūra",
             "Žmogaus peržiūros darbo stalas 32 cituojamoms 2027 m. eilutėms: šaltinio kontekstas, sprendimai ir juodraščio eksportas.",
             review_content(data, register, gaps, human),
             "review",
