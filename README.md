@@ -4,6 +4,26 @@ A small, static, nonpartisan tool for the **7 March 2027 Vilnius city council an
 
 **Public site:** https://dziugasmarcenas-ui.github.io/vilnius-2027/
 
+## Engineering review: start here
+
+This is a static site generated from a reviewed data snapshot, with explicit evidence rules rather than a live AI recommendation system. The most useful files to inspect are:
+
+- [Build pipeline](vaa_build_v21.py) and [scoring implementation](vaa_v21.py)
+- [Automated tests](tests/) and [audit checks](vaa_audit_v21.py)
+- [Source-change monitor](vaa_watch_v21.py) and [link checks](vaa_links_v21.py)
+- [Full release report](V21_REPORT.md), including unresolved limitations
+
+A quick local verification, without external API credentials:
+
+```bash
+python3 -m unittest discover -s tests -q
+python3 vaa_build_v21.py --check
+python3 vaa_links_v21.py
+python3 vaa_audit_v21.py
+```
+
+This demonstrates source validation, testable scoring, static generation and explicit handling of missing data. It does **not** establish independent editorial review; that is still pending.
+
 ## What is and is not published
 
 - **Election:** 2027-03-07, Vilnius city district No. 57, 51 council seats.
